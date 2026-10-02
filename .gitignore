@@ -11,3 +11,6 @@ build/
 **/cmake-build-debug/
 
 .venv/
+
+# 인지 도구 실행 중 생성되는 장면 저장 폴더 (hsv_tuner·view_debug·ros_graph)
+**/captures/

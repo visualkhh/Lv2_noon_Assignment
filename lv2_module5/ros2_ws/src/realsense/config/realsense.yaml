@@ -1,0 +1,52 @@
+perception_node:
+  ros__parameters:
+    # 파란 사각 기둥(30x30x60mm) · 20cm~1m · 카메라 pan·tilt (전후 이동 없음)
+    # 값은 hsv_tuner로 실제 장면에서 확인한 뒤 수정하고, 시험에 쓴 설정은 lv2_module5/config/realsense_<설명>.yaml로 복사한다.
+
+    # HSV 범위 [H, S, V] (H 0~179, S·V 0~255) — 범위 2개를 OR로 합친다
+    # 측정 (H / S / V, 대략 5~95 백분위):
+    #   파란 기둥, 조명 없음        105~107 / 248~255 / 114~134
+    #   파란 기둥, 조명 비춤        104~107 / 170~202 / 141~181   ← 빛이 섞여 S가 내려가고 V가 오른다
+    #   파란 기둥, 어두운 역광      104~107 / 233~255 /  37~46
+    #   하늘색 반투명 판           95~104 / 127~200 / 110~200    ← 조명을 비추면 S가 기둥과 겹친다. H로 구분 (판 중앙값 98, 기둥 105)
+    #   하늘색 셔츠 (합성 시험)     S ≈ 88
+    #
+    # 범위 1 (어두움·보통): 어두운 픽셀은 H가 불안정하므로 S가 높은 것만 받는다
+    #   V 하한 20: 어두운 역광의 기둥(V 37~42). 근거 test/data/dim_backlit_20261002.png
+    #   H 하한 103, S 하한 220: 하늘색 판 제외. 근거 test/data/panel_and_pillar_20261002.png
+    hsv_lower: [103, 220, 20]
+    hsv_upper: [130, 255, 255]
+    # 범위 2 (조명 받은 밝은 면): S 하한을 150으로 낮추고 대신 밝은 픽셀(V ≥ 130)만 받는다
+    #   범위 1만 쓰면 조명 아래 기둥이 마스크에 7~12%만 남아 미검출 → 범위 2 추가 후 검출 (2026-10-02)
+    #   S 하한 160 범위 1개와 비교해 기둥 밖 마스크 픽셀이 30~80% 적었다. 근거 test/data/lit_pillar_20261002.png
+    hsv_bright_enabled: true
+    hsv_bright_lower: [103, 150, 130]
+    hsv_bright_upper: [130, 255, 255]
+
+    # 면적비 = contour_area / (W×H)
+    # 1m에서 기둥 ≈ 650px(0.0021), 일부 가려지면 절반 정도 → 하한 0.0006 (640x480에서 약 184px)
+    min_area_ratio: 0.0006
+    # 20cm에서 기둥 정면 ≈ 0.054, 45도 회전 ≈ 0.075 → 약 2배 여유. 이보다 큰 파란 덩어리(가까운 셔츠 등)는 목표가 아니다.
+    max_area_ratio: 0.15
+
+    # 잡음 제거 커널(px). open은 작은 점 제거, close는 작은 구멍 메우기. 0이면 생략
+    open_kernel: 3
+    close_kernel: 5
+
+    # 모양 조건 (minAreaRect 기준, 거리와 무관)
+    aspect_max: 4.0   # 긴 변 / 짧은 변. 세운 기둥 ≈ 2.0, 45도 회전 ≈ 1.4
+    fill_min: 0.6     # 컨투어 면적 / 회전 사각형 면적. 사각형에 가까울수록 1
+
+    # 영상 구독 QoS — 인지 담당 결정: reliable 유지 (report.md 표의 best-effort와 다름, report.md는 수정하지 않음)
+    # 실측(C++, 640x480x30, 2026-10-02 개발 PC): best-effort 1~2fps / reliable 30fps (큰 영상 메시지 조각 손실)
+    # /target은 report.md대로 best-effort. 근거·결정 기록: 패키지 README.md, lv2_module5/results/perception_env_record.md
+    # false로 바꾸면 report.md 표대로 best-effort로 구독한다 (비교 시험용)
+    image_reliable: true
+
+    # 디버그 영상 (~/debug_image/compressed, ~/mask/compressed). 0이면 발행하지 않는다
+    debug_rate_hz: 5.0
+    jpeg_quality: 70
+    # 0 이상이면 해당 픽셀의 BGR·HSV를 로그에 남긴다
+    probe_x: -1
+    probe_y: -1
+    log_period_s: 1.0
