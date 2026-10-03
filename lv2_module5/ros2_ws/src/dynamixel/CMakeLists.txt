@@ -12,6 +12,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
+find_package(rcl_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -26,6 +27,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC
   rclcpp::rclcpp
   rclcpp_components::component
+  ${rcl_interfaces_TARGETS}
   ${sensor_msgs_TARGETS}
   ${geometry_msgs_TARGETS}
   ${std_msgs_TARGETS})
@@ -68,5 +70,5 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
-ament_export_dependencies(rclcpp rclcpp_components sensor_msgs geometry_msgs std_msgs)
+ament_export_dependencies(rclcpp rclcpp_components rcl_interfaces sensor_msgs geometry_msgs std_msgs)
 ament_package()
