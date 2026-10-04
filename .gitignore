@@ -17,3 +17,8 @@ lv2_module5/debug/
 
 # 인지 도구 실행 중 생성되는 장면 저장 폴더 (hsv_tuner·view_debug·ros_graph)
 **/captures/
+/.claude/
+/.vscode/
+
+# 펌웨어 빌드 산출물 (upload.sh)
+lv2_module5/firmware/build/

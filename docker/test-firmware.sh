@@ -54,7 +54,7 @@ for sketch in "$SKETCH_DIR"/*/; do
     sleep 0.5
   done
   cmp -s "$bin" "$SERIAL_OUT" \
-    || { echo "FAIL: upload 바이트 불일치 ($name: bin $size / serial-out $(wc -c < "$SERIAL_OUT") bytes)"; exit 1; }
+    || { echo "FAIL: upload 바이트 불일치 ($name: bin $size / serial-out $(wc -c < "$SERIAL_OUT") bytes)"; echo "  다른 프로세스가 시리얼에 쓰는 중? → pgrep -fa dynamixel_controller"; exit 1; }
   echo "ok: $name — serial-out == .bin ($size bytes)"
 done
 

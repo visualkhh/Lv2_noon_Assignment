@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-lyrical-realsense2-camera \
     ros-lyrical-cv-bridge \
     ros-lyrical-image-transport \
+    nlohmann-json3-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rosdep init 2>/dev/null || true
 
@@ -70,9 +71,10 @@ COPY docker/entrypoint.sh /entrypoint.sh
 COPY docker/test-serial.sh /usr/local/bin/test-serial
 COPY docker/test-firmware.sh /usr/local/bin/test-firmware
 COPY docker/test-bringup.sh /usr/local/bin/test-bringup
-COPY docker/test-run.sh /usr/local/bin/test-run
+COPY docker/test-fake_camera_bringup.sh /usr/local/bin/test-fake_camera_bringup
+COPY docker/test-logger.sh /usr/local/bin/test-logger
 COPY docker/test-all.sh /usr/local/bin/test-all
-RUN chmod +x /entrypoint.sh /usr/local/bin/test-serial /usr/local/bin/test-firmware /usr/local/bin/test-bringup /usr/local/bin/test-run /usr/local/bin/test-all \
+RUN chmod +x /entrypoint.sh /usr/local/bin/test-serial /usr/local/bin/test-firmware /usr/local/bin/test-bringup /usr/local/bin/test-fake_camera_bringup /usr/local/bin/test-logger /usr/local/bin/test-all \
     && echo "source /opt/ros/lyrical/setup.bash" >> /root/.bashrc \
     && echo "if [ -f /ws/install/setup.bash ]; then source /ws/install/setup.bash; fi" >> /root/.bashrc
 

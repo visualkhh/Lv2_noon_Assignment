@@ -18,6 +18,9 @@ if command -v socat >/dev/null 2>&1; then
   # 1. PTY 쌍 생성 (앱용 /dev/ttyV0, 브릿지용 /dev/ttyV1)
   socat pty,raw,echo=0,link=/dev/ttyV0 pty,raw,echo=0,link=/dev/ttyV1 &
   sleep 1
+  # 실기 OpenCR 포트명(dynamixel.yaml의 serial_port)도 가상 시리얼로 연결
+  # → 팀 설정 그대로 띄워도 모터 명령이 serial-out에 쌓임. 실물 보드를 넘겨받았으면 그대로 둠.
+  [ -e /dev/ttyACM0 ] || ln -s /dev/ttyV0 /dev/ttyACM0
   # 2. 시리얼 → 파일 (앱이 보낸 데이터를 serial-out에 축적)
   socat -u /dev/ttyV1,raw,echo=0 OPEN:/ws/debug/serial-out,creat,append &
   # 3. 파일 → 시리얼 (serial-in에 추가된 내용을 앱으로 전송)

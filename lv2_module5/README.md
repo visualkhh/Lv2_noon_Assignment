@@ -68,18 +68,41 @@ source install/setup.bash
 
 `src`가 비어있으면 빌드할 게 없음 — 패키지 추가 후 다시 실행.
 
-### bring-up 스모크 (talker → listener → 가상 시리얼)
+### bring-up (실행 / 테스트베드)
 
 ```bash
-# 컨테이너 안 (/ws 기준), 터미널 A·B (up + exec 2번)
-source install/setup.bash
-ros2 run bringup_test talker     # A: /bringup_chatter 발행
-ros2 run bringup_test listener   # B: 수신 → /dev/ttyV0 전송
-# 또는 한 번에: ros2 launch bringup_test bringup.launch.py
+# 실기 (카메라·OpenCR 연결): 인지(realsense) + 제어(dynamixel) 전부
+ros2 launch bringup bringup.launch.py              # use_camera:=false / use_motor:=false 로 끌 수 있음
+
+# 테스트베드 (컨테이너, 실기 없이): bringup(use_camera:=false) + 더미 카메라
+ros2 launch fake_camera_bringup fake_camera_bringup.launch.py    # image_dir:=… period_s:=…
 ```
 
-수신 확인 2곳: B 터미널 `heard:` 로그 + 호스트 `lv2_module5/debug/serial-out`
-파일. 포트 변경은 파라미터로 (`ros2 run bringup_test listener --ros-args -p serial_port:=/dev/ttyUSB0`).
+더미 카메라(`fake_camera`)는 `/ws/debug/input-images`의 숫자 이름 이미지(1.png, 3.png …)를
+숫자 순서대로 0.1초에 1장 `/camera/camera/color/image_raw`·`camera_info`로 발행 (realsense2_camera와 같은 토픽).
+모터 명령은 `dynamixel.yaml`의 `/dev/ttyACM0`로 나가고, 컨테이너에선 이게 가상 시리얼로 연결돼
+호스트 `lv2_module5/debug/serial-out`에 쌓임.
+같이 뜨는 `monitor_manager`는 이미지 토픽(카메라·마스크·debug_image)을 자동으로 찾아
+`debug/topic/<토픽>/image.jpg`로 저장 → 통제실 images 패널.
+`/target`·`/motor_cmd`·`/tracking_status`는 마지막 메시지를 JSON으로 `debug/message/<이름>`에 덮어씀 → 통제실 status 패널.
+
+> `period_s`는 0.5초(`target_timeout`)보다 짧게. 1초처럼 길면 장면마다 `/target` 타임아웃으로
+> LOST로 떨어져 모터 명령이 항상 `V 0 0` (TRACKING 상태에서만 속도가 나옴).
+
+### 중앙통제실 (호스트 Mac)
+
+```bash
+cd docker/test-controller
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # 최초 1회
+.venv/bin/python run-controller.py
+```
+
+웹캠 + 캡처 버튼(→ input-images), serial-out 실시간, 토픽 버튼 → echo 실시간.
+컨테이너에서 띄우기·기록을 따로 켜 둠:
+```bash
+docker compose exec lyrical test-fake_camera_bringup 0   # 터미널 1: 띄우기 (Ctrl+C까지)
+docker compose exec lyrical test-logger 0                # 터미널 2: 토픽 echo 기록 (통제실 토픽 패널용)
+```
 
 ### 3.3 OpenCR 펌웨어 빌드·업로드
 
@@ -103,20 +126,35 @@ arduino-cli board list
 arduino-cli upload -p /dev/ttyACM0 --fqbn OpenCR:OpenCR:OpenCR ./firmware/opencr_pan_tilt
 ```
 
+**Raspberry Pi (Ubuntu arm64) / x86 PC에서 실물 업로드: `firmware/upload.sh`**
+
+```bash
+cd lv2_module5/firmware
+./upload.sh --setup            # 최초 1회 (sudo): arduino-cli·OpenCR 코어(arm 우회)·Dynamixel2Arduino·업로더
+./upload.sh                    # 컴파일 → .opencr 변환 → /dev/ttyACM0 업로드
+./upload.sh /dev/ttyACM1 opencr_pan_tilt   # 포트·스케치 지정
+```
+
+> ARM용 공식 업로더(opencr_ld)가 없어서 ROBOTIS가 Pi용으로 주는 `opencr_ld_shell`(TurtleBot3 opencr_update)로 올림.
+> `.bin`은 바로 못 올리고 `.opencr`로 변환 필요 (스크립트가 처리). 32비트 ARM 바이너리라 `libc6:armhf`도 setup이 설치.
+> ROS의 `dynamixel_controller`가 포트를 잡고 있으면 거부 → 먼저 종료. 업로드가 계속 실패하면 SW2 누른 채 RESET(부트로더 모드).
+> 검증: 새 Ubuntu 26.04 arm64 컨테이너에서 setup → 컴파일 → 변환 → 업로더가 포트로 부트로더 진입 명령 송신까지 확인 (실보드 업로드는 미검증).
+
 > push/PR하면 CI(`firmware-compile`, x86_64)가 전 스케치 컴파일을
 > 공식 툴체인으로 자동 검증. 로컬(arm64) 컴파일도 됨.
 >
 > 검사 한 방 (컨테이너 안):
 > ```bash
-> test-all        # 전체 (firmware→serial→bringup→run) → ALL PASS면 push
-> test-bringup    # 빌드 + talker→listener→시리얼 → PASS면 정상
+> test-all        # 전체 (firmware→serial→bringup→fake_camera_bringup+logger) → ALL PASS면 push
+> test-bringup    # 빌드 + 실기 bringup launch → 노드 4개 전부 뜨면 PASS
+> test-fake_camera_bringup [초] [간격]  # 빌드 + 더미카메라→perception→/target→dynamixel→시리얼 → PASS면 정상 (간격 기본 0.1s)
 > test-firmware   # FQBN 유효 + 전 스케치 컴파일 → PASS면 정상
 > test-serial     # 가상 시리얼 왕복 → PASS면 정상
-> test-run [초]   # 빌드 + 실행 + 토픽 덤프 → debug/topic/{토픽}/echo·info
+> test-logger [초]  # 떠 있는 토픽 덤프만 (launch 안 함) → debug/topic/{토픽}/echo·info
 > ```
-> `test-run 10` = 10초 수집 후 종료, `test-run 0` = Ctrl+C까지 무한 수집.
-> `test-run`은 눈으로 보는 덤프용이지만 CI에서도 5초짜리로 돌려서
-> launch 파일 검증을 겸함. echo는 계속 append됨.
+> `test-fake_camera_bringup [초]`·`test-logger [초]` 모두 0이면 Ctrl+C까지.
+> 띄우기(`test-fake_camera_bringup`, `bringup`)와 기록(`test-logger`)은 분리 —
+> 실기 bringup을 띄워도 logger로 그대로 기록. CI(test-all)는 둘을 같이 돌려 덤프를 artifact로 남김.
 > 진짜 업로드는 실물 보드가 필요해서 자동 검사 불가.
 > CI는 업로드 전제조건(FQBN·`opencr_ld` 존재)까지만 검증하고,
 > 업로드 본체는 실기 PC에서 수동으로.
