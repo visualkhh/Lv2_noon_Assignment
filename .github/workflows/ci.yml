@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  testbed:
+    # 로컬 게이트(test-all)와 동일한 검사를 그대로 실행 — 검사 로직은 docker/test-*.sh 한 곳에만.
+    # 러너가 x86_64라 이미지에 공식 OpenCR 코어가 설치됨 → 펌웨어 컴파일도 여기서 검증.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build testbed image
+        run: docker build -f docker/Dockerfile -t lv2-lyrical:testbed .
+      - name: test-all (firmware → serial → bringup → run)
+        # 소스·스케치는 이미지에 없고 compose 볼륨으로만 연결되므로 마운트 필수.
+        run: |
+          docker run -d --name t \
+            -v ${{ github.workspace }}/lv2_module5/ros2_ws/src:/ws/src \
+            -v ${{ github.workspace }}/lv2_module5/firmware:/ws/firmware \
+            lv2-lyrical:testbed sleep infinity
+          docker exec t test-all
+      - name: Collect debug
+        if: always()
+        run: docker cp t:/ws/debug ./debug && find ./debug -type f | sort
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: debug
+          path: debug
