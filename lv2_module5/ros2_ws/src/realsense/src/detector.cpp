@@ -64,6 +64,7 @@ std::string fmt(const char * format, double a, double b = 0.0, double c = 0.0, d
 
 // perception_node가 선언하는 검출 외 파라미터 (파라미터 파일에 함께 있어도 되는 키)
 const std::vector<std::string> kNodeParamNames = {
+  "image_topic", "target_topic", "debug_image_topic", "mask_topic",
   "image_reliable", "debug_rate_hz", "jpeg_quality", "probe_x", "probe_y", "log_period_s",
   "use_sim_time"};
 

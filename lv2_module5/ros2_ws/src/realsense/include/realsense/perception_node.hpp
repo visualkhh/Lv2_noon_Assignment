@@ -18,13 +18,12 @@
 namespace realsense
 {
 
-// /image_raw를 받아 HSV·Contour로 목표를 검출하고 /target을 발행한다.
-// /image_raw는 launch에서 realsense2_camera 컬러 토픽으로 remap된다.
-// point.x = ex, point.y = ey, point.z = 면적비 (0 = 미검출)
-//
-// 추가 발행 (디버그, debug_rate_hz로 제한)
-//   ~/debug_image/compressed  박스·중심·HSV를 그린 JPEG
-//   ~/mask/compressed         HSV 마스크 JPEG
+// 카메라 영상(image_topic)을 받아 HSV·Contour로 목표를 검출하고 target_topic으로 발행한다.
+// 토픽 이름은 파라미터다 (기본값은 report.md 구조도):
+//   image_topic        /camera/camera/color/image_raw
+//   target_topic       /target       point.x = ex, point.y = ey, point.z = 면적비 (0 = 미검출)
+//   debug_image_topic  /perception_node/debug_image/compressed  박스·중심·HSV를 그린 JPEG (debug_rate_hz)
+//   mask_topic         /perception_node/mask/compressed         HSV 마스크 JPEG
 // log_period_s마다 처리 FPS·처리 시간·검출 수·박스·중심 픽셀 BGR/HSV를 로그로 남긴다.
 class PerceptionNode : public rclcpp::Node
 {

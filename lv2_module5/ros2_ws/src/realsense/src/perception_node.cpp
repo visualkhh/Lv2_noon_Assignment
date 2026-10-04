@@ -75,6 +75,16 @@ PerceptionNode::PerceptionNode(const rclcpp::NodeOptions & options)
   probe_y_ = declare_parameter<int>("probe_y", -1);
   const double log_period = declare_parameter<double>("log_period_s", 1.0);
 
+  // 토픽 이름 (기본값은 report.md 구조도). 테스트·bag 재처리 등 용도에 따라 실행할 때 바꾼다
+  //   예) -p target_topic:=/target_replay
+  const auto image_topic =
+    declare_parameter<std::string>("image_topic", "/camera/camera/color/image_raw");
+  const auto target_topic = declare_parameter<std::string>("target_topic", "/target");
+  const auto debug_image_topic =
+    declare_parameter<std::string>("debug_image_topic", "/perception_node/debug_image/compressed");
+  const auto mask_topic =
+    declare_parameter<std::string>("mask_topic", "/perception_node/mask/compressed");
+
   param_cb_ = add_on_set_parameters_callback(
     [this](const std::vector<rclcpp::Parameter> & p) {return onParams(p);});
 
@@ -86,24 +96,25 @@ PerceptionNode::PerceptionNode(const rclcpp::NodeOptions & options)
     image_qos.best_effort();
   }
   image_sub_ = create_subscription<sensor_msgs::msg::Image>(
-    "/image_raw", image_qos,
+    image_topic, image_qos,
     std::bind(&PerceptionNode::onImage, this, std::placeholders::_1));
 
   // QoS: best-effort · volatile · depth 1
   target_pub_ = create_publisher<geometry_msgs::msg::PointStamped>(
-    "/target", rclcpp::QoS(1).best_effort());
+    target_topic, rclcpp::QoS(1).best_effort());
 
   debug_pub_ = create_publisher<sensor_msgs::msg::CompressedImage>(
-    "~/debug_image/compressed", rclcpp::QoS(1).reliable());
+    debug_image_topic, rclcpp::QoS(1).reliable());
   mask_pub_ = create_publisher<sensor_msgs::msg::CompressedImage>(
-    "~/mask/compressed", rclcpp::QoS(1).reliable());
+    mask_topic, rclcpp::QoS(1).reliable());
 
   resetStats();
   log_timer_ = create_wall_timer(std::chrono::duration<double>(log_period), [this] {logStats();});
   RCLCPP_INFO(
-    get_logger(), "PerceptionNode started | 구독 %s (%s) | %s",
+    get_logger(), "PerceptionNode started | 구독 %s (%s) | 발행 %s, %s, %s | %s",
     image_sub_->get_topic_name(), image_reliable ? "reliable" : "best-effort",
-      cfg_.to_string().c_str());
+    target_pub_->get_topic_name(), debug_pub_->get_topic_name(), mask_pub_->get_topic_name(),
+    cfg_.to_string().c_str());
 }
 
 rcl_interfaces::msg::SetParametersResult PerceptionNode::onParams(
@@ -119,6 +130,14 @@ rcl_interfaces::msg::SetParametersResult PerceptionNode::onParams(
   try {
     for (const auto & p : params) {
       const auto & n = p.get_name();
+      if (n == "image_topic" || n == "target_topic" || n == "debug_image_topic" ||
+        n == "mask_topic" || n == "image_reliable")
+      {
+        // 구독·발행은 시작할 때 만들어지므로 실행 중 변경은 반영되지 않는다. 성공으로 보이지 않게 거부한다
+        result.successful = false;
+        result.reason = n + "는 실행 중에 바꿀 수 없다 (노드를 다시 시작하며 지정)";
+        return result;
+      }
       if (n == "hsv_lower") {
         next.hsv_lower = to_triplet(p.as_integer_array(), n);
       } else if (n == "hsv_upper") {

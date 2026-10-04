@@ -2,6 +2,8 @@
 //
 // PC와 Pi의 ROS_DOMAIN_ID가 같아야 한다.
 //   ros2 run realsense view_debug          # q/ESC 종료, s 현재 화면 저장 (./captures/view_*.png)
+//   ros2 run realsense view_debug --ros-args -p debug_image_topic:=<토픽> -p mask_topic:=<토픽>
+// 토픽 이름 파라미터의 기본값은 perception_node의 기본값과 같다.
 #include <chrono>
 #include <ctime>
 #include <filesystem>
@@ -32,8 +34,10 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("perception_viewer");
   const auto qos = rclcpp::QoS(rclcpp::KeepLast(1)).reliable();
-  const std::string debug_topic = "/perception_node/debug_image/compressed";
-  const std::string mask_topic = "/perception_node/mask/compressed";
+  const auto debug_topic = node->declare_parameter<std::string>(
+    "debug_image_topic", "/perception_node/debug_image/compressed");
+  const auto mask_topic = node->declare_parameter<std::string>(
+    "mask_topic", "/perception_node/mask/compressed");
 
   std::mutex mutex;
   cv::Mat debug, mask;
