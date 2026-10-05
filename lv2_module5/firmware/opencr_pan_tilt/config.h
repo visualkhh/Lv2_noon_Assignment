@@ -14,3 +14,4 @@ constexpr uint32_t DXL_BAUD = 1000000;
 constexpr float MIN_TARGET_DEG = -180.0f;
 constexpr float MAX_TARGET_DEG = 179.9f;
 constexpr size_t LINE_CAPACITY = 64;
+constexpr uint32_t COMMAND_TIMEOUT_MS = 500;

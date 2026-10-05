@@ -11,6 +11,34 @@ float tilt_target_deg = 0.0f;
 char line[LINE_CAPACITY];
 size_t line_length = 0;
 bool motors_ready = false;
+uint32_t last_command_ms = 0;
+bool watchdog_tripped = false;
+
+void stop_at_present_position(uint8_t id, float &target_deg)
+{
+    const float position = dxl.getPresentPosition(id, UNIT_DEGREE);
+    if (!isfinite(position) || dxl.getLastLibErrCode() != 0 ||
+        !dxl.setGoalPosition(id, position, UNIT_DEGREE))
+    {
+        // A position hold cannot be established without a valid bus response.
+        dxl.torqueOff(id);
+        motors_ready = false;
+        return;
+    }
+    target_deg = constrain(position - 180.0f, MIN_TARGET_DEG, MAX_TARGET_DEG);
+}
+
+void check_command_timeout()
+{
+    if (!motors_ready || watchdog_tripped ||
+        static_cast<uint32_t>(millis() - last_command_ms) < COMMAND_TIMEOUT_MS)
+        return;
+
+    // Position mode has no velocity goal: hold both motors where they are now.
+    stop_at_present_position(PAN_ID, pan_target_deg);
+    stop_at_present_position(TILT_ID, tilt_target_deg);
+    watchdog_tripped = true;
+}
 
 bool parse_delta(char *text, float &value)
 {
@@ -38,6 +66,8 @@ void apply_line()
     tilt_target_deg = constrain(tilt_target_deg + tilt_delta, MIN_TARGET_DEG, MAX_TARGET_DEG);
     dxl.setGoalPosition(PAN_ID, pan_target_deg + 180.0f, UNIT_DEGREE);
     dxl.setGoalPosition(TILT_ID, tilt_target_deg + 180.0f, UNIT_DEGREE);
+    last_command_ms = millis();
+    watchdog_tripped = false;
 }
 
 void setup()
@@ -57,12 +87,15 @@ void setup()
     dxl.torqueOn(PAN_ID);
     dxl.torqueOn(TILT_ID);
     motors_ready = true;
+    last_command_ms = millis();
 }
 
 void loop()
 {
+    check_command_timeout();
     while (Serial.available() > 0)
     {
+        check_command_timeout();
         const char ch = static_cast<char>(Serial.read());
         if (ch == '\n')
         {
