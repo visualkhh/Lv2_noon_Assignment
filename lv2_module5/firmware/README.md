@@ -1,113 +1,61 @@
-# OpenCR 펌웨어 — opencr_pan_tilt
+# OpenCR Pan/Tilt 펌웨어
 
-Raspberry Pi의 `DynamixelController`에서 USB 시리얼 명령을 받아 Dynamixel 2개(pan·tilt)를 속도 모드로 구동합니다.
+`opencr_pan_tilt/opencr_pan_tilt.ino`는 Pi의 `dynamixel_controller`에서 USB CDC 115200 bps로 받는 상대 각도 명령을 XM430-W350-T의 절대 목표 위치로 변환한다.
 
-## 기구 구성
-
-```
-        [Intel RealSense]
-               │
-        ┌──────┴──────┐
-        │ tilt (상하) │  ID: TILT_ID
-        └──────┬──────┘
-        ┌──────┴──────┐
-        │ pan (좌우)  │  ID: PAN_ID
-        └──────┬──────┘
-            [베이스]
+```text
+Pi /dev/ttyACM0 ── 115200 bps, ASCII ──> OpenCR USB Serial
+OpenCR Serial3 ── Protocol 2.0, 1,000,000 bps ──> pan ID 11 / tilt ID 12
 ```
 
-- pan 조인트가 베이스에 고정되고, tilt 조인트가 pan 위에 바로 붙습니다.
-- tilt 링크 끝에 Intel RealSense 카메라가 장착됩니다.
-- 기본 구현(수평 1축 추적)에서는 pan만 사용하고 tilt는 속도 0을 유지합니다.
+입력 한 줄은 `M,<pan_delta_deg>,<tilt_delta_deg>\n`이다. 예를 들어 `M,5.0,-5.0\n`의 끝에는 실제 newline 바이트가 들어간다. 스케치는 숫자가 아니거나 무한대인 값과 형식이 다른 줄을 무시한다. 각 모터별로 `TARGET += delta`를 계산하고 범위를 제한한 뒤 `GOAL = TARGET + 180°`로 `setGoalPosition(..., UNIT_DEGREE)`을 호출한다. Pi에서는 `+180°`를 적용하지 않는다. 부팅 시 현재 모터 위치를 읽어 TARGET을 초기화하므로 첫 상대 명령에서 갑자기 180°로 이동하지 않도록 설계했다.
 
-## 파일
+## 준비
 
-| 파일 | 내용 |
-|---|---|
-| `opencr_pan_tilt/opencr_pan_tilt.ino` | 시리얼 명령 수신, 속도 명령 적용, 타임아웃·회전 범위 정지 |
-| `opencr_pan_tilt/config.h` | 모터 ID·baud·프로토콜, 회전 범위, 속도 상한, 타임아웃 |
+- OpenCR 1.0, 전원, XM430-W350-T 두 대. 모터 ID를 **pan 11**, **tilt 12**로 미리 설정하고 두 모터의 baud를 **1,000,000 bps**, 프로토콜을 **2.0**으로 맞춘다.
+- USB 케이블로 OpenCR을 업로드할 컴퓨터에 연결한다. 실제 장착 방향과 안전한 가동 범위를 확인한다.
+- Arduino IDE, ROBOTIS OpenCR 보드 패키지, `Dynamixel2Arduino` 라이브러리가 필요하다. ROBOTIS의 [OpenCR 설치 안내](https://emanual.robotis.com/docs/en/parts/controller/opencr10/)와 [Dynamixel2Arduino 저장소](https://github.com/ROBOTIS-GIT/Dynamixel2Arduino)를 참고한다.
 
-## 설정 (`config.h`)
+ROBOTIS는 OpenCR 보드 매니저가 Raspberry Pi 같은 ARM SBC의 Arduino IDE를 지원하지 않는다고 안내한다. 스케치 빌드·업로드는 지원되는 PC에서 수행하고, Pi에서는 ROS 빌드와 시리얼·모터 동작을 검증한다. [ROBOTIS OpenCR 안내](https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/)
 
-| 항목 | 현재 값 | 비고 |
-|---|---|---|
-| 명령 시리얼 | USB CDC (`Serial`), 115200 | |
-| Dynamixel 포트 | `Serial3`, DIR 핀 84 | OpenCR TTL 포트 |
-| Dynamixel baud | 57600 | TODO: 실제 장비 확인 |
-| 프로토콜 | 2.0 | TODO: 실제 장비 확인 |
-| pan ID / tilt ID | 1 / 2 | TODO: 실제 장비 확인 |
-| pan 범위 [deg] | 135 ~ 225 | TODO: 실측 |
-| tilt 범위 [deg] | 150 ~ 210 | TODO: 실측 |
-| 속도 상한 | 0.5 rad/s | |
-| 명령 타임아웃 | 500 ms | |
+## Arduino IDE에서 설치·업로드
 
-> 모터 모델·ID·baud·프로토콜은 실제 장비에서 확인합니다. 다른 팀의 값을 복사하지 않습니다.
+1. Arduino IDE를 설치하고 **Preferences → Additional Boards Manager URLs**에 다음 주소를 추가한다.
 
-## 시리얼 프로토콜 (MotorSerialCommand)
+   ```text
+   https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
+   ```
 
-줄 단위 텍스트, 줄 끝은 `\n`입니다 (`\r`, `\r\n`도 허용).
+2. **Boards Manager**에서 **OpenCR by ROBOTIS**를 설치하고 **Tools → Board → OpenCR Board**를 선택한다.
+3. **Library Manager**에서 **Dynamixel2Arduino**를 설치한다.
+4. `opencr_pan_tilt/opencr_pan_tilt.ino`를 열고 같은 디렉터리의 `config.h`에서 `PAN_ID=11`, `TILT_ID=12`, `DXL_BAUD=1000000`을 확인한다.
+5. **Tools → Port**에서 OpenCR의 USB 포트를 고른다. Linux에서는 보통 `/dev/ttyACM0`이지만 연결 환경에 따라 번호가 달라진다.
+6. Arduino IDE의 **Verify**로 컴파일한 다음 **Upload**한다. 업로드 중 Pi의 controller나 다른 시리얼 프로그램은 종료한다. 완료되면 OpenCR이 재시작된다.
 
-### Raspberry Pi → OpenCR
+Linux PC에서 업로드 권한 오류가 나면 ROBOTIS의 OpenCR udev 규칙 설치 절차를 따른다. 보드 업로드와 관련된 자세한 화면 절차는 [공식 OpenCR 문서](https://emanual.robotis.com/docs/en/parts/controller/opencr10/)에 있다.
 
-| 명령 | 형식 | 예시 | 동작 |
-|---|---|---|---|
-| 속도 | `V <pan> <tilt>` | `V 0.25 0.0` | 각 조인트 속도 명령 [rad/s]. 속도 상한으로 clamp |
-| 정지 | `S` | `S` | 모든 조인트 속도 0 |
+## Pi에서 연결·동작 확인
 
-- 부호: 양수 = Dynamixel Present Position이 증가하는 방향
-- 전송 주기: DynamixelController가 `/motor_cmd`를 받을 때마다 (약 30Hz)
-- 정지 상태에서도 주기적으로 `V 0 0` 또는 `S`를 보내 타임아웃이 걸리지 않게 합니다.
+1. OpenCR을 Pi에 연결한 뒤 `ls -l /dev/ttyACM*`로 포트를 확인한다. 포트가 달라졌다면 `ros2_ws/src/dynamixel/config/dynamixel.yaml`의 `serial_port`를 수정한다.
+2. Pi workspace에서 `source /opt/ros/lyrical/setup.bash`와 `source install/setup.bash`를 실행한다.
+3. `ros2 run dynamixel dynamixel_controller`를 켜고 `serial connected: /dev/ttyACM0 at 115200 bps` 로그를 확인한다. 이 단계에서는 모터 명령이 전송되지 않는다.
+4. 장착 범위가 확인된 상태에서 작은 상대 이동을 시험한다. 다음 예시는 pan +1°, tilt 0°에 가까운 radian 값이다.
 
-### OpenCR → Raspberry Pi
+   ```bash
+   ros2 topic pub --once /motor_cmd sensor_msgs/msg/JointState \
+     '{name: [pan_joint, tilt_joint], position: [0.0174533, 0.0]}'
+   ```
 
-| 메시지 | 의미 |
-|---|---|
-| `READY` | 초기화 완료 |
-| `TIMEOUT` | 500 ms 동안 명령이 없어 정지함 |
-| `LIMIT pan` / `LIMIT tilt` | 회전 범위 끝에서 바깥 방향 명령을 막고 정지함 |
-| `ERR ping <joint>` | 초기화 시 모터 응답 없음 |
-| `ERR parse` / `ERR unknown` / `ERR overflow` | 잘못된 명령 |
+5. 실제 움직임이 Pan 쪽 +1°인지 확인한다. 방향이 반대라면 기구 방향을 확인하고 `dynamixel/config/dynamixel.yaml`의 `pan_gain` 부호를 바꾼다. Tilt도 작은 값으로 별도 확인한다. 전체 추적 실행은 [제어 패키지 README](../ros2_ws/src/dynamixel/README.md)를 따른다.
 
-## 안전 동작
+`/dev/ttyACM0`를 열 수 있어도 펌웨어가 정상 업로드되었다거나 모터가 응답한다는 뜻은 아니다. 업로드 확인, ID·버스 설정 확인, 작은 수동 명령, 전체 추적 순서로 점검한다.
 
-| 상황 | 동작 |
-|---|---|
-| 명령이 500 ms 이상 없음 (DynamixelController 종료·USB 단절) | 모든 조인트 정지, `TIMEOUT` 출력 |
-| 회전 범위 끝에서 바깥 방향 명령 | 해당 조인트 정지, `LIMIT` 출력 |
-| 속도 명령이 상한 초과 | 상한으로 clamp |
+## 코드와 제한
 
-속도 모드에서는 모터가 각도 제한을 스스로 지키지 않으므로, 펌웨어가 20 ms마다 현재 위치를 확인합니다.
+| `config.h` 상수 | 값 | 의미 |
+| --- | --- | --- |
+| `PAN_ID`, `TILT_ID` | 11, 12 | XM430-W350-T ID |
+| `DXL_DIR_PIN` | 84 | OpenCR DYNAMIXEL 송수신 방향 핀 |
+| `DXL_BAUD` | 1000000 | OpenCR ↔ 모터 통신 속도 |
+| `MIN_TARGET_DEG`, `MAX_TARGET_DEG` | −180.0°, +179.9° | 목표 범위. 실제 기구의 안전 범위를 대신하지 않음 |
 
-## 빌드·업로드
-
-의존성: OpenCR 보드 패키지, `Dynamixel2Arduino` 라이브러리
-
-```bash
-arduino-cli config add board_manager.additional_urls \
-  https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
-arduino-cli core update-index
-arduino-cli core install OpenCR:OpenCR
-arduino-cli lib install Dynamixel2Arduino
-
-arduino-cli compile --fqbn OpenCR:OpenCR:OpenCR firmware/opencr_pan_tilt
-arduino-cli upload  --fqbn OpenCR:OpenCR:OpenCR -p /dev/ttyACM0 firmware/opencr_pan_tilt
-```
-
-> ⚠️ OpenCR 보드 패키지(1.5.3)의 컴파일러·업로드 도구는 x86(32비트) 호스트용만 제공됩니다.
-> Raspberry Pi(arm64)에서 빌드·업로드하려면 별도 방법이 필요합니다. TODO: 라즈베리파이에서 확인한 절차를 기록합니다.
-> x86_64 PC에서는 `libc6:i386`이 필요합니다.
-
-업로드 시 시리얼 모니터나 DynamixelController가 같은 포트(`/dev/ttyACM0`)를 점유하고 있으면 안 됩니다.
-
-## 수동 시험
-
-모터 출력 전에 낮은 속도로 확인합니다.
-
-```bash
-# 다른 프로그램이 포트를 쓰지 않는 상태에서
-screen /dev/ttyACM0 115200
-V 0.1 0     # pan 천천히 회전 → 0.5초 후 TIMEOUT 출력과 함께 정지
-S           # 정지
-```
-
-수동 입력은 0.5초보다 느리므로 `V` 명령 후 곧바로 타임아웃 정지가 걸립니다. 이것으로 타임아웃 동작을 확인할 수 있습니다.
+모터 ping이 실패하면 스케치는 명령을 적용하지 않는다. 현재 스케치는 USB로 응답 상태를 되돌려 보내지 않으므로 Pi controller의 serial open 성공만으로 모터 통신 성공을 판정하지 않는다. Arduino 빌드·업로드 및 실제 Pan/Tilt 시험은 수행 후 결과를 기록해야 한다.

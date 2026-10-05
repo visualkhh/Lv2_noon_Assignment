@@ -1,15 +1,13 @@
 dynamixel_move_node:
   ros__parameters:
-    kp: 0.5                # [rad/s per 정규화 오차]
-    direction: 1           # 장착 방향에 따라 +1 또는 -1
-    speed_limit: 0.5       # [rad/s]
-    deadband: 0.05         # 정규화 오차
-    target_timeout: 0.5    # [s]
-    recover_frames: 3      # TRACKING 복귀에 필요한 연속 검출 프레임 수
-    control_rate: 30.0     # [Hz]
-
+    lost_timeout: 0.5
+    horizontal_deadband: 0.05
+    vertical_deadband: 0.05
+    pan_gain: -0.03
+    tilt_gain: 0.06
+    max_pan_command: 0.0872665
+    max_tilt_command: 0.0872665
 dynamixel_controller:
   ros__parameters:
     serial_port: /dev/ttyACM0
-    baudrate: 115200
-    cmd_timeout: 0.5       # [s]
+    baud_rate: 115200
