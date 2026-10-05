@@ -8,7 +8,8 @@
 | --- | --- | --- |
 | `realsense/perception_node` → `/target` → `dynamixel_move_node` | `geometry_msgs/msg/PointStamped`, best effort·volatile·depth 1 | `x`: 오른쪽 + 정규화 오차, `y`: 아래쪽 + 정규화 오차, `z`: OpenCV contour 면적 비율. `z=0`은 미검출 |
 | `dynamixel_move_node` → `/motor_cmd` → `dynamixel_controller` | `sensor_msgs/msg/JointState`, reliable·volatile·depth 1 | `name=[pan_joint, tilt_joint]`, `position=[pan_delta_rad, tilt_delta_rad]`; velocity/effort 없음 |
-| controller → `/dev/ttyACM0` → OpenCR | 115200 bps ASCII | `M,<pan_delta_deg>,<tilt_delta_deg>\n` (실제 newline 바이트) |
+| controller → `/dev/opencr` → OpenCR | 115200 bps ASCII | `M,<pan_delta_deg>,<tilt_delta_deg>\n` (실제 newline 바이트) |
+| `dynamixel_move_node` → `/tracking_status` | `std_msgs/msg/String`, reliable·transient local·depth 1 | 현재 FSM 상태 `IDLE`, `TRACKING`, `LOST` |
 | OpenCR → XM430-W350-T | Protocol 2.0, 1,000,000 bps | pan ID **11**, tilt ID **12** |
 
 인지 패키지는 `/image_raw`를 구독하고 `realsense.launch.py`에서 기본 `/camera/camera/color/image_raw`로 remap한다. `/target`은 검출·미검출 영상마다 발행하고, 카메라가 멈추면 발행하지 않는다. 제어 노드는 미검출 프레임의 x/y를 사용하지 않으며, `/target`이 끊겨도 타이머로 LOST에 전이한다.
@@ -25,7 +26,23 @@ source install/setup.bash
 ros2 pkg executables dynamixel
 ```
 
-필요한 ROS 패키지는 `ament_cmake`, `rclcpp`, `geometry_msgs`, `sensor_msgs`, `launch`, `launch_ros`다. `realsense`도 함께 빌드하려면 [인지 패키지 README](../realsense/README.md)의 OpenCV·cv_bridge·yaml-cpp 의존성을 먼저 설치한다. 인지 패키지 코드는 그 디렉터리의 원본을 그대로 사용한다.
+필요한 ROS 패키지는 `ament_cmake`, `rclcpp`, `geometry_msgs`, `sensor_msgs`, `std_msgs`, `launch`, `launch_ros`다. `realsense`도 함께 빌드하려면 [인지 패키지 README](../realsense/README.md)의 OpenCV·cv_bridge·yaml-cpp 의존성을 먼저 설치한다. 인지 패키지 코드는 그 디렉터리의 원본을 그대로 사용한다.
+
+## Settings
+
+Raspberry Pi 사용자 권한, OpenCR udev 규칙, `/dev/opencr` 설정은 [Settings](settings.md)를 참고한다.
+
+다른 Raspberry Pi에서 OpenCR을 연결한 뒤, 실제 장치가 `/dev/ttyACM0`이면 아래 스크립트로 사용자 그룹·udev 규칙을 설정하고 `dynamixel`을 빌드할 수 있다. ROS 2와 colcon 및 패키지 의존성은 먼저 설치해야 한다. ROS 배포판이 `lyrical`이 아니면 `--ros-distro` 값을 지정한다. 스크립트는 자동으로 재부팅하지 않으므로 그룹 변경 후 로그아웃·로그인하고 OpenCR을 다시 연결한다.
+
+```bash
+./setup_pi.sh --device /dev/ttyACM0
+```
+
+현재 상태를 확인하려면 다음 명령을 실행한다. IDLE에서도 기본 1초 주기로 값이 반복해서 표시된다.
+
+```bash
+ros2 topic echo /tracking_status std_msgs/msg/String --qos-durability transient_local
+```
 
 ## 모터 없이 제어 확인하기
 
@@ -74,7 +91,10 @@ ros2 launch dynamixel dynamixel.launch.py
 | `horizontal_deadband`, `vertical_deadband` | 정규화 오차의 무시 구간 |
 | `pan_gain`, `tilt_gain` | 정규화 오차 1당 상대 radian. 부호를 음수로 바꾸면 해당 축 방향이 반대가 됨 |
 | `max_pan_command`, `max_tilt_command` | 한 target 프레임의 최대 상대 radian |
-| `serial_port`, `baud_rate` | OpenCR USB 포트(기본 `/dev/ttyACM0`), 115200 bps |
+| `serial_port`, `baud_rate` | OpenCR USB 포트(기본 `/dev/opencr`), 115200 bps |
+| `status_publish_period` | `/tracking_status` 현재 상태 반복 발행 주기(초, 기본 1초) |
+
+`/tracking_status`는 `reliable`, `transient_local` QoS로 IDLE/TRACKING/LOST 현재 상태를 발행한다. 시작 시와 상태 전이 시 즉시 발행하고, 이후 `status_publish_period`마다 현재 상태를 반복 발행한다.
 
 `x/y` 오차 부호는 영상 좌표 기준이다. 실제 기구에서 대상 쪽으로 움직이는지 작은 gain과 좁은 가동 범위로 확인하고, 반대로 움직이면 해당 gain의 부호를 바꾼다. PID는 없다. controller는 관절 이름으로 값을 찾아 한 번만 radian→degree로 바꾼다. 이름 누락·중복, 크기 불일치, NaN/무한대는 전송하지 않고 로그에 남긴다.
 
