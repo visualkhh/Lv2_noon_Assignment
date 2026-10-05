@@ -26,11 +26,17 @@ source install/setup.bash
 ros2 pkg executables dynamixel
 ```
 
-필요한 ROS 패키지는 `ament_cmake`, `rclcpp`, `geometry_msgs`, `sensor_msgs`, `launch`, `launch_ros`다. `realsense`도 함께 빌드하려면 [인지 패키지 README](../realsense/README.md)의 OpenCV·cv_bridge·yaml-cpp 의존성을 먼저 설치한다. 인지 패키지 코드는 그 디렉터리의 원본을 그대로 사용한다.
+필요한 ROS 패키지는 `ament_cmake`, `rclcpp`, `geometry_msgs`, `sensor_msgs`, `std_msgs`, `launch`, `launch_ros`다. `realsense`도 함께 빌드하려면 [인지 패키지 README](../realsense/README.md)의 OpenCV·cv_bridge·yaml-cpp 의존성을 먼저 설치한다. 인지 패키지 코드는 그 디렉터리의 원본을 그대로 사용한다.
 
 ## Settings
 
 Raspberry Pi 사용자 권한, OpenCR udev 규칙, `/dev/opencr` 설정은 [Settings](settings.md)를 참고한다.
+
+다른 Raspberry Pi에서 OpenCR을 연결한 뒤, 실제 장치가 `/dev/ttyACM0`이면 아래 스크립트로 사용자 그룹·udev 규칙을 설정하고 `dynamixel`을 빌드할 수 있다. ROS 2와 colcon 및 패키지 의존성은 먼저 설치해야 한다. ROS 배포판이 `lyrical`이 아니면 `--ros-distro` 값을 지정한다. 스크립트는 자동으로 재부팅하지 않으므로 그룹 변경 후 로그아웃·로그인하고 OpenCR을 다시 연결한다.
+
+```bash
+./setup_pi.sh --device /dev/ttyACM0
+```
 
 현재 상태를 확인하려면 다음 명령을 실행한다. IDLE에서도 기본 1초 주기로 값이 반복해서 표시된다.
 

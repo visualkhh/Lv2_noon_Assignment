@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED
   src/dynamixel_move_node.cpp
@@ -18,7 +19,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 target_link_libraries(${PROJECT_NAME} PUBLIC
-  rclcpp::rclcpp ${geometry_msgs_TARGETS} ${sensor_msgs_TARGETS})
+  rclcpp::rclcpp ${geometry_msgs_TARGETS} ${sensor_msgs_TARGETS} ${std_msgs_TARGETS})
 
 add_executable(dynamixel_move_node src/dynamixel_move_node_main.cpp)
 target_link_libraries(dynamixel_move_node PRIVATE ${PROJECT_NAME})
