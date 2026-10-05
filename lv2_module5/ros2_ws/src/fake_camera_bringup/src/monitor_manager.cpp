@@ -8,9 +8,18 @@
 // message는 메시지마다 덮어씀 (통제실 모터 패널이 변화량 명령을 하나하나 누적함).
 // image.jpg는 토픽별로 period_s에 한 번만 (실카메라 30fps 영상을 다 쓰면 디스크만 바쁨).
 //
+// 파라미터: out_dir, period_s(이미지 저장 간격),
+//   raw_images (기본 true): false면 sensor_msgs/Image(무압축 영상)는 구독 자체를 안 함.
+//     네트워크 너머에서 띄울 때 필수 — 640x480 rgb8 30fps면 초당 ~27MB가 전송됨 (JSON에서 픽셀을 빼도 구독하면 다 옴).
+//     압축 토픽(CompressedImage: debug_image·mask)은 그대로 받음.
+//   exclude_topics (기본 []): 이름으로 뺄 토픽 목록
+//   예) ros2 run fake_camera_bringup monitor_manager --ros-args -p out_dir:=/tmp/monitor -p raw_images:=false
+//         -p exclude_topics:="['/camera/camera/color/camera_info']"
+//
 // 메시지 → JSON: rosx_introspection(PlotJuggler가 쓰는 라이브러리)이 .msg 정의로 런타임 파싱.
 //   타입 없이 바이트로 받는 GenericSubscription + Parser::deserializeIntoJson.
 //   100개 넘는 배열(영상 픽셀 등)은 JSON에서 빠진다 (DISCARD_LARGE_ARRAYS 기본값).
+#include <algorithm>
 #include <chrono>
 #include <filesystem>
 #include <fstream>
@@ -18,6 +27,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <vector>
 
 #include "cv_bridge/cv_bridge.hpp"
 #include "opencv2/imgcodecs.hpp"
@@ -36,6 +46,9 @@ public:
   : rclcpp::Node("monitor_manager") {
     out_dir_ = declare_parameter<std::string>("out_dir", "/ws/debug/topic");
     period_ = declare_parameter<double>("period_s", 0.2);
+    raw_images_ = declare_parameter<bool>("raw_images", true);
+    const auto excluded = declare_parameter<std::vector<std::string>>("exclude_topics", std::vector<std::string>{});
+    excluded_ = std::set<std::string>(excluded.begin(), excluded.end());
     // 0.5초: 첫 모터 명령(시작 후 ~0.7초)보다 먼저 구독해야 변화량 누적에서 앞부분을 안 놓침
     scan_timer_ = create_wall_timer(std::chrono::milliseconds(500), [this]() { scan(); });
     scan();
@@ -53,13 +66,39 @@ private:
         continue;
       }
       seen_.insert(topic);
+      if (excluded_.count(topic) || (!raw_images_ && types.front() == "sensor_msgs/msg/Image")) {
+        RCLCPP_INFO(get_logger(), "제외: %s (%s)", topic.c_str(), types.front().c_str());
+        continue;
+      }
       subscribe_message(topic, types.front());
       subscribe_image(topic, types.front());
     }
   }
 
-  // best-effort 구독은 reliable·best-effort 발행 모두와 연결된다
+  // 이미지: best-effort 구독은 reliable·best-effort 발행 모두와 연결된다
   static rclcpp::QoS qos() { return rclcpp::SensorDataQoS(); }
+
+  // 메시지: 발행자 QoS에 맞춰 구독 (ros2 topic echo와 같은 방식).
+  // 발행자가 모두 transient_local이면 transient_local로 → 늦게 붙어도 저장된 마지막 값을 바로 받음
+  //   (예: /tracking_status는 상태가 바뀔 때만 발행 → volatile이면 다음 전이까지 아무것도 못 받음)
+  // 발행자가 모두 reliable일 때만 reliable (best-effort 발행자가 있으면 reliable 구독은 연결 안 됨)
+  rclcpp::QoS qos_for(const std::string & topic) {
+    const auto pubs = get_publishers_info_by_topic(topic);
+    const auto all = [&](auto pred) {
+      return !pubs.empty() && std::all_of(pubs.begin(), pubs.end(), pred);
+    };
+    rclcpp::QoS q = rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile();
+    if (all([](const auto & p) { return p.qos_profile().reliability() == rclcpp::ReliabilityPolicy::Reliable; })) {
+      q.reliable();
+    }
+    if (all([](const auto & p) {
+        return p.qos_profile().durability() == rclcpp::DurabilityPolicy::TransientLocal;
+      }))
+    {
+      q.transient_local();
+    }
+    return q;
+  }
 
   void subscribe_message(const std::string & topic, const std::string & type) {
     std::shared_ptr<RosMsgParser::Parser> parser;
@@ -70,7 +109,8 @@ private:
       RCLCPP_WARN(get_logger(), "message 저장 불가 %s (%s): %s", topic.c_str(), type.c_str(), e.what());
       return;
     }
-    subs_.push_back(create_generic_subscription(topic, type, qos(),
+    const auto msg_qos = qos_for(topic);
+    subs_.push_back(create_generic_subscription(topic, type, msg_qos,
       [this, topic, type, parser](std::shared_ptr<const rclcpp::SerializedMessage> msg) {
         const auto & raw = msg->get_rcl_serialized_message();
         RosMsgParser::NanoCDR_Deserializer deserializer;
@@ -84,7 +124,9 @@ private:
         }
         write_file(dir_of(topic) / "message", "{\"type\": \"" + type + "\", \"data\": " + data + "}\n");
       }));
-    RCLCPP_INFO(get_logger(), "message 저장 시작: %s (%s)", topic.c_str(), type.c_str());
+    RCLCPP_INFO(get_logger(), "message 저장 시작: %s (%s, %s%s)", topic.c_str(), type.c_str(),
+      msg_qos.reliability() == rclcpp::ReliabilityPolicy::Reliable ? "reliable" : "best-effort",
+      msg_qos.durability() == rclcpp::DurabilityPolicy::TransientLocal ? ", transient_local" : "");
   }
 
   void subscribe_image(const std::string & topic, const std::string & type) {
@@ -161,6 +203,8 @@ private:
   }
 
   std::string out_dir_;
+  bool raw_images_;
+  std::set<std::string> excluded_;
   double period_;
   std::set<std::string> seen_;
   std::vector<rclcpp::SubscriptionBase::SharedPtr> subs_;

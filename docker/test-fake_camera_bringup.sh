@@ -33,7 +33,12 @@ DUR=${1:-2}
 LAUNCH_ARGS=()
 [ -n "$2" ] && LAUNCH_ARGS+=("period_s:=$2")
 [ -e /ws/debug/input-live/frame.png ] \
-  || echo "참고: /ws/debug/input-live/frame.png 없음 — 통제실(run-controller.py)을 켜야 영상이 나옴"
+  || echo "참고: /ws/debug/input-live/frame.png 없음 — 통제실(run-controller.py)을 켜고 [영상 송출]을 켜야 영상이 나옴"
+# job control: 백그라운드 작업이 SIGINT를 무시하지 않게 (비대화형 셸 기본은 무시 → launch에 상속됨).
+# ros2 launch는 SIGINT로 정상 종료한다 (노드에 SIGINT → 대기 → 필요 시 TERM·KILL).
+# TERM으로 끄면 launch만 바로 죽고 노드가 남았다가, 끊긴 출력 파이프에 로그를 쓰는 순간 SIGPIPE로
+# 정리 없이 죽음 (fake_camera가 fake-camera.png를 못 지우는 등).
+set -m
 ros2 launch fake_camera_bringup fake_camera_bringup.launch.py "${LAUNCH_ARGS[@]}" & LAUNCH_PID=$!
 # 띄워 둔 동안 토픽 기록 → 호스트 lv2_module5/debug/topic 에서 확인 (통제실 토픽 패널)
 test-logger 0 > /tmp/test-logger.log 2>&1 & LOGGER_PID=$!
@@ -52,9 +57,9 @@ fi
 # logger 먼저 종료 (TERM → 루프 끝내고 echo 정리) 후 launch 종료
 kill "$LOGGER_PID" 2>/dev/null
 timeout 10 tail --pid="$LOGGER_PID" -f /dev/null
-# NOTE: 비대화형 셸의 백그라운드 작업은 SIGINT가 무시됨 → TERM으로 종료
-kill "$LAUNCH_PID" 2>/dev/null
-timeout 10 tail --pid="$LAUNCH_PID" -f /dev/null
+# launch 정상 종료 (SIGINT) — 노드 정리까지 최대 15초 대기
+kill -INT "$LAUNCH_PID" 2>/dev/null
+timeout 15 tail --pid="$LAUNCH_PID" -f /dev/null
 pkill -f 'lib/(fake_camera_bringup|realsense|realsense2_camera|dynamixel)/' 2>/dev/null || true
 
 [ -n "$TARGET" ] || { echo "FAIL: /target 수신 없음 (camera → perception 끊김)"; exit 1; }

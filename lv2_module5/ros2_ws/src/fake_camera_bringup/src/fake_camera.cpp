@@ -2,11 +2,13 @@
 // live_image(기본 /ws/debug/input-live/frame.png) 한 장을 period_s(기본 0.033s = 30fps)마다 계속 발행.
 //   파일이 바뀌면(mtime) 다음 프레임부터 새 장면 — 통제실(run-controller.py) 3D 시뮬레이션이 이 파일을 갱신.
 //   장면이 그대로여도 계속 보냄 (실카메라처럼). 안 보내면 0.5초 뒤 dynamixel이 LOST로 떨어짐.
+//   파일이 없으면 발행 안 함 = 카메라가 빠진 상황 (통제실 [영상 송출] 끔 / 통제실 종료).
 // 토픽·QoS·encoding은 realsense2_camera 기본값과 맞춤 (launch에서 namespace=camera, name=camera):
 //   /camera/camera/color/image_raw    (rgb8, reliable)
 //   /camera/camera/color/camera_info
 // 실제로 발행한 장면은 current_image(기본 /ws/debug/output-images/fake-camera.png)에도 써서
 // 통제실에서 보낸 장면이 ROS까지 들어갔는지 확인할 수 있게 한다.
+// 발행하지 않는 동안(입력 없음·노드 종료)은 current_image를 지움 → 마지막 장면이 남아 송출 중처럼 보이지 않게.
 #include <chrono>
 #include <filesystem>
 #include <string>
@@ -34,15 +36,20 @@ public:
     timer_ = create_wall_timer(std::chrono::duration<double>(period), [this]() { tick(); });
   }
 
+  ~FakeCamera() override { clear_current(); }
+
 private:
   // 파일이 바뀌었을 때만 다시 읽고, 아니면 직전 장면 그대로. changed = 새 장면을 읽었는지
   bool next_frame(cv::Mat & bgr, bool & changed) {
     std::error_code ec;
     const auto mtime = fs::last_write_time(live_image_, ec);
-    if (ec) {
+    if (ec) {  // 파일 없음 → 송출 중단 (직전 장면도 버림: 다시 생기면 새로 읽음)
       RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
-        "live 이미지 없음: %s (통제실 run-controller.py 실행 중?)", live_image_.c_str());
-      return !frame_.empty();
+        "영상 송출 꺼짐: %s 없음 (통제실 [영상 송출] 끔 또는 run-controller.py 미실행)", live_image_.c_str());
+      frame_.release();
+      mtime_ = {};
+      clear_current();
+      return false;
     }
     changed = mtime != mtime_;
     if (changed) {
@@ -88,6 +95,13 @@ private:
 
     if (changed) {  // 같은 장면을 30fps로 계속 쓰면 디스크만 바쁨
       write_current(bgr);
+    }
+  }
+
+  void clear_current() const {
+    if (!current_image_.empty()) {
+      std::error_code ec;
+      fs::remove(current_image_, ec);
     }
   }
 

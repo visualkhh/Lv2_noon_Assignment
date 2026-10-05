@@ -7,13 +7,18 @@
 - 3D 시뮬레이션 (scene.py, pan_tilt.urdf):
     기구 URDF(pytransform3d)에 관절각을 넣어 카메라 자세를 구하고, 그 시점에서
     360° 배경(images/background/pano_*.jpg, 기본 격자 방) + 월드에 놓인 파란 기둥(30x30x60mm)을 렌더.
-    관절각 = serial-out "M,Δpan,Δtilt" 누적 (펌웨어와 같은 계산) → 닫힌 루프:
+    관절각 = serial-out "M,Δpan,Δtilt" 누적 (펌웨어와 같은 계산), serial이 없으면(실기) /motor_cmd 누적
+    — 어떤 걸 쓰는지 화면에 "TF 관절각 출처"로 표시. 둘 다 명령 누적(추정)이지 측정 위치 아님 → 닫힌 루프:
       렌더 → debug/input-live/frame.png → fake_camera(live) → perception → /target → dynamixel
       → serial → 관절각 → 다시 렌더.  기둥을 옮기면 카메라가 따라 돌아 기둥이 가운데로 들어온다.
     (컨테이너: test-fake_camera_bringup 0)
+  [영상 송출] 처음엔 꺼짐. 끄면 frame.png를 지워 fake_camera 발행 중단(카메라 뽑힌 상황). 통제실을 닫아도 꺼짐.
+    끈 채로 launch → IDLE 유지 → 켜면 TRACKING → 끄면 0.5초 뒤 LOST (/tracking_status)
   3D 월드 뷰: 왼쪽 드래그 = 기둥 바닥 이동 · Shift+드래그 = 높이 · Option(Alt)+드래그 = 기둥 회전(좌우 yaw, 위아래 pitch)
              오른쪽(또는 Ctrl) 드래그 = 시점 회전 · 휠 = 줌 · 슬라이더 = yaw·pitch·roll 직접 지정
-             [색] = 선택한 상자 색 (perception HSV 범위(realsense.yaml) 안인지 옆에 표시)
+             [선택 색변경] = 선택한 물체(기둥·장애물) 색 (perception HSV 범위(realsense.yaml) 안인지 표시)
+  모양: 사각 기둥 · 원기둥 · 구 (선택한 물체마다)
+  크기 (cm): 선택한 물체의 폭(좌우)·높이(상하)·두께(앞뒤). 원기둥 단면·구는 이 값이 지름. 높이를 바꿔도 바닥 위치 유지
   장애물(회색 벽판): 기본 2개, [장애물 추가]/[선택 삭제]. world 뷰에서 클릭해 선택 → 선택한 상자만 움직임
              먼 상자부터 그려 앞의 벽판이 기둥을 가림 → 벽 뒤에 숨기면 미검출 → LOST, 나오면 TRACKING
              [0으로 맞추기] = 기구 정면으로
@@ -355,6 +360,17 @@ class Controller:
         cam.pack(fill='x')
         self.preview = tk.Label(cam, bg='black')
         self.preview.pack()
+        # 영상 송출 토글: 끄면 frame.png를 지움 → fake_camera가 발행 중단 (카메라 뽑힌 상황)
+        #   끈 채로 launch하면 IDLE 유지 → 켜면 TRACKING → 끄면 0.5초 뒤 LOST
+        #   처음엔 꺼짐: 장면을 다 놓고 나서 켜도록. 지난 실행이 남긴 frame.png도 지움
+        self.streaming = tk.BooleanVar(value=False)
+        LIVE_IMAGE.unlink(missing_ok=True)
+        stream = tk.Frame(cam)
+        stream.pack(fill='x')
+        tk.Checkbutton(stream, text='영상 송출 (→ fake_camera)', variable=self.streaming,
+                       command=self.toggle_streaming).pack(side='left')
+        self.stream_label = tk.Label(stream, font=('', 12, 'bold'))
+        self.stream_label.pack(side='left', padx=8)
 
         # 1열 가운데: 3D 월드 뷰 (기구 URDF + 카메라 시야 + 기둥)
         world = tk.LabelFrame(sim, text='world  (클릭: 선택 · 드래그: 이동 · Shift: 높이 · Option/Alt: 회전 · 오른쪽/Ctrl: 시점 · 휠: 줌)')
@@ -387,7 +403,28 @@ class Controller:
         self.selected_label.pack(side='left')
         tk.Button(objects, text='장애물 추가', command=self.add_obstacle).pack(side='left', padx=(8, 0))
         tk.Button(objects, text='선택 삭제', command=self.delete_selected).pack(side='left')
+        tk.Button(objects, text='선택 색변경', command=self.pick_color).pack(side='left')
+        self.swatch = tk.Label(objects, width=3, relief='sunken')   # 선택한 물체 색 (Label은 macOS에서도 배경색이 보임)
+        self.swatch.pack(side='left')
         tk.Button(objects, text='전체 초기화', command=self.reset_objects).pack(side='left', padx=(8, 0))
+        # 선택한 물체 크기 [cm]: 폭(좌우·world y) · 높이(상하·z) · 두께(앞뒤·x). 높이를 바꿔도 바닥 위치는 유지
+        sizes = tk.Frame(sim)
+        sizes.pack(fill='x')
+        tk.Label(sizes, text='모양').pack(side='left')
+        self.shape_var = tk.StringVar(value=scene.SHAPES[self.selected.shape])
+        tk.OptionMenu(sizes, self.shape_var, *scene.SHAPES.values(), command=self.set_shape).pack(side='left')
+        tk.Label(sizes, text='크기 (cm)').pack(side='left', padx=(8, 0))
+        self.size_vars = {}
+        for key, label in (('w', '폭'), ('h', '높이'), ('d', '두께')):
+            tk.Label(sizes, text=label).pack(side='left', padx=(8, 2))
+            var = tk.StringVar()
+            box = tk.Spinbox(sizes, textvariable=var, from_=0.5, to=200, increment=0.5, width=6,
+                             command=self.set_size)
+            box.bind('<Return>', lambda _e: self.set_size())
+            box.bind('<FocusOut>', lambda _e: self.set_size())
+            box.pack(side='left')
+            self.size_vars[key] = var
+        self.show_size()   # 처음 선택(기둥) 크기 표시
         controls = tk.Frame(sim)
         controls.pack(fill='x')
         tk.Label(controls, text='배경').pack(side='left')
@@ -395,14 +432,13 @@ class Controller:
                                        if p.suffix.lower() in ('.png', '.jpg', '.jpeg'))
         self.bg_choice = tk.StringVar(value=NO_BG)
         tk.OptionMenu(controls, self.bg_choice, *backgrounds, command=self.set_background).pack(side='left')
-        tk.Button(controls, text='색', command=self.pick_color).pack(side='left', padx=(4, 0))
-        self.swatch = tk.Label(controls, width=3, relief='sunken')   # Label은 macOS에서도 배경색이 보임
-        self.swatch.pack(side='left')
         self.color_label = tk.Label(controls, font=('Menlo', 11))
         self.color_label.pack(side='left', padx=4)
         self.ranges = hsv_ranges()
         self.pose_label = tk.Label(sim, font=('Menlo', 11), anchor='w', justify='left')
         self.pose_label.pack(fill='x')
+        self.joint_source_label = tk.Label(sim, font=('', 12, 'bold'), anchor='w')   # TF 관절각 출처
+        self.joint_source_label.pack(fill='x')
         self.status = tk.Label(sim, text=f'→ {LIVE_IMAGE}', wraplength=VIEW_W, justify='left', fg='#555')
         self.status.pack(fill='x')
 
@@ -465,6 +501,32 @@ class Controller:
         self.selected = box
         for name, var in self.rot_vars.items():   # 슬라이더를 선택한 상자 각도로 (set은 command를 안 부름)
             var.set(round(getattr(box, name)))
+        self.show_size()
+        self.shape_var.set(scene.SHAPES[box.shape])
+        self.scene_dirty = True
+
+    def set_shape(self, label):
+        self.selected.shape = next(k for k, v in scene.SHAPES.items() if v == label)
+        self.scene_dirty = True
+
+    def show_size(self):
+        d, w, h = self.selected.size   # Box.size = (world x 두께, y 폭, z 높이) [m]
+        for key, value in (('w', w), ('h', h), ('d', d)):
+            self.size_vars[key].set(f'{value * 100:g}')
+
+    def set_size(self):
+        """입력칸 → 선택한 물체 크기. 숫자가 아니면 원래 값으로 되돌림. 최소 0.5cm"""
+        try:
+            w, h, d = (max(0.5, float(self.size_vars[k].get())) / 100 for k in ('w', 'h', 'd'))
+        except ValueError:
+            self.show_size()
+            return
+        box = self.selected
+        if (d, w, h) == tuple(box.size):
+            return
+        box.z += (h - box.size[2]) / 2   # 바닥 위치 유지 (바닥에 세운 벽판이 뜨거나 묻히지 않게)
+        box.size = (d, w, h)
+        self.show_size()
         self.scene_dirty = True
 
     def drag_start(self, event, button, rotate=False):
@@ -548,6 +610,18 @@ class Controller:
         self.boxes = [scene.pillar()] + scene.default_obstacles()
         self.select(self.boxes[0])
 
+    def toggle_streaming(self):
+        if self.streaming.get():
+            self.scene_dirty = True   # 다음 프레임에 frame.png를 다시 씀
+        else:
+            LIVE_IMAGE.unlink(missing_ok=True)
+        self.show_streaming()
+
+    def show_streaming(self):
+        on = self.streaming.get()
+        self.stream_label.config(text='● 송출 중' if on else '■ 송출 꺼짐 (카메라 없음)',
+                                 fg='#2e7d32' if on else '#c62828')
+
     def set_background(self, name):
         image = None if name == NO_BG else cv2.imread(str(BG_DIR / name))
         self.env = scene.Environment(image)
@@ -582,15 +656,26 @@ class Controller:
         for box in self.boxes:
             selected = box is self.selected
             color = '#ffd040' if selected else ('#3080ff' if box is self.boxes[0] else '#a0a0a0')
-            corners, _ = box.corners()
-            for i, j in scene.BOX_EDGES:
-                line(corners[i], corners[j], fill=color, width=3 if selected else 2)
+            verts, _, edges = box.geometry()   # 모양별 와이어 (사각 12선 · 원기둥 고리+세로선 · 구 큰 원)
+            for i, j in edges:
+                line(verts[i], verts[j], fill=color, width=3 if selected else 2)
         b = self.selected
         line((b.x, b.y, 0), (b.x, b.y, b.z - b.size[2] / 2), fill='#ffd040', dash=(2, 3))   # 바닥까지 점선 (높이 감)
 
+    def joint_source(self):
+        """TF 관절각: serial 명령이 들어왔으면 serial 누적(펌웨어가 받은 값), 없으면 JointState 누적.
+        실기는 시리얼이 OpenCR로 바로 가서 serial-out이 비므로 /motor_cmd(JointState)로 돌린다.
+        둘 다 명령 누적(추정)이지 측정한 모터 위치가 아님 (PDF: 명령을 실제 위치처럼 표시하지 않음)."""
+        serial, joint = self.serial_pair.acc, self.joint_pair.acc
+        if serial.count:
+            return (serial.pan, serial.tilt), ('serial-out 명령 누적 (펌웨어 계산, 추정)', '#2e7d32')
+        if joint.count:
+            return (joint.pan, joint.tilt), ('JointState /motor_cmd 누적 (serial 없음, 추정)', '#b8860b')
+        return (0.0, 0.0), ('명령 없음 — 정면(0°) 유지', '#777')
+
     def update_scene(self):
         """기둥·시점·배경이 바뀌거나 관절각(serial 누적)이 바뀌면 다시 그려 live 파일 갱신."""
-        joints = (self.serial_pair.acc.pan, self.serial_pair.acc.tilt)
+        joints, source = self.joint_source()
         if self.scene_dirty or joints != self.joints:
             self.scene_dirty = False
             self.joints = joints
@@ -598,16 +683,20 @@ class Controller:
             self.frame = scene.render(self.env, self.robot, self.boxes)
             self.photo = to_photo(self.frame, VIEW_W)
             self.preview.config(image=self.photo)
-            # 임시 파일에 쓰고 교체 → fake_camera가 반쯤 쓰인 파일을 읽지 않게. 압축 1 = 빠르게
-            tmp = LIVE_IMAGE.with_name('.tmp-' + LIVE_IMAGE.name)
-            cv2.imwrite(str(tmp), self.frame, [cv2.IMWRITE_PNG_COMPRESSION, 1])
-            os.replace(tmp, LIVE_IMAGE)
+            if self.streaming.get():
+                # 임시 파일에 쓰고 교체 → fake_camera가 반쯤 쓰인 파일을 읽지 않게. 압축 1 = 빠르게
+                tmp = LIVE_IMAGE.with_name('.tmp-' + LIVE_IMAGE.name)
+                cv2.imwrite(str(tmp), self.frame, [cv2.IMWRITE_PNG_COMPRESSION, 1])
+                os.replace(tmp, LIVE_IMAGE)
+            self.show_streaming()
             self.draw_world()
             self.show_color()
             p = self.selected
             self.selected_label.config(text=f'선택: {p.name}')
             self.pose_label.config(text=f'{p.name} x {p.x:+.3f} y {p.y:+.3f} z {p.z:.3f} m   '
                                         f'관절 pan {joints[0]:+.1f}° tilt {joints[1]:+.1f}°')
+        text, color = source
+        self.joint_source_label.config(text=f'TF 관절각 출처: {text}', fg=color)
         self.root.after(33, self.update_scene)
 
     def update_images(self):
@@ -700,6 +789,7 @@ class Controller:
         self.topic_tail.follow(TOPIC_DIR / name.lstrip('/') / 'echo')
 
     def close(self):
+        LIVE_IMAGE.unlink(missing_ok=True)   # 통제실을 닫으면 카메라도 꺼짐 (지난 장면이 계속 나가지 않게)
         self.root.destroy()
 
 

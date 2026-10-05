@@ -31,6 +31,11 @@ stop_nodes() {
 # 이전 실행의 고아 노드가 있으면 DDS 그래프가 꼬이니 먼저 정리
 stop_nodes
 
+# job control: 백그라운드 작업이 SIGINT를 무시하지 않게 (비대화형 셸 기본은 무시 → launch에 상속됨).
+# ros2 launch는 SIGINT로 정상 종료한다 (노드에 SIGINT → 대기 → 필요 시 TERM·KILL).
+# TERM으로 끄면 launch만 바로 죽고 노드가 남았다가, 끊긴 출력 파이프에 로그를 쓰는 순간 SIGPIPE로
+# 정리 없이 죽음 (fake_camera가 fake-camera.png를 못 지우는 등).
+set -m
 ros2 launch bringup bringup.launch.py & LAUNCH_PID=$!
 # 띄워 둔 동안 토픽 기록 → 호스트 lv2_module5/debug/topic 에서 확인 (통제실 토픽 패널)
 test-logger 0 > /tmp/test-logger.log 2>&1 & LOGGER_PID=$!
@@ -39,9 +44,9 @@ UP=$(ros2 node list 2>/dev/null)
 # logger 먼저 종료 (TERM → 루프 끝내고 echo 정리) 후 launch 종료
 kill "$LOGGER_PID" 2>/dev/null
 timeout 10 tail --pid="$LOGGER_PID" -f /dev/null
-# NOTE: 비대화형 셸의 백그라운드 작업은 SIGINT가 무시됨 → TERM으로 종료
-kill "$LAUNCH_PID" 2>/dev/null
-timeout 10 tail --pid="$LAUNCH_PID" -f /dev/null
+# launch 정상 종료 (SIGINT) — 노드 정리까지 최대 15초 대기
+kill -INT "$LAUNCH_PID" 2>/dev/null
+timeout 15 tail --pid="$LAUNCH_PID" -f /dev/null
 stop_nodes
 
 echo "--- nodes ---"

@@ -53,7 +53,16 @@ while [ "$STOP" = 0 ]; do
   sleep 2
 done
 
+# echo 종료: TERM 후 최대 3초 기다리고 남으면 강제 종료
+# (ros2 topic echo가 TERM을 받고도 가끔 안 꺼짐 → 그냥 wait하면 logger가 고아로 남음)
 kill "${ECHO_PIDS[@]}" 2>/dev/null
+for _ in $(seq 10); do
+  alive=0
+  for pid in "${ECHO_PIDS[@]}"; do kill -0 "$pid" 2>/dev/null && alive=1; done
+  [ "$alive" = 0 ] && break
+  sleep 0.3
+done
+kill -9 "${ECHO_PIDS[@]}" 2>/dev/null
 wait 2>/dev/null
 echo "--- dump ---"
 find "$OUT" -type f | sort

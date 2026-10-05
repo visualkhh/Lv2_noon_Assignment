@@ -41,6 +41,48 @@ _FACES = [   # (바깥 법선, 꼭짓점 4개 — 둘레 순서)
 BOX_EDGES = [(0, 1), (2, 3), (4, 5), (6, 7), (0, 2), (1, 3), (4, 6), (5, 7), (0, 4), (1, 5), (2, 6), (3, 7)]
 
 
+# ---- 모양 메쉬: 크기 1(±0.5) 기준 (꼭짓점, [(바깥 법선, 면 꼭짓점 번호)], 와이어 선분) ----
+# 세 모양 모두 볼록 → "카메라를 등진 면은 안 그림"만으로 한 물체 안의 가림이 맞음
+def _box_mesh():
+    return _CORNERS.copy(), [(np.array(n, float), list(i)) for n, i in _FACES], BOX_EDGES
+
+
+def _cylinder_mesh(n=24):
+    """세로(z)축 원기둥. 단면 지름 = 두께(x)·폭(y), 높이 = z"""
+    a = np.linspace(0, 2 * np.pi, n, endpoint=False)
+    ring = np.stack([np.cos(a), np.sin(a)], axis=1) / 2
+    verts = np.vstack([np.c_[ring, np.full(n, -0.5)], np.c_[ring, np.full(n, 0.5)]])   # 0..n-1 아래, n.. 위
+    faces = [(np.array([math.cos(a[i] + math.pi / n), math.sin(a[i] + math.pi / n), 0.0]),
+              [i, (i + 1) % n, n + (i + 1) % n, n + i]) for i in range(n)]
+    faces += [(np.array([0.0, 0.0, -1.0]), list(range(n))), (np.array([0.0, 0.0, 1.0]), list(range(n, 2 * n)))]
+    edges = [(i, (i + 1) % n) for i in range(n)] + [(n + i, n + (i + 1) % n) for i in range(n)]
+    edges += [(i, n + i) for i in range(0, n, n // 4)]
+    return verts, faces, edges
+
+
+def _sphere_mesh(n_lat=12, n_lon=24):
+    """구 (크기가 다르면 타원체). 지름 = 두께(x)·폭(y)·높이(z)"""
+    lat = np.linspace(-math.pi / 2, math.pi / 2, n_lat + 1)
+    lon = np.linspace(0, 2 * math.pi, n_lon, endpoint=False)
+    verts = np.array([[math.cos(t) * math.cos(p), math.cos(t) * math.sin(p), math.sin(t)]
+                      for t in lat for p in lon]) / 2
+    at = lambda i, j: i * n_lon + j % n_lon
+    faces = []
+    for i in range(n_lat):
+        for j in range(n_lon):
+            idx = [at(i, j), at(i, j + 1), at(i + 1, j + 1), at(i + 1, j)]   # 극 근처는 삼각형으로 겹침
+            n = verts[idx].mean(axis=0)
+            faces.append((n / np.linalg.norm(n), idx))
+    eq = n_lat // 2
+    edges = [(at(eq, j), at(eq, j + 1)) for j in range(n_lon)]                       # 적도
+    edges += [(at(i, j), at(i + 1, j)) for j in (0, n_lon // 4, n_lon // 2, 3 * n_lon // 4) for i in range(n_lat)]
+    return verts, faces, edges
+
+
+SHAPES = {'box': '사각 기둥', 'cylinder': '원기둥', 'sphere': '구'}
+MESHES = {'box': _box_mesh(), 'cylinder': _cylinder_mesh(), 'sphere': _sphere_mesh()}
+
+
 def rot_zyx(yaw, pitch, roll):
     """world 기준 회전 [deg]: yaw(세로축 z) · pitch(y) · roll(x)"""
     y, p, r = (math.radians(a) for a in (yaw, pitch, roll))
@@ -84,7 +126,7 @@ class Robot:
 
 @dataclass
 class Box:
-    """월드에 놓인 상자: 중심 위치 [m] + 회전 [deg] + 크기 + 색"""
+    """월드에 놓인 물체: 중심 위치 [m] + 회전 [deg] + 크기(두께 x·폭 y·높이 z) + 색 + 모양(SHAPES)"""
     x: float = 0.5
     y: float = 0.0
     z: float = 0.143   # 기구 관절 0일 때 카메라 높이 → 기둥은 처음엔 화면 가운데
@@ -94,12 +136,18 @@ class Box:
     size: tuple = PILLAR
     hsv: tuple = DEFAULT_HSV   # OpenCV HSV (H 0~179). 면마다 V만 조명에 따라 줄어듦
     name: str = '기둥'
+    shape: str = 'box'
 
-    def corners(self):
-        t = np.eye(4)
-        t[:3, :3] = rot_zyx(self.yaw, self.pitch, self.roll)
-        t[:3, 3] = (self.x, self.y, self.z)
-        return box_corners(t, self.size), t[:3, :3]
+    def geometry(self):
+        """world 꼭짓점, [(world 법선, 면 꼭짓점 번호)], 와이어 선분"""
+        rot = rot_zyx(self.yaw, self.pitch, self.roll)
+        size = np.asarray(self.size, float)
+        verts, faces, edges = MESHES[self.shape]
+        verts_w = (verts * size) @ rot.T + (self.x, self.y, self.z)
+        # 크기를 축마다 다르게 늘리면 법선은 크기로 나눠야 면에 수직으로 남음
+        normals = [rot @ (n / size) for n, _ in faces]
+        faces_w = [(nw / np.linalg.norm(nw), idx) for nw, (_, idx) in zip(normals, faces)]
+        return verts_w, faces_w, edges
 
 
 def pillar():
@@ -112,8 +160,9 @@ def obstacle(x, y, yaw=0.0, name='장애물'):
 
 
 def default_obstacles():
-    """기둥(정면 0.5m) 양옆 앞쪽에 벽판 2개 — 가운데 틈으로 기둥이 보이고, 옆으로 옮기면 숨음"""
-    return [obstacle(0.35, 0.11, name='장애물 1'), obstacle(0.35, -0.11, name='장애물 2')]
+    """기둥(정면 0.5m) 뒤쪽 양옆(0.7m)에 벽판 2개 — 처음엔 기둥·배경이 다 보이고, 기둥을 벽 뒤로 밀면 숨음.
+    (카메라 가까이 두면 0.35m에서 벽판 하나가 화면 절반을 가려 배경이 거의 안 보였음)"""
+    return [obstacle(0.70, 0.18, name='장애물 1'), obstacle(0.70, -0.18, name='장애물 2')]
 
 
 def grid_panorama(width=2048):
@@ -149,19 +198,22 @@ class Environment:
 
 
 def draw_box(frame, box, r_wc, t_wc):
-    verts_w, r_box = box.corners()
+    verts_w, faces, _ = box.geometry()
     verts = (verts_w - t_wc) @ r_wc   # world → 카메라 광학 프레임
     if np.any(verts[:, 2] <= 0.01):  # 카메라 뒤·바로 앞이면 안 그림
         return
     px = np.stack([FX * verts[:, 0] / verts[:, 2] + CX, FY * verts[:, 1] / verts[:, 2] + CY], axis=1)
+    # 카메라를 등진 면은 안 그림 (볼록이라 한 물체 안에서는 면 순서 불필요)
+    visible = [(n_w, idx) for n_w, idx in faces if (n_w @ r_wc) @ verts[idx].mean(axis=0) < 0]
+    if not visible:
+        return
     h, s_, v_max = box.hsv
-    for normal, idx in _FACES:
-        n_w = r_box @ np.array(normal, float)
-        if (n_w @ r_wc) @ verts[list(idx)].mean(axis=0) >= 0:   # 카메라를 등진 면 (볼록 상자라 면 순서 불필요)
-            continue
-        v = int(v_max * (DARK_RATIO + (1 - DARK_RATIO) * max(0.0, n_w @ TO_LIGHT)))
-        bgr = cv2.cvtColor(np.uint8([[[h, s_, v]]]), cv2.COLOR_HSV2BGR)[0, 0].tolist()
-        cv2.fillConvexPoly(frame, np.round(px[list(idx)]).astype(np.int32), bgr, cv2.LINE_AA)
+    lit = np.array([max(0.0, n_w @ TO_LIGHT) for n_w, _ in visible])
+    v = (v_max * (DARK_RATIO + (1 - DARK_RATIO) * lit)).astype(np.uint8)
+    hsv = np.stack([np.full_like(v, h), np.full_like(v, s_), v], axis=1)[:, None, :]
+    colors = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)[:, 0, :].tolist()   # 면 색을 한 번에 변환
+    for (_, idx), bgr in zip(visible, colors):
+        cv2.fillConvexPoly(frame, np.round(px[idx]).astype(np.int32), bgr, cv2.LINE_AA)
 
 
 def render(env, robot, boxes):
@@ -238,14 +290,21 @@ def demo():
     b, g, r = env.view(robot.camera()[:3, :3])[int(CY) - 60, int(CX)]
     assert r > 150 and b < 100, (b, g, r)
     assert len(robot.boxes()) == 6
+    # 모양: 원기둥·구도 정면 0.5m에서 검출 범위 색으로 보이고, 구는 원(채움비 ≈ π/4)
+    for shape in ('cylinder', 'sphere'):
+        xs, ys = blob(render(env, robot, [Box(shape=shape, size=(0.04, 0.04, 0.04))]))
+        assert len(xs) > 300 and abs(xs.mean() - CX) < 3, (shape, len(xs))
+        fill = len(xs) / ((xs.max() - xs.min() + 1) * (ys.max() - ys.min() + 1))
+        if shape == 'sphere':
+            assert 0.72 < fill < 0.85, fill
     robot.set(0, 0)                       # 색 바꾸면 검출 범위 밖 (빨강) → 안 잡힘
     assert len(blob(render(env, robot, [Box(hsv=(0, 250, 200))]))[0]) == 0
     # 기둥 앞에 벽판을 두면 가려짐 (먼저 리스트에 있어도 거리순으로 그림)
     assert len(blob(render(env, robot, [obstacle(0.3, 0.0), pillar()]))[0]) == 0
     assert len(blob(render(env, robot, [pillar(), obstacle(0.7, 0.0)]))[0]) > 500   # 뒤에 있으면 안 가림
-    # 기본 배치: 벽판 틈으로 기둥이 보이고, 옆(벽 뒤)으로 옮기면 숨음
+    # 기본 배치: 처음엔 기둥이 보이고, 벽판 뒤(0.85m, 좌 0.18m)로 밀면 숨음
     assert len(blob(render(env, robot, [pillar()] + default_obstacles()))[0]) > 500
-    assert len(blob(render(env, robot, [Box(x=0.5, y=0.12)] + default_obstacles()))[0]) == 0
+    assert len(blob(render(env, robot, [Box(x=0.85, y=0.18)] + default_obstacles()))[0]) == 0
     uv, depth = Observer().project([[0, 0, 0]])
     assert depth[0] > 0
     print('scene OK')

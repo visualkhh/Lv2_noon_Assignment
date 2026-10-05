@@ -13,8 +13,8 @@
 |---|---|
 | 범위 | 모듈 ⑤ · 32~36강 · 20시간 |
 | 과제 구성 | 5문제 · 성취도 41~45 |
-| 기본 환경 | 라즈베리파이 Ubuntu Server 26.04 · ROS2 Humble · OpenCV · SSH |
-| 기본 장비 | USB 카메라 · OpenCR · 다이나믹셀 · 전원 · 고정 브래킷 |
+| 기본 환경 | 라즈베리파이 Ubuntu Server 26.04 · ROS2 **Lyrical** · OpenCV · SSH (과제 안내는 Humble로 표기 — Humble은 Ubuntu 22.04 전용이라 26.04에서는 Lyrical 사용) |
+| 기본 장비 | USB 카메라(RealSense D435) · OpenCR · 다이나믹셀 XM430 ×2 · 전원 · 고정 브래킷 |
 | 기본 구현 | 단일 색상 목표 1개 · 수평 1축 추적 · 소실·복귀 · 기록·재현 |
 | 제출 위치 | `lv2_module5/` (README.md · report.md · team.md · presentation.md) |
 | 제출 태그 | `lv2-module5-submit` |
@@ -41,7 +41,10 @@
 | 문제 4 | 성능 측정과 목표 소실 복구 | 4시간 | 소실·통신 끊김 정지와 복귀, 성능 측정 |
 | 문제 5 | bag 재현과 팀 협업 | 4시간 | bag 재현, 다른 팀원 실행 확인, 보고서·시연·제출 |
 
-## 저장소 구조 (예정)
+> ⚠️ TODO(팀장): 제출 저장소는 **SpartaPA 조직의 `Lv2_팀명_과제`** 여야 합니다 (현재 개인 계정 `visualkhh/Lv2_noon_Assignment`).
+> 각 팀원 GitHub ID를 위 표에 추가합니다.
+
+## 저장소 구조
 
 ```
 Lv2_noon_Assignment/
@@ -53,7 +56,8 @@ Lv2_noon_Assignment/
     ├── report.md           # 최종 보고서
     ├── team.md             # 역할·Issue·PR·리뷰 기록
     ├── presentation.md     # 5분 시연 순서와 핵심 결과
-    ├── src/                # ROS2 패키지 (인지·제어 노드)
+    ├── test-checklist.md   # 필수 시험·제출 체크리스트
+    ├── ros2_ws/src/        # ROS2 패키지 (realsense 인지 · dynamixel 제어 · bringup · fake_camera_bringup)
     ├── firmware/           # OpenCR 펌웨어
     ├── config/             # HSV·면적·해상도·Kp·제한값 설정
     ├── results/            # 원본 CSV·이미지·그래프·시험 결과표
