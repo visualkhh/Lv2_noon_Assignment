@@ -6,6 +6,7 @@
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
+#include "std_msgs/msg/string.hpp"
 
 namespace dynamixel {
 
@@ -31,6 +32,7 @@ class DynamixelMoveNode : public rclcpp::Node {
   double max_tilt_command_;
   rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr target_sub_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr motor_pub_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr tracking_status_pub_;
   rclcpp::TimerBase::SharedPtr timeout_timer_;
 };
 

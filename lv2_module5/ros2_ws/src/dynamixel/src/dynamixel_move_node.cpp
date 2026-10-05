@@ -27,12 +27,17 @@ DynamixelMoveNode::DynamixelMoveNode(const rclcpp::NodeOptions & options)
 
   auto target_qos = rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile();
   auto motor_qos = rclcpp::QoS(rclcpp::KeepLast(1)).reliable().durability_volatile();
+  auto status_qos = rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local();
   motor_pub_ = create_publisher<sensor_msgs::msg::JointState>("/motor_cmd", motor_qos);
+  tracking_status_pub_ = create_publisher<std_msgs::msg::String>("/tracking_status", status_qos);
   target_sub_ = create_subscription<geometry_msgs::msg::PointStamped>(
       "/target", target_qos,
       [this](geometry_msgs::msg::PointStamped::SharedPtr msg) { on_target(msg); });
   timeout_timer_ = create_wall_timer(std::chrono::milliseconds(50),
                                      [this]() { check_timeout(); });
+  std_msgs::msg::String initial_status;        
+  initial_status.data = "IDLE";
+  tracking_status_pub_->publish(initial_status);                         
   RCLCPP_INFO(get_logger(), "IDLE; waiting for first valid target");
 }
 
@@ -42,6 +47,9 @@ void DynamixelMoveNode::transition(State next) {
   RCLCPP_INFO(get_logger(), "FSM %s -> %s", names[static_cast<int>(state_)],
               names[static_cast<int>(next)]);
   state_ = next;
+  std_msgs::msg::String status;
+  status.data = names[static_cast<int>(state_)];
+  tracking_status_pub_->publish(status);
 }
 
 void DynamixelMoveNode::check_timeout() {
