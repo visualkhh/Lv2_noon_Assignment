@@ -15,13 +15,15 @@ DynamixelMoveNode::DynamixelMoveNode(const rclcpp::NodeOptions & options)
   tilt_gain_ = declare_parameter<double>("tilt_gain", 0.1);
   max_pan_command_ = declare_parameter<double>("max_pan_command", 0.0872665);
   max_tilt_command_ = declare_parameter<double>("max_tilt_command", 0.0872665);
+  status_publish_period_ = declare_parameter<double>("status_publish_period", 1.0);
   if (!std::isfinite(lost_timeout_) || lost_timeout_ <= 0.0 ||
       !std::isfinite(horizontal_deadband_) || horizontal_deadband_ < 0.0 ||
       horizontal_deadband_ >= 1.0 || !std::isfinite(vertical_deadband_) ||
       vertical_deadband_ < 0.0 || vertical_deadband_ >= 1.0 ||
       !std::isfinite(pan_gain_) || !std::isfinite(tilt_gain_) ||
       !std::isfinite(max_pan_command_) || max_pan_command_ <= 0.0 ||
-      !std::isfinite(max_tilt_command_) || max_tilt_command_ <= 0.0) {
+      !std::isfinite(max_tilt_command_) || max_tilt_command_ <= 0.0 ||
+      !std::isfinite(status_publish_period_) || status_publish_period_ <= 0.0) {
     throw std::invalid_argument("invalid tracking parameters");
   }
 
@@ -35,9 +37,11 @@ DynamixelMoveNode::DynamixelMoveNode(const rclcpp::NodeOptions & options)
       [this](geometry_msgs::msg::PointStamped::SharedPtr msg) { on_target(msg); });
   timeout_timer_ = create_wall_timer(std::chrono::milliseconds(50),
                                      [this]() { check_timeout(); });
-  std_msgs::msg::String initial_status;        
-  initial_status.data = "IDLE";
-  tracking_status_pub_->publish(initial_status);                         
+  const auto status_period = std::chrono::duration_cast<std::chrono::milliseconds>(
+      std::chrono::duration<double>(status_publish_period_));
+  status_timer_ = create_wall_timer(std::max(status_period, std::chrono::milliseconds(1)),
+                                    [this]() { publish_status(); });
+  publish_status();
   RCLCPP_INFO(get_logger(), "IDLE; waiting for first valid target");
 }
 
@@ -47,6 +51,11 @@ void DynamixelMoveNode::transition(State next) {
   RCLCPP_INFO(get_logger(), "FSM %s -> %s", names[static_cast<int>(state_)],
               names[static_cast<int>(next)]);
   state_ = next;
+  publish_status();
+}
+
+void DynamixelMoveNode::publish_status() {
+  const char * names[] = {"IDLE", "TRACKING", "LOST"};
   std_msgs::msg::String status;
   status.data = names[static_cast<int>(state_)];
   tracking_status_pub_->publish(status);

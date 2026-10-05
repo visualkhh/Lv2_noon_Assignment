@@ -7,7 +7,8 @@ dynamixel_move_node:
     tilt_gain: 0.06
     max_pan_command: 0.0872665
     max_tilt_command: 0.0872665
+    status_publish_period: 1.0
 dynamixel_controller:
   ros__parameters:
-    serial_port: /dev/ttyACM0
+    serial_port: /dev/opencr
     baud_rate: 115200

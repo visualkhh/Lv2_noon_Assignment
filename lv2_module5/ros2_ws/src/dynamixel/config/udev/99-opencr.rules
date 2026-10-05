@@ -1,0 +1,2 @@
+# Replace xxxx and yyyy with the ID_VENDOR_ID and ID_MODEL_ID reported by udevadm.
+SUBSYSTEM=="tty", ATTRS{idVendor}=="xxxx", ATTRS{idProduct}=="yyyy", GROUP="dialout", MODE="0660", SYMLINK+="opencr"

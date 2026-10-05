@@ -20,6 +20,7 @@ class DynamixelMoveNode : public rclcpp::Node {
   void on_target(const geometry_msgs::msg::PointStamped::SharedPtr msg);
   void check_timeout();
   void transition(State next);
+  void publish_status();
 
   State state_{State::IDLE};
   std::optional<SteadyTime> last_valid_;
@@ -30,10 +31,12 @@ class DynamixelMoveNode : public rclcpp::Node {
   double tilt_gain_;
   double max_pan_command_;
   double max_tilt_command_;
+  double status_publish_period_;
   rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr target_sub_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr motor_pub_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr tracking_status_pub_;
   rclcpp::TimerBase::SharedPtr timeout_timer_;
+  rclcpp::TimerBase::SharedPtr status_timer_;
 };
 
 }  // namespace dynamixel
