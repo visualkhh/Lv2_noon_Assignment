@@ -1,6 +1,7 @@
 """테스트베드 실행: bringup(인지+제어, 실카메라 없이) + 더미 카메라 + 모니터 매니저.
 
-더미 카메라는 realsense2_camera와 같은 namespace/name(camera/camera)으로 띄워
+더미 카메라는 통제실(run-controller.py) 가상 카메라 장면(live_image)을 계속 발행한다.
+realsense2_camera와 같은 namespace/name(camera/camera)으로 띄워
 /camera/camera/color/image_raw · camera_info 토픽 이름을 그대로 맞춘다.
 모터 명령은 dynamixel.yaml의 /dev/ttyACM0로 나가고, 테스트베드 컨테이너에선
 entrypoint가 /dev/ttyACM0 → 가상 시리얼(/dev/ttyV0)로 연결해 debug/serial-out에 쌓인다.
@@ -8,7 +9,7 @@ entrypoint가 /dev/ttyACM0 → 가상 시리얼(/dev/ttyV0)로 연결해 debug/s
 
 예시:
   ros2 launch fake_camera_bringup fake_camera_bringup.launch.py
-  ros2 launch fake_camera_bringup fake_camera_bringup.launch.py image_dir:=/ws/debug/other period_s:=1.0
+  ros2 launch fake_camera_bringup fake_camera_bringup.launch.py period_s:=0.1
 """
 
 from launch import LaunchDescription
@@ -22,11 +23,11 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
-            'image_dir', default_value='/ws/debug/input-images',
-            description='숫자 이름 이미지 폴더 (1.png, 2.png ...)'),
+            'live_image', default_value='/ws/debug/input-live/frame.png',
+            description='계속 발행할 장면 (통제실 가상 카메라가 갱신)'),
         DeclareLaunchArgument(
-            'period_s', default_value='0.1',
-            description='이미지 1장 발행 간격 [s]. target_timeout(0.5s)보다 짧아야 TRACKING 유지'),
+            'period_s', default_value='0.033',
+            description='프레임 발행 간격 [s] (기본 30fps). target_timeout(0.5s)보다 짧아야 TRACKING 유지'),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(PathJoinSubstitution(
@@ -39,8 +40,8 @@ def generate_launch_description():
             namespace='camera',
             name='camera',
             parameters=[{
-                'image_dir': LaunchConfiguration('image_dir'),
                 'period_s': LaunchConfiguration('period_s'),
+                'live_image': LaunchConfiguration('live_image'),
             }],
             output='screen'),
 

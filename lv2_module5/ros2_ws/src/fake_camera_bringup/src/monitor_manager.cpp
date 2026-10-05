@@ -1,11 +1,12 @@
 // 모니터 매니저: 떠 있는 토픽을 파일로 떨궈 호스트(run-controller.py)에서 보게 한다.
-// 2초마다 그래프를 훑어 새 토픽을 자동 구독 (토픽·타입을 코드에 적지 않음 → 추가돼도 재빌드 불필요).
+// 0.5초마다 그래프를 훑어 새 토픽을 자동 구독 (토픽·타입을 코드에 적지 않음 → 추가돼도 재빌드 불필요).
 //   <out_dir>/<토픽명>/message    마지막 메시지 JSON {"type": "...", "data": {...}} (덮어씀)
 //   <out_dir>/<토픽명>/image.jpg  Image / CompressedImage 토픽이면 마지막 영상 (덮어씀)
 //   예) /target → /ws/debug/topic/target/message
 //       /perception_node/mask/compressed → /ws/debug/topic/perception_node/mask/compressed/image.jpg
 // test-logger의 echo·info와 같은 폴더. 갱신 시각은 파일 mtime으로 본다.
-// 토픽별로 period_s에 한 번만 저장 (실카메라 30fps·motor_cmd 30Hz를 그대로 쓰면 디스크만 바쁨).
+// message는 메시지마다 덮어씀 (통제실 모터 패널이 변화량 명령을 하나하나 누적함).
+// image.jpg는 토픽별로 period_s에 한 번만 (실카메라 30fps 영상을 다 쓰면 디스크만 바쁨).
 //
 // 메시지 → JSON: rosx_introspection(PlotJuggler가 쓰는 라이브러리)이 .msg 정의로 런타임 파싱.
 //   타입 없이 바이트로 받는 GenericSubscription + Parser::deserializeIntoJson.
@@ -35,7 +36,8 @@ public:
   : rclcpp::Node("monitor_manager") {
     out_dir_ = declare_parameter<std::string>("out_dir", "/ws/debug/topic");
     period_ = declare_parameter<double>("period_s", 0.2);
-    scan_timer_ = create_wall_timer(std::chrono::seconds(2), [this]() { scan(); });
+    // 0.5초: 첫 모터 명령(시작 후 ~0.7초)보다 먼저 구독해야 변화량 누적에서 앞부분을 안 놓침
+    scan_timer_ = create_wall_timer(std::chrono::milliseconds(500), [this]() { scan(); });
     scan();
   }
 
@@ -70,9 +72,6 @@ private:
     }
     subs_.push_back(create_generic_subscription(topic, type, qos(),
       [this, topic, type, parser](std::shared_ptr<const rclcpp::SerializedMessage> msg) {
-        if (!due(topic + "#message")) {
-          return;
-        }
         const auto & raw = msg->get_rcl_serialized_message();
         RosMsgParser::NanoCDR_Deserializer deserializer;
         std::string data;

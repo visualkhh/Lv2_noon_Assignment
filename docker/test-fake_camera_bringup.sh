@@ -1,16 +1,16 @@
 #!/bin/bash
 # bring-up 검사 (컨테이너 안에서 실행): test-fake_camera_bringup
 #   1. colcon 빌드
-#   2. fake_camera_bringup launch = bringup(인지+제어) + 더미 카메라(/ws/debug/input-images → 영상 토픽)
-#   3. 더미 영상 → perception → /target → dynamixel → 가상 시리얼까지 왔으면 PASS
-#      (/target 수신 + serial-out에 모터 명령이 쓰였는지 — 형식은 안 봄. 제어 프로토콜이 바뀌어도 안 깨지게)
+#   2. fake_camera_bringup launch = bringup(인지+제어) + 더미 카메라(통제실 가상 카메라 장면 → 영상 토픽)
+#   3. 영상 → perception → /target 까지 오면 PASS. 모터 명령(serial-out)은 참고로만
+#      (장면은 사람이 정함 → 기둥이 가운데(데드밴드 안)면 dynamixel이 명령을 안 보내는 게 정상)
+#   통제실(docker/test-controller/run-controller.py)이 debug/input-live/frame.png를 그려 줘야 영상이 나옴.
 #   test-fake_camera_bringup [초] [간격]
-#     초:   /target 첫 수신 후 더 돌릴 시간 (기본 2초, 0이면 Ctrl+C까지)
-#     간격: 더미 카메라 이미지 발행 간격 period_s [s] (생략하면 launch 기본 0.1)
-#           0.5초(target_timeout)보다 길면 매 장면 LOST → 모터 명령 항상 0
-#   /target 첫 수신 후 [초]만큼 더 돌리고 종료 → 그다음 판정. 통제실(run-controller.py)로 볼 땐 0.
+#     초:   /target 첫 수신 후 더 돌릴 시간 (기본 2초, 0이면 Ctrl+C까지 → 끄면 판정)
+#     간격: 프레임 발행 간격 period_s [s] (생략하면 launch 기본 0.033 = 30fps, RealSense처럼)
+#           0.5초(target_timeout)보다 길면 매 프레임 LOST → 모터 명령 항상 0
+#   예) test-fake_camera_bringup 0
 # 실행 중엔 test-logger를 같이 띄워 /ws/debug/topic 에 토픽 echo를 기록한다.
-# input-images가 비어 있으면 realsense 테스트 이미지(실제 기둥 장면)를 1.png… 로 채움.
 # NOTE: set -u 사용 금지 — setup.bash가 미설정 변수를 참조해서 죽음.
 # shellcheck disable=SC1091
 source /opt/ros/lyrical/setup.bash
@@ -25,25 +25,16 @@ source install/setup.bash
 stty -F /dev/ttyV0 raw -echo 2>/dev/null
 stty -F /dev/ttyV1 raw -echo 2>/dev/null
 
-IMG_DIR=/ws/debug/input-images
-mkdir -p "$IMG_DIR"
-if [ -z "$(ls -A "$IMG_DIR")" ]; then
-  i=1
-  for f in /ws/src/realsense/test/data/*.png; do
-    cp "$f" "$IMG_DIR/$i.png"
-    i=$((i + 1))
-  done
-  echo "input-images 비어 있음 → realsense 테스트 이미지 $((i - 1))장으로 채움"
-fi
-
 # 이전 실행의 고아 노드가 있으면 DDS 그래프가 꼬이니 먼저 정리
 pkill -f 'lib/(fake_camera_bringup|realsense|realsense2_camera|dynamixel)/' 2>/dev/null || true
 : > /ws/debug/serial-out
 
 DUR=${1:-2}
-PERIOD_ARG=()
-[ -n "$2" ] && PERIOD_ARG=("period_s:=$2")
-ros2 launch fake_camera_bringup fake_camera_bringup.launch.py "${PERIOD_ARG[@]}" & LAUNCH_PID=$!
+LAUNCH_ARGS=()
+[ -n "$2" ] && LAUNCH_ARGS+=("period_s:=$2")
+[ -e /ws/debug/input-live/frame.png ] \
+  || echo "참고: /ws/debug/input-live/frame.png 없음 — 통제실(run-controller.py)을 켜야 영상이 나옴"
+ros2 launch fake_camera_bringup fake_camera_bringup.launch.py "${LAUNCH_ARGS[@]}" & LAUNCH_PID=$!
 # 띄워 둔 동안 토픽 기록 → 호스트 lv2_module5/debug/topic 에서 확인 (통제실 토픽 패널)
 test-logger 0 > /tmp/test-logger.log 2>&1 & LOGGER_PID=$!
 # 타입을 명시해야 /target이 아직 안 생겼을 때 바로 끝나지 않고 생길 때까지 기다림
@@ -70,7 +61,7 @@ pkill -f 'lib/(fake_camera_bringup|realsense|realsense2_camera|dynamixel)/' 2>/d
 echo "--- /target ---"
 echo "$TARGET"
 [ -s /ws/debug/serial-out ] \
-  || { echo "FAIL: serial-out에 모터 명령 없음 (dynamixel → serial 끊김)"; exit 1; }
+  || echo "참고: serial-out 비어 있음 — 기둥이 화면 가운데면 정상 (통제실에서 기둥을 옆으로 옮겨 보세요)"
 echo "--- serial-out (마지막 5줄) ---"
 tail -n 5 /ws/debug/serial-out
 echo "토픽 기록: /ws/debug/topic (호스트 lv2_module5/debug/topic)"

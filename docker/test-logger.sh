@@ -13,8 +13,10 @@ source /opt/ros/lyrical/setup.bash
 
 DUR=${1:-10}
 OUT=/ws/debug/topic
-rm -rf "$OUT"
+# 자기 파일(echo·info·nodes·topics)만 지움 — 폴더째 지우면 monitor_manager의 message·image.jpg까지 사라짐
 mkdir -p "$OUT"
+find "$OUT" -type f \( -name echo -o -name info \) -delete
+rm -f "$OUT/nodes" "$OUT/topics"
 
 # /parameter_events·/rosout은 노드만 있으면 항상 있으니 제외
 user_topics() {
@@ -39,8 +41,9 @@ while [ "$STOP" = 0 ]; do
     dir="$OUT/${topic#/}"
     mkdir -p "$dir"
     ros2 topic info -v "$topic" > "$dir/info" 2>&1
-    # --no-arr: 영상 픽셀 배열 등은 길이만 (안 그러면 echo 파일이 초당 MB 단위로 커짐)
-    ros2 topic echo --no-arr "$topic" >> "$dir/echo" 2>&1 &
+    # --truncate-length: 긴 배열(영상 픽셀)·문자열은 앞 16개만 → echo 파일이 초당 MB로 안 커짐.
+    # --no-arr는 짧은 배열(JointState position 등)까지 지워서 echo에서 값이 안 보임
+    ros2 topic echo --truncate-length 16 "$topic" >> "$dir/echo" 2>&1 &
     ECHO_PIDS[$topic]=$!
     echo "+ $topic"
   done

@@ -1,18 +1,15 @@
-// 더미 카메라: realsense2_camera 대신 이미지 파일을 영상 토픽으로 발행 (실기 카메라 없이 인지·제어 검증용)
-// image_dir 안의 숫자 이름 이미지(1.png, 3.png, 5.jpg ...)를 숫자 순서대로 period_s(기본 0.1s)마다 1장씩 발행.
-// period_s는 dynamixel target_timeout(0.5s)보다 짧아야 함 — 길면 장면마다 LOST로 떨어져 모터 명령이 항상 0.
-// 마지막 장 다음은 처음으로 돌아가고, 매 장마다 폴더를 다시 읽어 실행 중 추가된 파일도 반영한다.
+// 더미 카메라: realsense2_camera 대신 통제실 가상 카메라 장면을 영상 토픽으로 발행 (실기 카메라 없이 인지·제어 검증용)
+// live_image(기본 /ws/debug/input-live/frame.png) 한 장을 period_s(기본 0.033s = 30fps)마다 계속 발행.
+//   파일이 바뀌면(mtime) 다음 프레임부터 새 장면 — 통제실(run-controller.py) 3D 시뮬레이션이 이 파일을 갱신.
+//   장면이 그대로여도 계속 보냄 (실카메라처럼). 안 보내면 0.5초 뒤 dynamixel이 LOST로 떨어짐.
 // 토픽·QoS·encoding은 realsense2_camera 기본값과 맞춤 (launch에서 namespace=camera, name=camera):
 //   /camera/camera/color/image_raw    (rgb8, reliable)
 //   /camera/camera/color/camera_info
-// 지금 발행 중인 이미지는 current_image(기본 /ws/debug/output-images/fake-camera.png)에도 써서
-// 호스트(run-controller.py)에서 어떤 장면이 들어가고 있는지 볼 수 있게 한다.
-#include <algorithm>
+// 실제로 발행한 장면은 current_image(기본 /ws/debug/output-images/fake-camera.png)에도 써서
+// 통제실에서 보낸 장면이 ROS까지 들어갔는지 확인할 수 있게 한다.
 #include <chrono>
 #include <filesystem>
 #include <string>
-#include <utility>
-#include <vector>
 
 #include "cv_bridge/cv_bridge.hpp"
 #include "opencv2/imgcodecs.hpp"
@@ -27,9 +24,9 @@ class FakeCamera : public rclcpp::Node {
 public:
   FakeCamera()
   : rclcpp::Node("camera") {
-    image_dir_ = declare_parameter<std::string>("image_dir", "/ws/debug/input-images");
+    live_image_ = declare_parameter<std::string>("live_image", "/ws/debug/input-live/frame.png");
     frame_id_ = declare_parameter<std::string>("frame_id", "camera_color_optical_frame");
-    const double period = declare_parameter<double>("period_s", 0.1);
+    const double period = declare_parameter<double>("period_s", 0.033);
     current_image_ = declare_parameter<std::string>(
       "current_image", "/ws/debug/output-images/fake-camera.png");
     image_pub_ = create_publisher<sensor_msgs::msg::Image>("~/color/image_raw", 10);
@@ -38,37 +35,33 @@ public:
   }
 
 private:
-  // 이름(확장자 제외)이 숫자인 파일만, 숫자 크기 순
-  std::vector<fs::path> list_images() const {
-    std::vector<std::pair<long, fs::path>> found;
+  // 파일이 바뀌었을 때만 다시 읽고, 아니면 직전 장면 그대로. changed = 새 장면을 읽었는지
+  bool next_frame(cv::Mat & bgr, bool & changed) {
     std::error_code ec;
-    for (const auto & e : fs::directory_iterator(image_dir_, ec)) {
-      const auto stem = e.path().stem().string();
-      if (e.is_regular_file() && !stem.empty() &&
-        std::all_of(stem.begin(), stem.end(), ::isdigit))
-      {
-        found.emplace_back(std::stol(stem), e.path());
+    const auto mtime = fs::last_write_time(live_image_, ec);
+    if (ec) {
+      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
+        "live 이미지 없음: %s (통제실 run-controller.py 실행 중?)", live_image_.c_str());
+      return !frame_.empty();
+    }
+    changed = mtime != mtime_;
+    if (changed) {
+      cv::Mat img = cv::imread(live_image_, cv::IMREAD_COLOR);
+      if (img.empty()) {  // 읽기 실패(교체 순간 등)면 직전 장면 유지
+        changed = false;
+      } else {
+        frame_ = img;
+        mtime_ = mtime;
       }
     }
-    std::sort(found.begin(), found.end());
-    std::vector<fs::path> out;
-    for (auto & f : found) {
-      out.push_back(std::move(f.second));
-    }
-    return out;
+    bgr = frame_;
+    return !bgr.empty();
   }
 
   void tick() {
-    const auto files = list_images();
-    if (files.empty()) {
-      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
-        "이미지 없음: %s (숫자 이름 파일 필요, 예: 1.png)", image_dir_.c_str());
-      return;
-    }
-    const auto & path = files[index_++ % files.size()];
-    cv::Mat bgr = cv::imread(path.string(), cv::IMREAD_COLOR);
-    if (bgr.empty()) {
-      RCLCPP_WARN(get_logger(), "이미지 읽기 실패: %s", path.c_str());
+    cv::Mat bgr;
+    bool changed = false;
+    if (!next_frame(bgr, changed)) {
       return;
     }
     cv::Mat rgb;
@@ -93,8 +86,9 @@ private:
     info.p = {f, 0, cx, 0, 0, f, cy, 0, 0, 0, 1, 0};
     info_pub_->publish(info);
 
-    RCLCPP_INFO(get_logger(), "publish %s (%dx%d)", path.filename().c_str(), rgb.cols, rgb.rows);
-    write_current(bgr);
+    if (changed) {  // 같은 장면을 30fps로 계속 쓰면 디스크만 바쁨
+      write_current(bgr);
+    }
   }
 
   // 임시 파일에 쓰고 rename → 읽는 쪽이 반쯤 쓰인 파일을 보지 않게
@@ -113,10 +107,11 @@ private:
     fs::rename(tmp, out, ec);
   }
 
-  std::string image_dir_;
+  std::string live_image_;
   std::string frame_id_;
   std::string current_image_;
-  size_t index_ = 0;
+  cv::Mat frame_;
+  fs::file_time_type mtime_{};
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr image_pub_;
   rclcpp::Publisher<sensor_msgs::msg::CameraInfo>::SharedPtr info_pub_;
   rclcpp::TimerBase::SharedPtr timer_;

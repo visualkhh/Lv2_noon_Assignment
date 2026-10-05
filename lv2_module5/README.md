@@ -74,12 +74,13 @@ source install/setup.bash
 # 실기 (카메라·OpenCR 연결): 인지(realsense) + 제어(dynamixel) 전부
 ros2 launch bringup bringup.launch.py              # use_camera:=false / use_motor:=false 로 끌 수 있음
 
-# 테스트베드 (컨테이너, 실기 없이): bringup(use_camera:=false) + 더미 카메라
-ros2 launch fake_camera_bringup fake_camera_bringup.launch.py    # image_dir:=… period_s:=…
+# 테스트베드 (컨테이너, 실기 없이): bringup(use_camera:=false) + 더미 카메라 + monitor_manager
+ros2 launch fake_camera_bringup fake_camera_bringup.launch.py    # period_s:=… (기본 0.033 = 30fps)
 ```
 
-더미 카메라(`fake_camera`)는 `/ws/debug/input-images`의 숫자 이름 이미지(1.png, 3.png …)를
-숫자 순서대로 0.1초에 1장 `/camera/camera/color/image_raw`·`camera_info`로 발행 (realsense2_camera와 같은 토픽).
+더미 카메라(`fake_camera`)는 통제실 3D 시뮬레이션이 그린 `/ws/debug/input-live/frame.png`를
+30fps로 `/camera/camera/color/image_raw`·`camera_info`로 발행 (realsense2_camera와 같은 토픽).
+실제로 발행한 장면은 `debug/output-images/fake-camera.png`에도 저장 → 통제실 화면과 같으면 정상.
 모터 명령은 `dynamixel.yaml`의 `/dev/ttyACM0`로 나가고, 컨테이너에선 이게 가상 시리얼로 연결돼
 호스트 `lv2_module5/debug/serial-out`에 쌓임.
 같이 뜨는 `monitor_manager`는 이미지 토픽(카메라·마스크·debug_image)을 자동으로 찾아
@@ -87,7 +88,7 @@ ros2 launch fake_camera_bringup fake_camera_bringup.launch.py    # image_dir:=�
 모든 토픽의 마지막 메시지는 JSON `{"type", "data"}`로 `debug/topic/<토픽>/message`에 덮어씀 (rosx_introspection으로 런타임 파싱 →
 토픽이 늘어도 재빌드 불필요, 긴 배열은 제외) → 통제실 status 패널.
 
-> `period_s`는 0.5초(`target_timeout`)보다 짧게. 1초처럼 길면 장면마다 `/target` 타임아웃으로
+> `period_s`는 0.5초(`target_timeout`)보다 짧게. 길면 프레임마다 `/target` 타임아웃으로
 > LOST로 떨어져 모터 명령이 계속 0 (TRACKING 상태에서만 움직임 명령이 나옴).
 
 ### 중앙통제실 (호스트 Mac)
@@ -98,7 +99,16 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # 최초 1�
 .venv/bin/python run-controller.py
 ```
 
-웹캠 + 캡처 버튼(→ input-images), serial-out 실시간, 토픽 버튼 → echo 실시간.
+**3D 시뮬레이션 (닫힌 루프)**: 기구 URDF(`docker/test-controller/pan_tilt.urdf`, pytransform3d로 TF 계산) +
+360° 배경(`images/background/pano_*.jpg`, Poly Haven CC0) + 월드에 놓인 파란 기둥.
+관절각 = serial-out `M,Δpan,Δtilt` 누적(펌웨어와 같은 계산) → 그 카메라 시점으로 렌더 → `debug/input-live/frame.png`
+→ fake_camera(live) → perception → dynamixel → serial → 관절각… 기둥을 옮기면 카메라가 따라 돌아 가운데로 맞춘다.
+컨테이너에서 `test-fake_camera_bringup 0` (기본 30fps). 통제실은 하나만 실행됨(잠금).
+world 뷰: 클릭 = 상자 선택(노랑) · 드래그 = 이동 · Shift+드래그 = 높이 · Option(Alt)+드래그 = 회전 · 오른쪽/Ctrl 드래그 = 시점 · 휠 = 줌
+(회전은 슬라이더로도, [색]으로 선택한 상자 색 변경 — perception HSV 범위 안인지 표시).
+장애물(회색 벽판) 기본 2개 + [장애물 추가]/[선택 삭제]. 기둥을 벽 뒤에 숨기면 미검출(z=0) → LOST, 다시 나오면 TRACKING.
+그 밖에 status·모터 다이얼·serial-out·이미지·토픽 echo 실시간.
+URDF 치수는 사진 기준 추정값 — 실측하면 origin·size 숫자만 바꾸면 됨.
 컨테이너에서 띄우기·기록을 따로 켜 둠:
 ```bash
 docker compose exec lyrical test-fake_camera_bringup 0   # 터미널 1: 띄우기 (Ctrl+C까지)
@@ -146,9 +156,9 @@ cd lv2_module5/firmware
 >
 > 검사 한 방 (컨테이너 안):
 > ```bash
-> test-all        # 전체 (firmware→serial→bringup→fake_camera_bringup+logger) → ALL PASS면 push
-> test-bringup    # 빌드 + 실기 bringup launch → 노드 4개 전부 뜨면 PASS
-> test-fake_camera_bringup [초] [간격]  # 빌드 + 더미카메라→perception→/target→dynamixel→시리얼 → PASS면 정상 (간격 기본 0.1s)
+> test-all        # 전체 (serial→firmware→bringup) → ALL PASS면 push. fake_camera_bringup은 따로
+> test-bringup    # 빌드 + 실기 bringup launch → 노드 4개 + logger 기록 확인되면 PASS
+> test-fake_camera_bringup [초] [간격]  # 빌드 + 가상 카메라→perception→/target → PASS (통제실 필요, 간격 기본 0.033s)
 > test-firmware   # FQBN 유효 + 전 스케치 컴파일 → PASS면 정상
 > test-serial     # 가상 시리얼 왕복 → PASS면 정상
 > test-logger [초]  # 떠 있는 토픽 덤프만 (launch 안 함) → debug/topic/{토픽}/echo·info
