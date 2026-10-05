@@ -1,0 +1,6 @@
+# bag 원본·압축본은 Git에 올리지 않음 (링크+체크섬만 관리)
+*
+!.gitignore
+!README.md
+!SHA256SUMS
+!pack_bag.sh
