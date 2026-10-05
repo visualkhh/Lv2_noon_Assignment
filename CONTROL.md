@@ -144,4 +144,4 @@ python3 ~/test_ws/profiles/profile_tool.py generate real            # 설정 생
 
 - `start_real.sh`는 필요한 항목이 비어 있거나 장치 확인이 실패하면 실행하지 않습니다.
 - 펌웨어: `out/real/opencr_pan_tilt/`를 노트북으로 복사해 Arduino IDE로 업로드합니다 (OpenCR 보드 패키지는 x86 전용). 팀 저장소의 `config.h`는 바뀌지 않습니다.
-- `direction`은 실제 장착에서 목표가 오른쪽일 때 오차가 줄어드는 쪽으로 확인한 뒤 넣습니다.
+- `direction`은 실제 장착에서 목표가 오른쪽일 때 오차가 줄어드는 쪽으로 확인한 뒤 넣
