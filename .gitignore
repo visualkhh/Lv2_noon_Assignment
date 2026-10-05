@@ -10,4 +10,9 @@ build/
 **/ros2_ws/build/
 **/cmake-build-debug/
 
-.venv/
+.venv/.vscode/browse.vc.db*
+.vscode/ipch/
+
+# VS Code C/C++ IntelliSense DB
+.vscode/browse.vc.db*
+.vscode/ipch/
