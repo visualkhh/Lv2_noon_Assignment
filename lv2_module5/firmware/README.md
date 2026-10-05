@@ -27,7 +27,7 @@ ROBOTIS는 OpenCR 보드 매니저가 Raspberry Pi 같은 ARM SBC의 Arduino IDE
 
 2. **Boards Manager**에서 **OpenCR by ROBOTIS**를 설치하고 **Tools → Board → OpenCR Board**를 선택한다.
 3. **Library Manager**에서 **Dynamixel2Arduino**를 설치한다.
-4. `opencr_pan_tilt/opencr_pan_tilt.ino`를 열고 상단의 `PAN_ID=11`, `TILT_ID=12`, `DXL_BAUD=1000000`을 확인한다.
+4. `opencr_pan_tilt/opencr_pan_tilt.ino`를 열고 같은 디렉터리의 `config.h`에서 `PAN_ID=11`, `TILT_ID=12`, `DXL_BAUD=1000000`을 확인한다.
 5. **Tools → Port**에서 OpenCR의 USB 포트를 고른다. Linux에서는 보통 `/dev/ttyACM0`이지만 연결 환경에 따라 번호가 달라진다.
 6. Arduino IDE의 **Verify**로 컴파일한 다음 **Upload**한다. 업로드 중 Pi의 controller나 다른 시리얼 프로그램은 종료한다. 완료되면 OpenCR이 재시작된다.
 
@@ -51,7 +51,7 @@ Linux PC에서 업로드 권한 오류가 나면 ROBOTIS의 OpenCR udev 규칙 �
 
 ## 코드와 제한
 
-| 코드 상수 | 값 | 의미 |
+| `config.h` 상수 | 값 | 의미 |
 | --- | --- | --- |
 | `PAN_ID`, `TILT_ID` | 11, 12 | XM430-W350-T ID |
 | `DXL_DIR_PIN` | 84 | OpenCR DYNAMIXEL 송수신 방향 핀 |
