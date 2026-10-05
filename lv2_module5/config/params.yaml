@@ -1,0 +1,27 @@
+# lv2_module5 설정 파일
+# 실행: ros2 run cognitive_control <노드> --ros-args --params-file config/params.yaml
+
+# ── 문제1: HSV·Contour 검출 ──
+color_detector:
+  ros__parameters:
+    # 카메라 해상도
+    camera_index: 0
+    width: 640
+    height: 480
+    fps: 30
+    # HSV 범위 (OpenCV 기준 H 0~179, S·V 0~255)
+    hsv_lower: [100, 120, 70]
+    hsv_upper: [130, 255, 255]
+    # Contour 면적 필터 (px²)
+    min_area: 500
+    max_area: 150000
+
+# ── 문제3·4: 추적 제어 + 안전 ──
+tracker:
+  ros__parameters:
+    kp: 0.005                 # 중심 오차(px) → 각속도(rad/s) 비례 게인
+    deadband_px: 15           # 오차가 이 이하면 정지
+    max_angular_vel: 1.0      # 회전 속도 제한 (rad/s)
+    max_linear_vel: 0.0       # 추적 중 전진 제한 (0이면 제자리 회전만)
+    target_lost_timeout: 0.5  # 검출이 끊긴 뒤 정지까지 시간 (s)
+    enable_motor: false       # false면 모터 출력 없이 계산만 (재현·테스트용)
