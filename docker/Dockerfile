@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-lyrical-realsense2-camera \
     ros-lyrical-cv-bridge \
     ros-lyrical-image-transport \
-    nlohmann-json3-dev \
+    ros-lyrical-rosx-introspection \
     && rm -rf /var/lib/apt/lists/* \
     && rosdep init 2>/dev/null || true
 

@@ -3,6 +3,7 @@ docker
 
 # docker start
 ```shell
+cd docker
 docker compose build
 docker compose up -d  
 # 또는 한번에 docker compose up -d --build

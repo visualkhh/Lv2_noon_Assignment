@@ -1,6 +1,6 @@
 """테스트베드 중앙통제실 (호스트 Mac에서 실행)
 
-  [웹캠 + 캡처 버튼]          │ [status: debug/message/* 최신값]
+  [웹캠 + 캡처 버튼]          │ [status: 토픽별 message 최신값]
                               │ [serial-out 실시간]
   [이미지 버튼들 → 누른 이미지] │ [토픽 버튼들 → 누른 토픽 echo 실시간]
 
@@ -9,8 +9,8 @@
 - 이미지: debug/output-images/* (fake-camera.png = 지금 발행 중인 장면) +
           debug/topic/<토픽>/image.jpg (monitor_manager가 저장: 카메라·마스크·debug_image)
           버튼으로 골라 보고, 파일이 바뀌면 화면도 갱신
-- status: debug/message/<이름> (monitor_manager가 마지막 메시지를 JSON으로 덮어씀:
-          target·motor_cmd·tracking_status). 몇 초 전 값인지 표시, STALE_S 넘으면 빨강
+- status: debug/topic/<토픽>/message (monitor_manager가 모든 토픽의 마지막 메시지를 JSON으로 덮어씀).
+          {"type", "data"} 중 data를 표시. 몇 초 전 값인지 표시, STALE_S 넘으면 빨강
 - serial-out: 모터 명령 등 가상 시리얼로 나간 값 (debug/serial-out tail)
 - 토픽: debug/topic/<토픽>/echo 파일 tail. 컨테이너에서 `test-logger 0`이 돌고 있어야 계속 쌓임
 컨테이너와는 공유 폴더(lv2_module5/debug)의 파일로만 주고받는다 (호스트에 ROS 불필요).
@@ -22,6 +22,7 @@
 macOS는 처음 실행 시 터미널에 카메라 권한을 허용해야 한다.
 """
 import argparse
+import json
 import time
 import tkinter as tk
 from pathlib import Path
@@ -33,7 +34,6 @@ IMAGE_DIR = DEBUG / 'input-images'
 SERIAL_OUT = DEBUG / 'serial-out'
 TOPIC_DIR = DEBUG / 'topic'
 OUTPUT_DIR = DEBUG / 'output-images'
-MESSAGE_DIR = DEBUG / 'message'
 STALE_S = 2.0            # 이보다 오래 갱신 안 된 상태값은 빨강
 DEFAULT_IMAGE = 'output-images/fake-camera.png'
 TAIL_BYTES = 16 * 1024   # 처음 열 때·한 번에 밀려온 양이 클 때 보여줄 꼬리 크기
@@ -179,8 +179,8 @@ class Controller:
         self.image_names = []
         self.image_selected = None
 
-        # 오른쪽 맨 위: 상태값 (debug/message/* 최신 JSON)
-        status = tk.LabelFrame(right, text=f'status  ({MESSAGE_DIR})')
+        # 오른쪽 맨 위: 상태값 (debug/topic/<토픽>/message 최신 JSON)
+        status = tk.LabelFrame(right, text='status  (debug/topic/<토픽>/message 최신값)')
         status.pack(fill='x')
         self.status_rows = tk.Frame(status)
         self.status_rows.pack(fill='x')
@@ -230,8 +230,8 @@ class Controller:
         self.root.after(300, self.update_images)
 
     def update_status(self):
-        files = sorted(p for p in MESSAGE_DIR.glob('*') if p.is_file() and not p.name.startswith('.'))
-        names = [p.name for p in files]
+        files = sorted(TOPIC_DIR.rglob('message'))
+        names = ['/' + str(p.parent.relative_to(TOPIC_DIR)) for p in files]
         if names != self.status_names:  # 파일이 생기거나 없어지면 줄을 다시 만든다
             self.status_names = names
             for w in self.status_rows.winfo_children():
@@ -246,9 +246,10 @@ class Controller:
         for i, path in enumerate(files):
             try:
                 age = time.time() - path.stat().st_mtime
-                value = path.read_text().strip()
-            except FileNotFoundError:
+                msg = json.loads(path.read_text())
+            except (FileNotFoundError, ValueError):
                 continue
+            value = json.dumps(msg['data'], ensure_ascii=False, separators=(',', ':'))
             color = 'red' if age > STALE_S else '#2e7d32'
             cells[i * 3 + 1].config(text=f'{age:.1f}s', fg=color)
             cells[i * 3 + 2].config(text=value, fg='black' if age <= STALE_S else 'gray')

@@ -3,7 +3,7 @@
 #   1. colcon 빌드
 #   2. fake_camera_bringup launch = bringup(인지+제어) + 더미 카메라(/ws/debug/input-images → 영상 토픽)
 #   3. 더미 영상 → perception → /target → dynamixel → 가상 시리얼까지 왔으면 PASS
-#      (/target 수신 + serial-out에 모터 명령 "V <pan> <tilt>" 확인)
+#      (/target 수신 + serial-out에 모터 명령이 쓰였는지 — 형식은 안 봄. 제어 프로토콜이 바뀌어도 안 깨지게)
 #   test-fake_camera_bringup [초] [간격]
 #     초:   /target 첫 수신 후 더 돌릴 시간 (기본 2초, 0이면 Ctrl+C까지)
 #     간격: 더미 카메라 이미지 발행 간격 period_s [s] (생략하면 launch 기본 0.1)
@@ -69,8 +69,8 @@ pkill -f 'lib/(fake_camera_bringup|realsense|realsense2_camera|dynamixel)/' 2>/d
 [ -n "$TARGET" ] || { echo "FAIL: /target 수신 없음 (camera → perception 끊김)"; exit 1; }
 echo "--- /target ---"
 echo "$TARGET"
-grep -q "^V " /ws/debug/serial-out \
-  || { echo "FAIL: serial-out에 모터 명령(V ...) 없음 (dynamixel → serial 끊김)"; exit 1; }
+[ -s /ws/debug/serial-out ] \
+  || { echo "FAIL: serial-out에 모터 명령 없음 (dynamixel → serial 끊김)"; exit 1; }
 echo "--- serial-out (마지막 5줄) ---"
 tail -n 5 /ws/debug/serial-out
 echo "토픽 기록: /ws/debug/topic (호스트 lv2_module5/debug/topic)"

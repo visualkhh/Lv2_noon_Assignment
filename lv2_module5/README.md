@@ -84,10 +84,11 @@ ros2 launch fake_camera_bringup fake_camera_bringup.launch.py    # image_dir:=�
 호스트 `lv2_module5/debug/serial-out`에 쌓임.
 같이 뜨는 `monitor_manager`는 이미지 토픽(카메라·마스크·debug_image)을 자동으로 찾아
 `debug/topic/<토픽>/image.jpg`로 저장 → 통제실 images 패널.
-`/target`·`/motor_cmd`·`/tracking_status`는 마지막 메시지를 JSON으로 `debug/message/<이름>`에 덮어씀 → 통제실 status 패널.
+모든 토픽의 마지막 메시지는 JSON `{"type", "data"}`로 `debug/topic/<토픽>/message`에 덮어씀 (rosx_introspection으로 런타임 파싱 →
+토픽이 늘어도 재빌드 불필요, 긴 배열은 제외) → 통제실 status 패널.
 
 > `period_s`는 0.5초(`target_timeout`)보다 짧게. 1초처럼 길면 장면마다 `/target` 타임아웃으로
-> LOST로 떨어져 모터 명령이 항상 `V 0 0` (TRACKING 상태에서만 속도가 나옴).
+> LOST로 떨어져 모터 명령이 계속 0 (TRACKING 상태에서만 움직임 명령이 나옴).
 
 ### 중앙통제실 (호스트 Mac)
 

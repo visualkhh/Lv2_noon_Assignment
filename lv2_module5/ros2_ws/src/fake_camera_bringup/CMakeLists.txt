@@ -9,9 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(nlohmann_json 3 REQUIRED)
+find_package(rosx_introspection REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED COMPONENTS core imgcodecs imgproc)
 
@@ -28,9 +26,7 @@ target_compile_features(monitor_manager PUBLIC cxx_std_17)
 target_link_libraries(monitor_manager
   rclcpp::rclcpp
   ${sensor_msgs_TARGETS}
-  ${geometry_msgs_TARGETS}
-  ${std_msgs_TARGETS}
-  nlohmann_json::nlohmann_json
+  rosx_introspection::rosx_introspection
   cv_bridge::cv_bridge
   ${OpenCV_LIBS})
 
