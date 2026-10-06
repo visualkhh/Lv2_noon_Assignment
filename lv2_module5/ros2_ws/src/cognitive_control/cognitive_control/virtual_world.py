@@ -1,14 +1,12 @@
-"""가상 카메라 + 인지: 장비 없이 실기와 같은 토픽을 발행한다.
+"""가상 카메라: 실제 카메라가 없을 때만 /camera/camera/color/image_raw 를 대신 발행한다.
 
 pan/tilt 카메라가 파란 사각 목표가 움직이는 가상 공간을 본다.
-/motor_cmd(관절 변화량)를 누적해 카메라 방향을 바꾸므로 제어 노드와 닫힌 루프가 된다.
+/motor_cmd(관절 변화량)를 누적해 카메라 방향을 바꾸므로 perception·tracker와 닫힌 루프가 된다.
+같은 토픽에 다른 노드(realsense2_camera)가 발행을 시작하면 가상 영상을 멈추고, 사라지면 다시 발행한다.
 
-발행 (실기 노드와 같은 이름·형식)
-  /camera/camera/color/image_raw            sensor_msgs/Image (rgb8)
-  /perception_node/debug_image/compressed   sensor_msgs/CompressedImage (jpeg)
-  /perception_node/mask/compressed          sensor_msgs/CompressedImage (jpeg)
-  /target   geometry_msgs/PointStamped  x,y = 화면 중심 정규화 오차 [-1,1], z = 면적 비율
-            미검출이면 x=y=z=0
+발행
+  /camera/camera/color/image_raw  sensor_msgs/Image (rgb8, frame_id=virtual_camera_optical_frame)
+  /camera_source                  std_msgs/String  "virtual" | "realsense"
 구독
   /motor_cmd  sensor_msgs/JointState  position = [Δpan, Δtilt] rad
 """
@@ -16,15 +14,14 @@ pan/tilt 카메라가 파란 사각 목표가 움직이는 가상 공간을 본�
 import math
 
 import cv2
-from geometry_msgs.msg import PointStamped
 import numpy as np
 import rclpy
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
-from sensor_msgs.msg import CompressedImage, Image, JointState
+from sensor_msgs.msg import Image, JointState
+from std_msgs.msg import String
 
-BLUE_LOW = np.array([100, 120, 60])     # HSV, 실기 perception과 같은 계열의 파란색 범위
-BLUE_HIGH = np.array([130, 255, 255])
+IMAGE_TOPIC = '/camera/camera/color/image_raw'
 
 
 class VirtualWorld(Node):
@@ -42,25 +39,31 @@ class VirtualWorld(Node):
         # hide_period초마다 hide_duration초 동안 목표를 숨겨 LOST 상황을 만든다 (0이면 안 숨김)
         self.hide_period = self.declare_parameter('hide_period', 20.0).value
         self.hide_duration = self.declare_parameter('hide_duration', 3.0).value
-        self.publish_raw = self.declare_parameter('publish_raw', True).value
 
         self.focal = (self.width / 2) / math.tan(hfov / 2)
         self.pan = 0.0
         self.tilt = 0.0
         self.t0 = self.get_clock().now()
+        self.source = 'virtual'
 
-        self.raw_pub = self.create_publisher(Image, '/camera/camera/color/image_raw', 10)
-        self.debug_pub = self.create_publisher(
-            CompressedImage, '/perception_node/debug_image/compressed', 10)
-        self.mask_pub = self.create_publisher(
-            CompressedImage, '/perception_node/mask/compressed', 10)
-        self.target_pub = self.create_publisher(PointStamped, '/target', 10)
+        self.raw_pub = self.create_publisher(Image, IMAGE_TOPIC, 10)
+        self.source_pub = self.create_publisher(String, '/camera_source', 10)
         self.create_subscription(JointState, '/motor_cmd', self.on_motor_cmd, 10)
         self.create_timer(1.0 / fps, self.step)
-        self.get_logger().info('virtual_world 시작 (장비 없이 가상 카메라·목표 발행)')
+        self.create_timer(1.0, self.check_source)
+        self.get_logger().info('virtual_world 시작 (실제 카메라가 없으면 가상 영상 발행)')
+
+    def check_source(self):
+        others = [p for p in self.get_publishers_info_by_topic(IMAGE_TOPIC)
+                  if p.node_name != self.get_name()]
+        source = 'realsense' if others else 'virtual'
+        if source != self.source:
+            self.get_logger().info(f'카메라 전환: {self.source} → {source}')
+            self.source = source
+        self.source_pub.publish(String(data=self.source))
 
     def on_motor_cmd(self, msg):
-        if len(msg.position) >= 2:
+        if self.source == 'virtual' and len(msg.position) >= 2:
             self.pan += msg.position[0]
             self.tilt += msg.position[1]
 
@@ -93,57 +96,24 @@ class VirtualWorld(Node):
             half = self.focal * self.target_size / 2
             cv2.rectangle(img, (int(u - half), int(v - 2 * half)),
                           (int(u + half), int(v + 2 * half)), (200, 90, 20), -1)
+        cv2.putText(img, f'VIRTUAL  pan={math.degrees(self.pan):+.1f} '
+                         f'tilt={math.degrees(self.tilt):+.1f}',
+                    (10, h - 12), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (20, 20, 20), 1)
         return img
 
-    def detect(self, img):
-        mask = cv2.inRange(cv2.cvtColor(img, cv2.COLOR_BGR2HSV), BLUE_LOW, BLUE_HIGH)
-        m = cv2.moments(mask, binaryImage=True)
-        if m['m00'] < 20:
-            return mask, None
-        cx, cy = m['m10'] / m['m00'], m['m01'] / m['m00']
-        w, h = self.width, self.height
-        return mask, ((cx - w / 2) / (w / 2), (cy - h / 2) / (h / 2), m['m00'] / (w * h), cx, cy)
-
     def step(self):
+        if self.source != 'virtual':
+            return
         now = self.get_clock().now()
-        t = (now - self.t0).nanoseconds * 1e-9
-        img = self.render(t)
-        mask, det = self.detect(img)
-        stamp = now.to_msg()
-
-        target = PointStamped()
-        target.header.stamp = stamp
-        target.header.frame_id = 'camera_color_optical_frame'
-        if det:
-            target.point.x, target.point.y, target.point.z = det[0], det[1], det[2]
-        self.target_pub.publish(target)
-
-        if self.publish_raw:
-            raw = Image()
-            raw.header = target.header
-            raw.height, raw.width = img.shape[:2]
-            raw.encoding = 'rgb8'
-            raw.step = raw.width * 3
-            raw.data = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).tobytes()
-            self.raw_pub.publish(raw)
-
-        debug = img.copy()
-        w, h = self.width, self.height
-        cv2.drawMarker(debug, (w // 2, h // 2), (40, 40, 40), cv2.MARKER_CROSS, 30, 1)
-        if det:
-            cv2.circle(debug, (int(det[3]), int(det[4])), 8, (0, 0, 255), 2)
-            label = f'DETECTED ex={det[0]:+.3f} ey={det[1]:+.3f}'
-        else:
-            label = 'NOT DETECTED'
-        cv2.putText(debug, label, (10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (20, 20, 20), 2)
-        cv2.putText(debug, f'pan={math.degrees(self.pan):+.1f} tilt={math.degrees(self.tilt):+.1f}',
-                    (10, h - 12), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (20, 20, 20), 1)
-        for pub, frame in ((self.debug_pub, debug), (self.mask_pub, mask)):
-            msg = CompressedImage()
-            msg.header = target.header
-            msg.format = 'jpeg'
-            msg.data = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 70])[1].tobytes()
-            pub.publish(msg)
+        img = self.render((now - self.t0).nanoseconds * 1e-9)
+        raw = Image()
+        raw.header.stamp = now.to_msg()
+        raw.header.frame_id = 'virtual_camera_optical_frame'
+        raw.height, raw.width = img.shape[:2]
+        raw.encoding = 'rgb8'
+        raw.step = raw.width * 3
+        raw.data = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).tobytes()
+        self.raw_pub.publish(raw)
 
 
 def main(args=None):
