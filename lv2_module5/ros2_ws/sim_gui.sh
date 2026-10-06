@@ -62,24 +62,5 @@ kill -0 "$REC_PID" 2>/dev/null && kill -TERM -- -"$REC_PID" 2>/dev/null
 wait "$REC_PID" 2>/dev/null || true
 REC_PID=''
 
-# 장면 설명: 녹화 중 카메라 출처·OpenCR 연결 여부 (/camera_source, /opencr_status)
-DESC=$(python3 - "$REC_DIR/$NAME" <<'PY' 2>/dev/null || echo "sim_gui 자동 녹화"
-import sys
-from rclpy.serialization import deserialize_message
-import rosbag2_py
-from std_msgs.msg import String
-reader = rosbag2_py.SequentialReader()
-reader.open(rosbag2_py.StorageOptions(uri=sys.argv[1]), rosbag2_py.ConverterOptions('', ''))
-seen = {'/camera_source': [], '/opencr_status': []}
-while reader.has_next():
-    topic, data, _ = reader.read_next()
-    if topic in seen:
-        v = deserialize_message(data, String).data.split(' ')[0]
-        if v not in seen[topic]:
-            seen[topic].append(v)
-cam = '→'.join(seen['/camera_source']) or '-'
-opencr = '→'.join(seen['/opencr_status']) or '-'
-print(f'sim_gui 자동 녹화 (카메라: {cam}, OpenCR: {opencr})')
-PY
-)
-"$REC_DIR/register_bag.sh" "$NAME" "$DESC"
+# 장면 설명 뒤의 카메라 출처·OpenCR 상태는 register_bag.sh가 bag에서 읽어 붙인다
+"$REC_DIR/register_bag.sh" "$NAME" "sim_gui 자동 녹화"
