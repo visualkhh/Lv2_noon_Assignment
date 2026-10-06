@@ -34,6 +34,8 @@
 - 같은 bag을 다시 압축하면 `SHA256SUMS`의 기존 줄을 교체 (중복 없음)
 - ROS 기본 토픽 외에 녹화된 데이터가 없으면 `⚠ 경고` 출력
 - `.gitignore`가 허용 목록 방식이라 `record_scene.sh`를 올리려면 `!record_scene.sh` 추가 필요
+- `../ros2_ws/sim_gui.sh` — 가상환경·실기(자동 전환) + 웹 GUI 실행 중 자동 녹화, Ctrl+C로 끝내면 `register_bag.sh`로 등록 (이름 `sim_YYYYmmdd_HHMMSS`, 장면 칸에 카메라·OpenCR 상태 자동 기입)
+- `register_bag.sh <이름> [설명]` — 녹화된 bag을 `pack_bag.sh`로 압축·체크섬 후 README [목록]에 등록
 
 [현재상태]
 - 로컬의 `scene_20261006_101831`, `scene2`는 `/rosout`만 녹화된 빈 bag (각 약 7초·11초, 4.0K) → 목록에서 제외
