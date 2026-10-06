@@ -142,3 +142,12 @@
 - SHA256: `5406841431f07cfb84c2b65ae35297702f3f13d80cdbf0756b487ed46aa99784`
 - 기준 커밋: `27f1c78`
 - 다운로드: (업로드 후 기입)
+
+[목록:sim_20261006_183814.tar.gz]
+- 장면: (카메라: virtual, OpenCR: disconnected)
+- 기간: 77.7s
+- 토픽: /camera/camera/color/image_raw(1167), /camera_source(78), /joint_states(1167), /motor_cmd(935), /opencr_status(78), /target(1167), /tracking_status(86), /virtual_target(987)
+- 용량: 7.8M
+- SHA256: `7217bf0a4b18ef0684865d2719dec8c92bd4b4982818e6db4fd02fbda887189a`
+- 기준 커밋: `d4a4e09`
+- 다운로드: (업로드 후 기입)
