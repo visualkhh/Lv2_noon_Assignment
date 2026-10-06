@@ -133,3 +133,12 @@
 - SHA256: `403a9572e48be788f438ba03042d404fda4bcf0e08af014286a9c0bcc8257e75`
 - 기준 커밋: `9e63539`
 - 다운로드: (업로드 후 기입)
+
+[목록:sim_20261006_182246.tar.gz]
+- 장면: -
+- 기간: 7.3s
+- 토픽: /camera/camera/color/image_raw(111), /motor_cmd(111), /target(91), /tracking_status(7)
+- 용량: 756K
+- SHA256: `5406841431f07cfb84c2b65ae35297702f3f13d80cdbf0756b487ed46aa99784`
+- 기준 커밋: `27f1c78`
+- 다운로드: (업로드 후 기입)
