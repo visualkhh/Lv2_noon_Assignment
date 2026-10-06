@@ -14,7 +14,7 @@
     (컨테이너: test-fake_camera_bringup 0)
   [영상 송출] 처음엔 꺼짐. 끄면 frame.png를 지워 fake_camera 발행 중단(카메라 뽑힌 상황). 통제실을 닫아도 꺼짐.
     끈 채로 launch → IDLE 유지 → 켜면 TRACKING → 끄면 0.5초 뒤 LOST (/tracking_status)
-  3D 월드 뷰: 왼쪽 드래그 = 기둥 바닥 이동 · Shift+드래그 = 높이 · Option(Alt)+드래그 = 기둥 회전(좌우 yaw, 위아래 pitch)
+  3D 월드 뷰: 왼쪽 드래그 = 기둥 바닥 이동 · Shift+드래그 = 높이 · Option(macOS)/Alt(그 외)+드래그 = 기둥 회전(좌우 yaw, 위아래 pitch)
              오른쪽(또는 Ctrl) 드래그 = 시점 회전 · 휠 = 줌 · 슬라이더 = yaw·pitch·roll 직접 지정
              [선택 색변경] = 선택한 물체(기둥·장애물) 색 (perception HSV 범위(realsense.yaml) 안인지 표시)
   모양: 사각 기둥 · 원기둥 · 구 (선택한 물체마다)
@@ -70,6 +70,7 @@ SERIAL_OUT = DEBUG / 'serial-out'
 TOPIC_DIR = DEBUG / 'topic'
 OUTPUT_DIR = DEBUG / 'output-images'
 STALE_S = 2.0            # 이보다 오래 갱신 안 된 상태값은 빨강
+STATUS_H = 260           # status 패널 높이(px). 줄이 더 많으면 스크롤 (해상도 낮은 화면에서 아래가 잘리지 않게)
 MOTOR_MSG = TOPIC_DIR / 'motor_cmd' / 'message'
 TARGET_LIMIT_DEG = (-180.0, 179.9)  # 펌웨어 config.h MIN/MAX_TARGET_DEG
 DIAL = 120               # 다이얼 캔버스 크기(px)
@@ -328,6 +329,46 @@ def highlight(frame, selected):
         b.config(**(BTN_SELECTED if b.cget('text') == selected else BTN))
 
 
+def wheel_step(event):
+    """휠 한 칸을 OS와 무관하게 +1(위)·-1(아래)로. Linux X11 Tk 8.6은 Button-4·5, macOS·Windows는 delta."""
+    if event.num == 4:
+        return 1
+    if event.num == 5:
+        return -1
+    if abs(event.delta) >= 120:   # Windows: 한 칸 = ±120
+        return event.delta / 120
+    return event.delta            # macOS: 작은 정수 (트랙패드는 연속값)
+
+
+def scrollable(parent, height):
+    """세로 스크롤되는 영역. 반환한 Frame에 위젯을 넣는다.
+    휠은 마우스가 이 영역 위에 있을 때만 이 영역을 스크롤한다 (world 뷰 휠 줌과 겹치지 않게)."""
+    outer = tk.Frame(parent)
+    outer.pack(fill='both', expand=True)
+    canvas = tk.Canvas(outer, height=height, highlightthickness=0)
+    bar = tk.Scrollbar(outer, orient='vertical', command=canvas.yview)
+    canvas.configure(yscrollcommand=bar.set)
+    bar.pack(side='right', fill='y')
+    canvas.pack(side='left', fill='both', expand=True)
+    inner = tk.Frame(canvas)
+    canvas.create_window((0, 0), window=inner, anchor='nw')
+    # 내용 크기가 바뀌면 스크롤 범위와 폭을 맞춘다
+    inner.bind('<Configure>', lambda _e: canvas.configure(
+        scrollregion=canvas.bbox('all'), width=inner.winfo_reqwidth()))
+
+    def on_wheel(event):
+        # 마우스 아래 위젯이 이 영역 안일 때만 스크롤 (밖이면 다른 위젯의 휠 동작 그대로)
+        widget = canvas.winfo_containing(event.x_root, event.y_root)
+        if widget is None or not str(widget).startswith(str(outer)):
+            return
+        if canvas.yview() != (0.0, 1.0):   # 내용이 다 보이면 스크롤하지 않음
+            canvas.yview_scroll(-1 if wheel_step(event) > 0 else 1, 'units')
+
+    for seq in ('<MouseWheel>', '<Button-4>', '<Button-5>'):
+        canvas.bind_all(seq, on_wheel, add='+')
+    return inner
+
+
 def text_box(parent, height):
     box = tk.Text(parent, height=height, width=52, font=('Menlo', 11),
                   bg='#111', fg='#9f9', insertbackground='#9f9')
@@ -380,13 +421,18 @@ class Controller:
         for btn in (1, 2, 3):   # macOS 오른쪽 클릭 = Button-2, 다른 OS = Button-3
             self.view.bind(f'<ButtonPress-{btn}>', lambda e, b=btn: self.drag_start(e, b))
             self.view.bind(f'<B{btn}-Motion>', self.drag_move)
-        self.view.bind('<MouseWheel>', self.wheel)
-        # 기둥 회전: Option(macOS)·Alt(그 외)+왼쪽 드래그. 수정키 비트값이 OS마다 달라 이벤트 이름으로 묶음
-        for mod in ('Option', 'Alt'):
-            try:
-                self.view.bind(f'<{mod}-ButtonPress-1>', lambda e: self.drag_start(e, 1, rotate=True))
-            except tk.TclError:   # 그 OS에 없는 수정키 이름
-                pass
+        self.view.bind('<MouseWheel>', self.wheel)      # macOS·Windows
+        for btn in (4, 5):                                 # Linux X11 Tk 8.6: 휠 = Button-4(위)·5(아래)
+            self.view.bind(f'<Button-{btn}>', self.wheel)
+        # 기둥 회전: Option(macOS)·Alt(Linux·Windows)+왼쪽 드래그.
+        # macOS는 이벤트 이름으로 묶는다. Linux X11 Tk에서 'Option'은 Mod2(= NumLock)라 이름으로 묶으면
+        # NumLock이 켜진 상태의 모든 왼쪽 드래그가 회전이 되므로, 그 외 OS는 drag_start에서 Alt 비트로 확인한다.
+        system = self.view.tk.call('tk', 'windowingsystem')
+        if system == 'aqua':
+            self.view.bind('<Option-ButtonPress-1>', lambda e: self.drag_start(e, 1, rotate=True))
+            self.alt_mask = 0
+        else:
+            self.alt_mask = 0x20000 if system == 'win32' else 0x8   # Windows Alt / X11 Mod1(Alt)
 
         # 1열 아래: 기둥 회전·배경
         rot = tk.Frame(sim)
@@ -460,10 +506,9 @@ class Controller:
         tk.Button(motors, text='0으로 맞추기 (기구 정면)', command=self.zero_motors).pack(fill='x')
 
         # 3열: 상태값, serial-out, 토픽 echo
-        status = tk.LabelFrame(right, text='status  (debug/topic/<토픽>/message 최신값)')
+        status = tk.LabelFrame(right, text='status  (debug/topic/<토픽>/message 최신값 · 휠/스크롤바로 이동)')
         status.pack(fill='x')
-        self.status_rows = tk.Frame(status)
-        self.status_rows.pack(fill='x')
+        self.status_rows = scrollable(status, STATUS_H)
         self.status_names = []
 
         serial = tk.LabelFrame(right, text=f'serial-out  ({SERIAL_OUT})')
@@ -531,6 +576,8 @@ class Controller:
 
     def drag_start(self, event, button, rotate=False):
         ctrl, shift = event.state & 0x4, event.state & 0x1
+        if button == 1 and self.alt_mask and event.state & self.alt_mask:
+            rotate = True           # Linux·Windows Alt+드래그
         if button == 1 and not ctrl:   # 왼쪽 클릭(수정키 무관) = 그 자리 상자 선택 후 조작
             hit = self.pick(event.x, event.y)
             if hit is not None and hit is not self.selected:
@@ -567,7 +614,7 @@ class Controller:
         self.scene_dirty = True
 
     def wheel(self, event):
-        self.observer.dist = min(max(self.observer.dist * 0.95 ** event.delta, 0.2), 4.0)
+        self.observer.dist = min(max(self.observer.dist * 0.95 ** wheel_step(event), 0.2), 4.0)
         self.scene_dirty = True
 
     def set_rotation(self):

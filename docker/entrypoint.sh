@@ -10,6 +10,7 @@ fi
 #   앱 ↔ /dev/ttyV0 ↔ (socat 중계) ↔ /dev/ttyV1 ↔ serial-in/out 파일
 #   /dev/ttyV0에 들어온 데이터 → /ws/debug/serial-out 에 append
 #   /ws/debug/serial-in 에 쓴 데이터 → /dev/ttyV0 으로 전송
+rm -f /run/testbed-ready
 if command -v socat >/dev/null 2>&1; then
   mkdir -p /ws/debug
   # 시작할 때마다 로그 파일 초기화 (빈 파일 재생성)
@@ -21,6 +22,8 @@ if command -v socat >/dev/null 2>&1; then
   # 실기 OpenCR 포트명(dynamixel.yaml의 serial_port)도 가상 시리얼로 연결
   # → 팀 설정 그대로 띄워도 모터 명령이 serial-out에 쌓임. 실물 보드를 넘겨받았으면 그대로 둠.
   [ -e /dev/ttyACM0 ] || ln -s /dev/ttyV0 /dev/ttyACM0
+  # dynamixel.yaml의 serial_port는 /dev/opencr (실기 udev 심볼릭 링크) → 같은 가상 시리얼로 연결
+  [ -e /dev/opencr ] || ln -s /dev/ttyV0 /dev/opencr
   # 2. 시리얼 → 파일 (앱이 보낸 데이터를 serial-out에 축적)
   socat -u /dev/ttyV1,raw,echo=0 OPEN:/ws/debug/serial-out,creat,append &
   # 3. 파일 → 시리얼 (serial-in에 추가된 내용을 앱으로 전송)
@@ -28,5 +31,7 @@ if command -v socat >/dev/null 2>&1; then
   # logger와 나눠가져 serial-out이 유실됨
   tail -c +1 -F /ws/debug/serial-in 2>/dev/null | socat -u - /dev/ttyV1,raw,echo=0 &
 fi
+# 준비 완료 표시: docker run -d 직후 바로 exec하는 쪽(CI)은 이 파일이 생길 때까지 기다린다
+touch /run/testbed-ready
 
 exec "$@"

@@ -22,3 +22,4 @@ lv2_module5/debug/
 
 # 펌웨어 빌드 산출물 (upload.sh)
 lv2_module5/firmware/build/
+/temp/
