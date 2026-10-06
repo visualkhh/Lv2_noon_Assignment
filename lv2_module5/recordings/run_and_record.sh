@@ -27,6 +27,11 @@ WAIT_SEC=60                         # 노드 기동 대기 최대 시간
 # ================
 
 set -eo pipefail
+# Ctrl+C는 오류가 아니라 정상 종료로 처리한다
+#   녹화 전(빌드·토픽 대기): 녹화 없이 종료 (exit 0)
+#   녹화 중: 녹화만 멈추고 압축·등록까지 진행
+#   녹화 후(압축·등록): 무시 — 중간에 끊겨 bag·README가 반쯤 써지는 것을 막음
+trap 'echo; echo "=== 녹화 전에 중단 (Ctrl+C) — 녹화·등록 없이 종료"; exit 0' INT
 HERE="$(cd "$(dirname "$0")" && pwd)"
 WS="$(cd "$HERE/../ros2_ws" && pwd)"
 
@@ -52,11 +57,16 @@ setsid ros2 launch cognitive_control sim.launch.py "$@" >"$LOG" 2>&1 &
 SIM=$!
 
 stop_sim() {
-  kill -0 "$SIM" 2>/dev/null || return 0
+  # launch가 먼저 끝나도 rosbridge 등 자식이 남을 수 있어 프로세스 그룹 전체가 사라질 때까지 확인한다
+  # (남으면 9090 포트를 잡고 있어 다음 실행의 GUI 연결이 꼬인다)
+  group_alive() { pgrep -g "$SIM" >/dev/null 2>&1; }
+  group_alive || return 0
   echo "=== 노드 종료"
-  kill -INT -- -"$SIM" 2>/dev/null || true
-  for _ in $(seq 20); do kill -0 "$SIM" 2>/dev/null || return 0; sleep 0.5; done
-  kill -TERM -- -"$SIM" 2>/dev/null || true
+  local sig
+  for sig in INT TERM KILL; do
+    kill -"$sig" -- -"$SIM" 2>/dev/null || true
+    for _ in $(seq 10); do group_alive || return 0; sleep 0.5; done
+  done
 }
 trap stop_sim EXIT
 
@@ -91,6 +101,9 @@ fi
 echo "=== 녹화 시작: recordings/$NAME (${REC_TOPICS[*]}) — 끝내려면 Ctrl+C"
 trap ':' INT
 (cd "$HERE" && ros2 bag record -o "$NAME" "${REC_TOPICS[@]}") || true
+
+trap '' INT
+echo "=== 녹화 종료 — 압축·등록 중 (이제 Ctrl+C는 무시됨)"
 
 # --- ⑤ 노드 종료
 stop_sim
