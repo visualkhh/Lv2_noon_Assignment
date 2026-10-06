@@ -23,7 +23,7 @@
 - 종료 후 자동으로 `tar.gz` 압축, `SHA256SUMS` 기록, 아래 [목록]에 항목 등록
 
 [기록]
-- 장면·기간·토픽·용량·SHA256·기준 커밋은 자동 기입, 같은 파일을 다시 등록하면 그 항목을 교체
+- 녹화 일시·장면·기간·토픽·용량·SHA256·기준 커밋은 자동 기입, 같은 파일을 다시 등록하면 그 항목을 교체
 - `.tar.gz` 업로드 후 `- 다운로드: (업로드 후 기입)`만 직접 링크로 수정
 - `SHA256SUMS`·`README.md` 커밋 (git 작업은 직접)
 
@@ -45,6 +45,7 @@
 [목록]
 
 [목록:scene3.tar.gz]
+- 녹화 일시: -
 - 장면: -
 - 기간: 0.0s
 - 토픽: (데이터 없음)
@@ -54,6 +55,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:scene4.tar.gz]
+- 녹화 일시: -
 - 장면: -
 - 기간: 0.0s
 - 토픽: (데이터 없음)
@@ -63,6 +65,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:sim_20261006_174201.tar.gz]
+- 녹화 일시: 2026-10-06 17:42:03
 - 장면: sim_gui 자동 녹화 (카메라: virtual, OpenCR: disconnected)
 - 기간: 55.5s
 - 토픽: /camera_source(55), /motor_cmd(706), /opencr_status(55), /perception_node/debug_image/compressed(415), /target(831), /tracking_status(60)
@@ -72,6 +75,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:sim_20261006_174624.tar.gz]
+- 녹화 일시: 2026-10-06 17:46:25
 - 장면: sim_gui 자동 녹화 (카메라: virtual, OpenCR: disconnected)
 - 기간: 52.3s
 - 토픽: /camera_source(52), /joint_states(786), /motor_cmd(666), /opencr_status(52), /perception_node/debug_image/compressed(393), /target(786), /tracking_status(57), /virtual_target(696)
@@ -81,6 +85,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:sim_20261006_174730.tar.gz]
+- 녹화 일시: 2026-10-06 17:47:31
 - 장면: sim_gui 자동 녹화 (카메라: virtual, OpenCR: disconnected)
 - 기간: 73.8s
 - 토픽: /camera_source(73), /joint_states(1108), /motor_cmd(917), /opencr_status(74), /perception_node/debug_image/compressed(554), /target(1108), /tracking_status(81), /virtual_target(971)
@@ -90,6 +95,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:scene1.tar.gz]
+- 녹화 일시: 2026-10-06 17:55:07
 - 장면: -
 - 기간: 11.3s
 - 토픽: /camera/camera/color/image_raw(170), /motor_cmd(170), /target(170), /tracking_status(11)
@@ -99,6 +105,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:scene5.tar.gz]
+- 녹화 일시: 2026-10-06 18:02:44
 - 장면: -
 - 기간: 5.7s
 - 토픽: /camera/camera/color/image_raw(85), /motor_cmd(87), /target(87), /tracking_status(6)
@@ -108,6 +115,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:scene6.tar.gz]
+- 녹화 일시: 2026-10-06 18:05:27
 - 장면: -
 - 기간: 2.1s
 - 토픽: /camera/camera/color/image_raw(30), /motor_cmd(32), /target(32), /tracking_status(2)
@@ -117,6 +125,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:scene7.tar.gz]
+- 녹화 일시: 2026-10-06 18:11:43
 - 장면: -
 - 기간: 15.5s
 - 토픽: /camera/camera/color/image_raw(226), /motor_cmd(219), /target(218), /tracking_status(17)
@@ -126,6 +135,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:scene8.tar.gz]
+- 녹화 일시: 2026-10-06 18:12:15
 - 장면: -
 - 기간: 27.1s
 - 토픽: /camera/camera/color/image_raw(406), /motor_cmd(336), /target(407), /tracking_status(29)
@@ -135,6 +145,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:sim_20261006_182246.tar.gz]
+- 녹화 일시: 2026-10-06 18:22:50
 - 장면: -
 - 기간: 7.3s
 - 토픽: /camera/camera/color/image_raw(111), /motor_cmd(111), /target(91), /tracking_status(7)
@@ -144,6 +155,7 @@
 - 다운로드: (업로드 후 기입)
 
 [목록:sim_20261006_183814.tar.gz]
+- 녹화 일시: 2026-10-06 18:38:19
 - 장면: (카메라: virtual, OpenCR: disconnected)
 - 기간: 77.7s
 - 토픽: /camera/camera/color/image_raw(1167), /camera_source(78), /joint_states(1167), /motor_cmd(935), /opencr_status(78), /target(1167), /tracking_status(86), /virtual_target(987)

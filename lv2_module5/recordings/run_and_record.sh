@@ -169,7 +169,18 @@ SIZE=$(du -h "$FILE" | cut -f1)
 SHA=$(sha256sum "$FILE" | cut -d" " -f1)
 COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "-")
 
+# 녹화 일시: bag의 첫 메시지 시각 (메시지가 없으면 "-")
+START=$(python3 - "$NAME/metadata.yaml" <<'PY' 2>/dev/null || echo "-"
+import sys, datetime, yaml
+info = yaml.safe_load(open(sys.argv[1]))['rosbag2_bagfile_information']
+ns = info['starting_time']['nanoseconds_since_epoch']
+print('-' if info['message_count'] == 0 or ns >= 2**63 - 1 else
+      datetime.datetime.fromtimestamp(ns / 1e9).strftime('%Y-%m-%d %H:%M:%S'))
+PY
+)
+
 ENTRY="[목록:$FILE]
+- 녹화 일시: $START
 - 장면: $DESC
 - 기간: $DUR
 - 토픽: $TOPIC_COL
