@@ -39,6 +39,8 @@ RUN curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/inst
 # arm64(Mac·라즈베리파이) 우회: 보드 패키지를 수동 설치 + 우분투 시스템
 # arm-none-eabi-gcc를 툴체인 자리에 연결 → 컴파일 가능 (실측 성공).
 # 단 업로더(opencr_tools)는 없어서 업로드는 x86_64 실기 PC에서.
+# x86_64도 같은 시스템 gcc를 쓴다: 인덱스의 opencr_gcc는 32비트(i386) 바이너리라
+# 64비트 이미지(32비트 로더 /lib/ld-linux.so.2 없음)에서 "fork/exec ... no such file or directory"로 실행 불가.
 # NOTE: 릴리스 파일명이 .tar.bz2지만 내용은 gzip (매직바이트 1f8b 실측) → xzf 사용.
 ENV ARDUINO_UPDATER_ENABLE_NOTIFICATION=false \
     OPENCR_VERSION=1.5.3 \
@@ -47,12 +49,16 @@ RUN arduino-cli config init --overwrite \
     && arduino-cli config add board_manager.additional_urls \
         https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json \
     && arduino-cli core update-index \
+    && apt-get update && apt-get install -y --no-install-recommends gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib \
+    && rm -rf /var/lib/apt/lists/* \
     && if [ "$(uname -m)" = "x86_64" ]; then \
-           arduino-cli core install OpenCR:OpenCR; \
+           arduino-cli core install OpenCR:OpenCR \
+           && rm -rf /root/.arduino15/packages/OpenCR/tools/opencr_gcc/5.4.0-2016q2/bin \
+           && mkdir -p /root/.arduino15/packages/OpenCR/tools/opencr_gcc/5.4.0-2016q2/bin \
+           && for f in /usr/bin/arm-none-eabi-*; do ln -s "$f" /root/.arduino15/packages/OpenCR/tools/opencr_gcc/5.4.0-2016q2/bin/; done \
+           && echo "OpenCR ${OPENCR_VERSION} core + system arm-none-eabi-gcc (x86_64: i386 opencr_gcc 대체)"; \
        else \
-           apt-get update && apt-get install -y --no-install-recommends gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib \
-               && rm -rf /var/lib/apt/lists/* \
-           && curl -fsSL "https://github.com/ROBOTIS-GIT/OpenCR/releases/download/${OPENCR_VERSION}/opencr.tar.bz2" \
+           curl -fsSL "https://github.com/ROBOTIS-GIT/OpenCR/releases/download/${OPENCR_VERSION}/opencr.tar.bz2" \
                -o /tmp/opencr.tar.bz2 \
            && echo "${OPENCR_SHA256}  /tmp/opencr.tar.bz2" | sha256sum -c - \
            && mkdir -p /root/.arduino15/packages/OpenCR/hardware/OpenCR/${OPENCR_VERSION} \

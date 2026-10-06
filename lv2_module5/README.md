@@ -119,7 +119,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # 최초 1�
 관절각 = serial-out `M,Δpan,Δtilt` 누적(펌웨어와 같은 계산) → 그 카메라 시점으로 렌더 → `debug/input-live/frame.png`
 → fake_camera(live) → perception → dynamixel → serial → 관절각… 기둥을 옮기면 카메라가 따라 돌아 가운데로 맞춘다.
 컨테이너에서 `test-fake_camera_bringup 0` (기본 30fps). 통제실은 하나만 실행됨(잠금).
-world 뷰: 클릭 = 상자 선택(노랑) · 드래그 = 이동 · Shift+드래그 = 높이 · Option(Alt)+드래그 = 회전 · 오른쪽/Ctrl 드래그 = 시점 · 휠 = 줌
+world 뷰: 클릭 = 상자 선택(노랑) · 드래그 = 이동 · Shift+드래그 = 높이 · Option(macOS)/Alt(Linux·Windows)+드래그 = 회전 · 오른쪽/Ctrl 드래그 = 시점 · 휠 = 줌
 (회전은 슬라이더로도, [선택 색변경]으로 선택한 물체(기둥·장애물) 색 변경 — perception HSV 범위 안인지 표시).
 장애물(회색 벽판) 기본 2개 + [장애물 추가]/[선택 삭제]. 기둥을 벽 뒤에 숨기면 미검출(z=0) → LOST, 다시 나오면 TRACKING.
 [영상 송출] 토글 (처음엔 꺼짐 — 장면을 놓고 켜기): 끄면 `frame.png`를 지워 fake_camera가 발행을 멈춤(카메라 뽑힌 상황, 통제실을 닫아도 꺼짐).

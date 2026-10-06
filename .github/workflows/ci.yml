@@ -23,6 +23,32 @@ jobs:
             -v ${{ github.workspace }}/lv2_module5/firmware:/ws/firmware \
             lv2-lyrical:testbed sleep infinity
           docker exec t test-all
+      - name: Package deploy (install + firmware + scripts)
+        # 실기에 바로 올릴 수 있는 묶음:
+        #   ros2_ws/install/                       ROS 2 패키지 (build/는 컴파일 중간 산출물이라 불필요)
+        #   ros2_ws/firmware/                      lv2_module5/firmware 폴더 전체 (스케치·upload.sh·README)
+        #   ros2_ws/firmware/build/<스케치>/*.bin  test-firmware가 컴파일한 결과 (upload.sh 출력 위치와 같음)
+        #   ros2_ws/*.sh                           lv2_module5/ros2_ws의 실행 스크립트 전부
+        #                                          (start·firmware-upload·bag-recording·bag-replay …)
+        # - install: test-bringup이 --symlink-install로 빌드 → cp -L로 링크 대상 실제 파일을 담음.
+        #   x86_64 빌드라 Raspberry Pi(arm64)에선 실행 불가.
+        # - .bin: OpenCR용 ARM 바이너리라 러너 아키텍처와 무관하게 사용 가능.
+        # tar로 묶어 실행 권한 보존 (upload-artifact zip은 권한을 잃음).
+        run: |
+          docker exec t bash -c 'rm -rf /tmp/pkg && mkdir -p /tmp/pkg && cp -rL /ws/install /tmp/pkg/'
+          rm -rf ros2_ws && docker cp t:/tmp/pkg ros2_ws
+          cp -r lv2_module5/firmware ros2_ws/firmware
+          rm -rf ros2_ws/firmware/build
+          docker cp t:/ws/debug/firmware ros2_ws/firmware/build
+          find ros2_ws/firmware/build -type f ! -name '*.bin' -delete
+          cp lv2_module5/ros2_ws/*.sh ros2_ws/
+          tar -czf ros2_ws-deploy.tar.gz ros2_ws
+          ls -lh ros2_ws-deploy.tar.gz && tar -tzf ros2_ws-deploy.tar.gz | grep -E "^ros2_ws/firmware/|\.sh$"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ros2_ws-deploy
+          path: ros2_ws-deploy.tar.gz
+          retention-days: 7
       - name: Collect debug
         if: always()
         run: docker cp t:/ws/debug ./debug && find ./debug -type f | sort
