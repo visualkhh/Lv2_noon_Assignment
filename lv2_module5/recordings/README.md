@@ -3,6 +3,47 @@
 bag 원본은 용량 때문에 저장소에 포함하지 않고, 아래 링크에서 내려받습니다.
 무결성 확인: `cd recordings && sha256sum -c SHA256SUMS`
 
+## 녹화 방법
+
+1. 다른 터미널에서 로봇 bringup·카메라 노드를 먼저 실행
+2. 토픽이 보이는지 확인
+   ```bash
+   ros2 topic list
+   ```
+   - `/parameter_events`, `/rosout`만 보이면 아직 데이터가 없는 상태 → bringup, 네트워크, `ROS_DOMAIN_ID` 확인
+3. `record_scene.sh` 위쪽 설정을 확인한 뒤 실행 (Ctrl+C로 녹화 종료)
+   ```bash
+   cd lv2_module5/recordings
+   ./record_scene.sh                          # 설정값(SCENE_NAME, DEFAULT_TOPICS)으로 녹화
+   ./record_scene.sh scene5 /image_raw /odom  # 인자를 주면 설정값 대신 사용
+   ```
+   ```bash
+   # ===== 설정 (여기만 고치면 됨) =====
+   SCENE_NAME="scene3"                 # 비워 두면("") scene1, scene2 ... 중 빈 번호 자동
+   DEFAULT_TOPICS=(/image_raw /odom)
+   # ==================================
+   ```
+   - 토픽 이름은 `ros2 topic list` 결과에 맞춰 수정 (예: `/camera/image_raw`)
+   - 녹화가 끝나면 같은 이름은 다시 쓸 수 없으므로 `SCENE_NAME`을 바꾸거나 `""`로 비워 둘 것
+4. 출력된 용량·기간·토픽·SHA256·기준 커밋을 아래 표에 옮기고, `.tar.gz`를 업로드한 뒤 다운로드 링크 기입
+5. `SHA256SUMS`·`README.md` 커밋 (git 작업은 직접)
+
+## 스크립트
+
+| 파일 | 역할 |
+|---|---|
+| `record_scene.sh` | ROS 환경·토픽 확인 → 안 보이는 토픽이 있으면 계속할지 확인 → `pack_bag.sh` 호출 |
+| `pack_bag.sh` | 녹화(`ros2 bag record`) → `tar.gz` 압축 → `SHA256SUMS` 기록 → 표에 옮길 정보 출력 |
+
+- 같은 bag을 다시 압축하면 `SHA256SUMS`의 기존 줄을 교체 (중복 없음)
+- ROS 기본 토픽 외에 녹화된 데이터가 없으면 `⚠ 경고` 출력
+- `.gitignore`가 허용 목록 방식이므로 `record_scene.sh`를 저장소에 올리려면 `!record_scene.sh` 추가 필요
+
+## 목록
+
 | 파일 | 장면 | 기간 | 토픽 | 용량 | SHA256 | 기준 커밋 | 다운로드 |
 |---|---|---|---|---|---|---|---|
 | | | | | | | | |
+
+> 현재 로컬의 `scene_20261006_101831`, `scene2`는 로봇 데이터 없이 `/rosout`만 녹화된 빈 bag(각 약 7초·11초, 4.0K)이라 목록에 넣지 않음.
+> 로봇 bringup 후 다시 녹화하고, 빈 bag은 폴더·`.tar.gz`·`SHA256SUMS` 해당 줄을 삭제할 것.
