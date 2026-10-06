@@ -1,3 +1,5 @@
+from glob import glob
+
 from setuptools import find_packages, setup
 
 package_name = 'cognitive_control'
@@ -10,13 +12,14 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
     ],
     package_data={'': ['py.typed']},
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='a71143055',
     maintainer_email='a71143055@gmail.com',
-    description='TODO: Package description',
+    description='Virtual camera/tracking nodes and rosbridge GUI launch',
     license='TODO: License declaration',
     extras_require={
         'test': [
@@ -25,6 +28,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'virtual_world = cognitive_control.virtual_world:main',
+            'tracker = cognitive_control.tracker:main',
         ],
     },
 )
