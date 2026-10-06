@@ -2,8 +2,8 @@
 <!--
   추적 모니터 (웹 GUI)
   rosbridge(ws://<host>:9090)로 붙어 실기·가상환경 토픽을 같은 화면에 보여 준다.
-    가상환경:  ros2 launch cognitive_control sim.launch.py
-    실기:      (실기 노드 실행 중) ros2 launch cognitive_control sim.launch.py use_sim:=false use_tracker:=false
+    ros2 launch cognitive_control sim.launch.py (또는 ros2_ws/sim_gui.sh)
+    기기가 없으면 가상 영상, RealSense·OpenCR를 꽂으면 자동으로 실기로 전환 (상단 배지에 표시)
   여는 곳: VS Code "Browser: Open Integrated Browser" → http://localhost:8000/index.html (sim_gui.sh가 서버를 띄움)
   주소 뒤에 ?ws=ws://192.168.0.10:9090 을 붙이면 다른 PC의 rosbridge에 붙는다.
 -->
@@ -58,6 +58,10 @@
   .frame .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
   .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   @media (max-width: 520px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  .badge { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+           border: 1px solid var(--border); color: var(--muted); }
+  .badge.real { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .badge.virtual { background: var(--warn); border-color: var(--warn); color: #fff; }
   .status { font-size: 28px; font-weight: 700; letter-spacing: .02em; padding: 10px; text-align: center;
             border-radius: 6px; color: #fff; background: var(--idle); }
   .status.TRACKING { background: var(--ok); } .status.LOST { background: var(--bad); }
@@ -80,6 +84,8 @@
   <input id="url" aria-label="rosbridge 주소">
   <button id="connect">연결</button>
   <span class="conn"><span id="dot" class="dot"></span><span id="connText">연결 안 됨</span></span>
+  <span class="badge" id="camBadge" title="/camera_source">카메라 —</span>
+  <span class="badge" id="opencrBadge" title="/opencr_status">OpenCR —</span>
 </header>
 
 <main>
@@ -136,6 +142,8 @@ const TOPICS = {
   target: { name: '/target',          type: 'geometry_msgs/msg/PointStamped' },
   status: { name: '/tracking_status', type: 'std_msgs/msg/String' },
   motor:  { name: '/motor_cmd',       type: 'sensor_msgs/msg/JointState' },
+  source: { name: '/camera_source',   type: 'std_msgs/msg/String' },
+  opencr: { name: '/opencr_status',   type: 'std_msgs/msg/String' },
 };
 const STALE_MS = 2000, DEADBAND = 0.05, HISTORY_MS = 20000;
 const $ = id => document.getElementById(id);
@@ -198,6 +206,16 @@ function subscribe() {
     $('area').textContent = ok ? (p.z * 100).toFixed(2) + ' %' : '미검출';
   });
   sub('status', m => { const el = $('status'); el.textContent = m.data; el.className = 'status ' + m.data; });
+  sub('source', m => {
+    const real = m.data === 'realsense';
+    $('camBadge').textContent = real ? '카메라: RealSense' : '카메라: 가상';
+    $('camBadge').className = 'badge ' + (real ? 'real' : 'virtual');
+  });
+  sub('opencr', m => {
+    const on = m.data.startsWith('connected');
+    $('opencrBadge').textContent = on ? 'OpenCR: ' + m.data.split(' ')[1] : 'OpenCR: 미연결';
+    $('opencrBadge').className = 'badge ' + (on ? 'real' : '');
+  });
   sub('motor', m => {
     if (m.position.length < 2) return;
     pan += m.position[0]; tilt += m.position[1]; cmdCount++;

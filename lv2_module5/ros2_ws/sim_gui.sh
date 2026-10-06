@@ -2,8 +2,8 @@
 # 가상환경 + 웹 GUI: 빌드 → index.html을 http://localhost:8000 으로 제공 → sim.launch.py
 #   GUI는 VS Code "Browser: Open Integrated Browser"에서 http://localhost:8000/index.html 로 연다
 #
-#   ./sim_gui.sh                                   # 장비 없이 가상환경
-#   ./sim_gui.sh use_sim:=false use_tracker:=false # 실기 노드가 따로 돌 때 GUI 연결만
+#   ./sim_gui.sh                       # 기기가 없으면 가상, RealSense·OpenCR를 꽂으면 자동으로 실기 전환
+#   ./sim_gui.sh use_devices:=false    # 기기 자동 연결 끄고 가상환경만
 # 최초 1회: sudo apt install ros-jazzy-rosbridge-suite
 # NOTE: set -u 사용 금지 — ROS setup.bash가 미설정 변수를 참조해서 죽음.
 set -eo pipefail
