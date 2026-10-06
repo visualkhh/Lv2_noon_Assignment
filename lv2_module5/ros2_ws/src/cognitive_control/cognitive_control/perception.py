@@ -15,7 +15,7 @@ import numpy as np
 import rclpy
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import CompressedImage, Image
 
 
@@ -36,8 +36,12 @@ class Perception(Node):
             CompressedImage, '/perception_node/debug_image/compressed', 10)
         self.mask_pub = self.create_publisher(
             CompressedImage, '/perception_node/mask/compressed', 10)
-        self.create_subscription(Image, '/camera/camera/color/image_raw', self.on_image,
-                                 qos_profile_sensor_data)
+        # 영상은 메시지가 커서 best-effort면 조각 유실로 프레임이 자주 빠진다 → reliable
+        # (realsense2_camera 기본 QoS도 reliable)
+        reliable = self.declare_parameter('image_reliable', True).value
+        qos = QoSProfile(depth=2, reliability=ReliabilityPolicy.RELIABLE if reliable
+                         else ReliabilityPolicy.BEST_EFFORT)
+        self.create_subscription(Image, '/camera/camera/color/image_raw', self.on_image, qos)
 
     def detect(self, bgr):
         mask = cv2.inRange(cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV), self.low, self.high)
