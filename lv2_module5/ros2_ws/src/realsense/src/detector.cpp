@@ -55,10 +55,12 @@ void put_outlined(
   cv::putText(img, text, org, cv::FONT_HERSHEY_SIMPLEX, scale, color, 1);
 }
 
-std::string fmt(const char * format, double a, double b = 0.0, double c = 0.0, double d = 0.0)
+std::string fmt(
+  const char * format, double a, double b = 0.0, double c = 0.0, double d = 0.0,
+  double e = 0.0)
 {
   char buf[256];
-  std::snprintf(buf, sizeof(buf), format, a, b, c, d);
+  std::snprintf(buf, sizeof(buf), format, a, b, c, d, e);
   return buf;
 }
 
@@ -83,7 +85,8 @@ DetectorConfig DetectorConfig::from_param_file(const std::string & path, const s
   static const std::set<std::string> detector_keys = {
     "hsv_lower", "hsv_upper", "hsv_bright_enabled", "hsv_bright_lower", "hsv_bright_upper",
     "open_kernel", "close_kernel",
-    "min_area_ratio", "max_area_ratio", "aspect_max", "fill_min"};
+    "min_area_ratio", "max_area_ratio", "aspect_max", "fill_min", "select_rule", "shape_score_min",
+    "track_bonus", "track_radius", "track_hold_frames"};
   std::string unknown;
   for (const auto & kv : p) {
     const auto key = kv.first.as<std::string>();
@@ -111,6 +114,11 @@ DetectorConfig DetectorConfig::from_param_file(const std::string & path, const s
   if (p["max_area_ratio"]) {cfg.max_area_ratio = p["max_area_ratio"].as<double>();}
   if (p["aspect_max"]) {cfg.aspect_max = p["aspect_max"].as<double>();}
   if (p["fill_min"]) {cfg.fill_min = p["fill_min"].as<double>();}
+  if (p["select_rule"]) {cfg.select_rule = p["select_rule"].as<std::string>();}
+  if (p["shape_score_min"]) {cfg.shape_score_min = p["shape_score_min"].as<double>();}
+  if (p["track_bonus"]) {cfg.track_bonus = p["track_bonus"].as<double>();}
+  if (p["track_radius"]) {cfg.track_radius = p["track_radius"].as<double>();}
+  if (p["track_hold_frames"]) {cfg.track_hold_frames = p["track_hold_frames"].as<int>();}
   return cfg;
 }
 
@@ -134,6 +142,11 @@ std::string DetectorConfig::to_param_yaml(const std::string & node) const
   out << YAML::Key << "max_area_ratio" << YAML::Value << max_area_ratio;
   out << YAML::Key << "aspect_max" << YAML::Value << aspect_max;
   out << YAML::Key << "fill_min" << YAML::Value << fill_min;
+  out << YAML::Key << "select_rule" << YAML::Value << select_rule;
+  out << YAML::Key << "shape_score_min" << YAML::Value << shape_score_min;
+  out << YAML::Key << "track_bonus" << YAML::Value << track_bonus;
+  out << YAML::Key << "track_radius" << YAML::Value << track_radius;
+  out << YAML::Key << "track_hold_frames" << YAML::Value << track_hold_frames;
   out << YAML::EndMap << YAML::EndMap << YAML::EndMap;
   return out.c_str();
 }
@@ -155,7 +168,10 @@ std::string DetectorConfig::to_string() const
   triplet_str(hsv_bright_lower) + "~" + triplet_str(hsv_bright_upper) : std::string("off"))
     << ", open_kernel: " << open_kernel << ", close_kernel: " << close_kernel
     << ", min_area_ratio: " << min_area_ratio << ", max_area_ratio: " << max_area_ratio
-    << ", aspect_max: " << aspect_max << ", fill_min: " << fill_min << "}";
+    << ", aspect_max: " << aspect_max << ", fill_min: " << fill_min
+    << ", select_rule: " << select_rule << ", shape_score_min: " << shape_score_min
+    << ", track_bonus: " << track_bonus << ", track_radius: " << track_radius
+    << ", track_hold_frames: " << track_hold_frames << "}";
   return s.str();
 }
 
@@ -187,6 +203,17 @@ std::string DetectorConfig::validate() const
     !e.empty())
   {
     return e;
+  }
+  if (select_rule != "shape" && select_rule != "area") {
+    return "select_rule은 \"shape\" 또는 \"area\"여야 한다";
+  }
+  if (shape_score_min < 0 || shape_score_min > 1) {
+    return "shape_score_min은 0~1이어야 한다";
+  }
+  if (track_bonus < 0 || track_bonus > 1 || track_radius <= 0 || track_radius > 1 ||
+    track_hold_frames < 0)
+  {
+    return "track_bonus는 0~1, track_radius는 0 초과 1 이하, track_hold_frames는 0 이상이어야 한다";
   }
   if (open_kernel < 0 || close_kernel < 0 || min_area_ratio < 0 || max_area_ratio <= 0) {
     return "커널·면적은 0 이상이어야 한다";
@@ -247,7 +274,9 @@ cv::Mat make_mask(const cv::Mat & bgr, const DetectorConfig & cfg)
   return mask;
 }
 
-Detection detect(const cv::Mat & bgr, const DetectorConfig & cfg, const cv::Mat & mask_in)
+Detection detect(
+  const cv::Mat & bgr, const DetectorConfig & cfg, const cv::Mat & mask_in,
+  const std::optional<cv::Point2d> & prev_center)
 {
   Detection result;
   result.width = bgr.cols;
@@ -267,11 +296,15 @@ Detection detect(const cv::Mat & bgr, const DetectorConfig & cfg, const cv::Mat 
     const double long_side = std::max(rect.size.width, rect.size.height);
     const double short_side = std::min(rect.size.width, rect.size.height);
     const double rect_area = static_cast<double>(rect.size.width) * rect.size.height;
+    const double perimeter = cv::arcLength(c, true);
     Candidate cand;
     cand.contour = std::move(c);
     cand.area_px = area;
     cand.aspect = short_side > 0 ? long_side / short_side : std::numeric_limits<double>::infinity();
     cand.fill = rect_area > 0 ? area / rect_area : 0.0;
+    const double rect_perimeter = 2.0 * (rect.size.width + rect.size.height);
+    const double smooth = perimeter > 0 ? std::min(1.0, rect_perimeter / perimeter) : 0.0;
+    cand.shape_score = cand.fill * smooth * smooth;
     if (area / frame_area < cfg.min_area_ratio) {
       cand.reason = "small";
     } else if (area / frame_area > cfg.max_area_ratio) {
@@ -280,17 +313,66 @@ Detection detect(const cv::Mat & bgr, const DetectorConfig & cfg, const cv::Mat 
       cand.reason = "aspect";
     } else if (cand.fill < cfg.fill_min) {
       cand.reason = "fill";
+    } else if (cand.shape_score < cfg.shape_score_min) {
+      cand.reason = "shape";
     } else {
       cand.reason = "ok";
     }
     result.candidates.push_back(std::move(cand));
   }
 
-  // 선택 규칙: 조건을 통과한 후보 중 면적 최대 (동률이면 먼저 찾은 것)
+  // 선택 규칙 (조건을 모두 통과한 후보 중에서)
+  //   shape: 모양 점수가 가장 높은 후보. 점수 차가 kShapeTie 이내면 같은 모양으로 보고 면적이 큰 쪽
+  //          직전 목표 근처 후보는 점수에 track_bonus를 더해 비교하고, 같은 모양이면 먼저 고른다 (추적 유지)
+  //   area : 면적이 가장 큰 후보 (예전 방식)
+  // 동률이면 먼저 찾은 것.
+  constexpr double kShapeTie = 0.02;
+  const bool tracking = cfg.select_rule == "shape" && prev_center && cfg.track_bonus > 0;
+  const double radius_px = cfg.track_radius * bgr.cols;
+  std::vector<double> score(result.candidates.size(), 0.0);
+  int nearest = -1;  // 직전 목표 중심에 가장 가까운 후보 (track_radius 이내). 이 후보 하나만 가산점을 받는다
+  double nearest_dist = radius_px;
+  for (size_t i = 0; i < result.candidates.size(); ++i) {
+    const auto & c = result.candidates[i];
+    if (c.reason != "ok") {
+      continue;
+    }
+    score[i] = c.shape_score;
+    const cv::Moments m = cv::moments(c.contour);
+    if (tracking && m.m00 > 0) {
+      const double dist = cv::norm(cv::Point2d(m.m10 / m.m00, m.m01 / m.m00) - *prev_center);
+      if (dist <= nearest_dist) {
+        nearest = static_cast<int>(i);
+        nearest_dist = dist;
+      }
+    }
+  }
+  if (nearest >= 0) {
+    result.candidates[nearest].tracked = true;
+    score[nearest] += cfg.track_bonus;
+  }
+  double best_score = -1.0;
+  for (size_t i = 0; i < result.candidates.size(); ++i) {
+    if (result.candidates[i].reason == "ok") {
+      best_score = std::max(best_score, score[i]);
+    }
+  }
   int best = -1;
   for (int i = 0; i < static_cast<int>(result.candidates.size()); ++i) {
     const auto & c = result.candidates[i];
-    if (c.reason == "ok" && (best < 0 || c.area_px > result.candidates[best].area_px)) {
+    if (c.reason != "ok") {
+      continue;
+    }
+    if (cfg.select_rule == "shape" && score[i] < best_score - kShapeTie) {
+      continue;
+    }
+    if (best < 0) {
+      best = i;
+      continue;
+    }
+    // 같은 모양으로 보는 후보끼리는 직전 목표 근처를 먼저, 그다음 면적이 큰 쪽
+    const auto & b = result.candidates[best];
+    if (c.tracked != b.tracked ? c.tracked : c.area_px > b.area_px) {
       best = i;
     }
   }
@@ -314,6 +396,7 @@ Detection detect(const cv::Mat & bgr, const DetectorConfig & cfg, const cv::Mat 
   result.bbox = cv::boundingRect(sel.contour);
   result.aspect = sel.aspect;
   result.fill = sel.fill;
+  result.shape_score = sel.shape_score;
   return result;
 }
 
@@ -396,14 +479,14 @@ std::string format_vec(const cv::Vec3i & v)
 
 cv::Mat draw(
   const cv::Mat & bgr, const Detection & det,
-  const std::vector<std::string> & extra_lines)
+  const std::vector<std::string> & extra_lines, bool show_rejected)
 {
   cv::Mat out = bgr.clone();
   const int w = out.cols, h = out.rows;
   cv::line(out, {w / 2, 0}, {w / 2, h - 1}, cv::Scalar(200, 200, 200), 1);
   cv::line(out, {0, h / 2}, {w - 1, h / 2}, cv::Scalar(200, 200, 200), 1);
   for (const auto & c : det.candidates) {
-    if (c.reason == "ok") {
+    if (!show_rejected || c.reason == "ok") {
       continue;
     }
     cv::drawContours(out, std::vector<std::vector<cv::Point>>{c.contour}, -1, cv::Scalar(0, 0, 255),
@@ -433,8 +516,8 @@ cv::Mat draw(
   std::vector<std::string> lines;
   if (det.detected) {
     lines.push_back(fmt("DETECTED ex=%+.3f ey=%+.3f", det.ex, det.ey));
-    lines.push_back(fmt("area=%.0fpx ratio=%.4f aspect=%.2f fill=%.2f", det.area_px, det.area_ratio,
-      det.aspect, det.fill));
+    lines.push_back(fmt("area=%.0fpx ratio=%.4f aspect=%.2f fill=%.2f shape=%.2f", det.area_px,
+      det.area_ratio, det.aspect, det.fill, det.shape_score));
   } else {
     lines.push_back("NOT DETECTED (z=0)");
   }

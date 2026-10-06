@@ -63,6 +63,11 @@ PerceptionNode::PerceptionNode(const rclcpp::NodeOptions & options)
   cfg_.close_kernel = declare_parameter<int>("close_kernel", d.close_kernel);
   cfg_.aspect_max = declare_parameter<double>("aspect_max", d.aspect_max);
   cfg_.fill_min = declare_parameter<double>("fill_min", d.fill_min);
+  cfg_.select_rule = declare_parameter<std::string>("select_rule", d.select_rule);
+  cfg_.shape_score_min = declare_parameter<double>("shape_score_min", d.shape_score_min);
+  cfg_.track_bonus = declare_parameter<double>("track_bonus", d.track_bonus);
+  cfg_.track_radius = declare_parameter<double>("track_radius", d.track_radius);
+  cfg_.track_hold_frames = declare_parameter<int>("track_hold_frames", d.track_hold_frames);
   if (const auto error = cfg_.validate(); !error.empty()) {
     throw std::invalid_argument(error);
   }
@@ -160,6 +165,16 @@ rcl_interfaces::msg::SetParametersResult PerceptionNode::onParams(
         next.aspect_max = p.as_double();
       } else if (n == "fill_min") {
         next.fill_min = p.as_double();
+      } else if (n == "select_rule") {
+        next.select_rule = p.as_string();
+      } else if (n == "shape_score_min") {
+        next.shape_score_min = p.as_double();
+      } else if (n == "track_bonus") {
+        next.track_bonus = p.as_double();
+      } else if (n == "track_radius") {
+        next.track_radius = p.as_double();
+      } else if (n == "track_hold_frames") {
+        next.track_hold_frames = static_cast<int>(p.as_int());
       } else if (n == "probe_x") {
         px = static_cast<int>(p.as_int());
       } else if (n == "probe_y") {
@@ -203,7 +218,14 @@ void PerceptionNode::onImage(const sensor_msgs::msg::Image::ConstSharedPtr & msg
     return;
   }
   const cv::Mat mask = make_mask(bgr, cfg_);
-  const Detection det = detect(bgr, cfg_, mask);
+  const Detection det = detect(bgr, cfg_, mask, prev_center_);
+  // 추적 유지: 고른 목표의 중심을 기억하고, track_hold_frames를 넘게 놓치면 잊는다
+  if (det.detected) {
+    prev_center_ = cv::Point2d(det.cx, det.cy);
+    missed_ = 0;
+  } else if (++missed_ > cfg_.track_hold_frames) {
+    prev_center_.reset();
+  }
 
   geometry_msgs::msg::PointStamped target;
   target.header = msg->header;  // 원본 영상 시각 유지 (새 시각을 붙이지 않음)
@@ -260,7 +282,7 @@ void PerceptionNode::publishDebug(
       fmt("probe (%d, %d) ", probe_x_, probe_y_) + "BGR=" + format_vec(probe_px->bgr) +
       " HSV=" + format_vec(probe_px->hsv));
   }
-  cv::Mat view = draw(bgr, det, lines);
+  cv::Mat view = draw(bgr, det, lines, false);  // 인지한 목표(파란 사각 기둥)만 표시
   if (probe_px) {
     cv::drawMarker(view, {probe_x_, probe_y_}, cv::Scalar(255, 0, 255), cv::MARKER_CROSS, 14, 2);
   }
@@ -302,9 +324,9 @@ void PerceptionNode::logStats()
   const auto & det = last_det_;
   if (det.detected) {
     text += fmt(
-      " | bbox x=%d y=%d w=%d h=%d | center (%.0f,%.0f) ex=%+.3f ey=%+.3f area=%.4f",
+      " | bbox x=%d y=%d w=%d h=%d | center (%.0f,%.0f) ex=%+.3f ey=%+.3f area=%.4f shape=%.2f",
       det.bbox.x, det.bbox.y, det.bbox.width, det.bbox.height, det.cx, det.cy, det.ex, det.ey,
-      det.area_ratio);
+      det.area_ratio, det.shape_score);
     text += " | BGR=" + format_vec(last_center_->bgr) + " HSV=" + format_vec(last_center_->hsv);
   } else {
     text += " | 미검출 (탈락 " + format_counts(det.rejected_counts()) + ")";

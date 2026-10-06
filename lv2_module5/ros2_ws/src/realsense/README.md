@@ -22,8 +22,8 @@
 | 2. HSV 변환·마스크 | 범위 1 OR 범위 2 (`hsv_lower/upper`, `hsv_bright_*`) | `detector.cpp` `make_mask` |
 | 3. 잡음 제거 | open(`open_kernel`) → close(`close_kernel`) | `make_mask` |
 | 4. 컨투어 | `findContours(RETR_EXTERNAL)`, 20px 미만 점은 후보에서 제외 | `detect` |
-| 5. 후보 필터 | 면적비 `min_area_ratio`~`max_area_ratio`, `aspect_max`, `fill_min`. 탈락 사유 `small`·`large`·`aspect`·`fill` | `detect` |
-| 6. 대상 선택 | **조건을 모두 통과한 후보 중 면적이 가장 큰 것 1개** (같으면 먼저 찾은 것) | `detect` |
+| 5. 후보 필터 | 면적비 `min_area_ratio`~`max_area_ratio`, `aspect_max`, `fill_min`, `shape_score_min`. 탈락 사유 `small`·`large`·`aspect`·`fill`·`shape` | `detect` |
+| 6. 대상 선택 | `select_rule: shape`(기본): 조건을 모두 통과한 후보 중 **모양 점수가 가장 높은 것** (점수 차 0.02 이내면 면적이 큰 쪽). 직전에 고른 목표에 가장 가까운 후보 하나는 점수에 `track_bonus`를 더해 비교하고 동률이면 먼저 고른다 (추적 유지, 인지 노드만). `select_rule: area`: **면적이 가장 큰 것** (예전 방식) | `detect` |
 | 7. 중심 계산 | 컨투어 모멘트 무게중심 (cx, cy). `m00 = 0`이면 미검출 | `detect` |
 | 8. 표시 | 원본 위에 영상 중심 십자(회색), 선택 대상 박스(초록)·윤곽(하늘색)·중심(초록 점), 탈락 후보(빨강 + 사유) | `draw` → `~/debug_image` |
 
@@ -77,6 +77,11 @@
 | `open_kernel`, `close_kernel` | 3, 5 | 잡음 제거 커널(px), 0이면 생략 |
 | `aspect_max` | 4.0 | 회전 사각형 긴 변/짧은 변 상한 |
 | `fill_min` | 0.6 | 컨투어 면적 / 회전 사각형 면적 하한 |
+| `select_rule` | `shape` | 후보 선택 규칙. `shape` = 모양 점수 최고, `area` = 면적 최대 (예전 방식) |
+| `shape_score_min` | 0.0 | 모양 점수 하한 (0이면 끔). 모양 점수 = fill × (회전 사각형 둘레 / 컨투어 둘레)², 매끈한 사각형 = 1 |
+| `track_bonus` | 0.05 | 추적 유지 가산점 (0이면 끔). 직전 목표 중심에 가장 가까운 후보 하나의 모양 점수에 더한다. 선택에만 쓰고 미검출 프레임에 이전 좌표를 발행하지 않는다 |
+| `track_radius` | 0.15 | 가산점 후보의 최대 거리 (직전 중심과의 거리 / 영상 폭) |
+| `track_hold_frames` | 5 | 이 프레임 수보다 오래 놓치면 직전 목표를 잊는다 |
 | `image_reliable` | true | 영상 구독 QoS (true = reliable, false = best-effort). 위 설계 결정 참고 |
 | `debug_rate_hz`, `jpeg_quality` | 5.0, 70 | 디버그 영상 발행 주기·품질 (0이면 끔) |
 | `probe_x`, `probe_y` | −1 | 0 이상이면 그 픽셀의 BGR·HSV를 로그에 남김 |
@@ -111,7 +116,8 @@ C++ 빌드 의존성: `sudo apt install libopencv-dev libyaml-cpp-dev ros-lyrica
 ## 실행
 
 ```bash
-ros2 launch realsense realsense.launch.py                                   # 카메라 + perception_node
+ros2 launch realsense realsense.launch.py                                   # 카메라(424x240x30) + perception_node
+ros2 launch realsense realsense.launch.py color_profile:=640x480x30         # 해상도 바꿔 실행 (비교 시험용)
 ros2 launch realsense realsense.launch.py params_file:=$PWD/../config/realsense_<설명>.yaml
 ros2 launch realsense realsense.launch.py use_camera:=false                 # bag 재생으로 입력할 때
 ros2 topic echo /target --qos-reliability best_effort --field point
@@ -165,4 +171,6 @@ ros2 param set /camera/camera rgb_camera.backlight_compensation true   # 측정:
 | 2026-10-04 | 토픽 이름 파라미터화: `image_topic`, `target_topic`, `debug_image_topic`, `mask_topic` (기본값 = report.md 구조도). `realsense.launch.py`에 `image_topic`·`target_topic` 인자 (remap → 파라미터 전달), `view_debug`도 토픽 파라미터 | 팀장 요청: 테스트 상황에 따라 토픽명을 바꿀 수 있게 | 실카메라로 기본값·launch 인자·`-p`·기존 `-r` remap·없는 토픽 경고 확인, colcon test 55개 0 실패 |
 | 2026-10-04 | 실행 중 `ros2 param set`으로 토픽 이름·`image_reliable`을 바꾸면 거부하고 이유를 알림 | 반영되지 않는데 성공으로 보이던 문제 | `Setting parameter failed: ... 실행 중에 바꿀 수 없다` 확인 |
 | 2026-10-04 | `realsense.launch.py` docstring 형식 수정 | ament pep257(D213) 실패 해결 | pep257 통과 |
-
+| 2026-10-06 | 후보 선택 규칙 `select_rule: shape` 추가 (기본), 모양 점수 `shape_score`·하한 `shape_score_min` 추가, 로그·디버그 화면에 `shape=` 표시 | 사각 기둥과 원기둥(같은 파란색)이 함께 보이면 면적이 큰 원기둥을 고름. 원기둥은 곡면 음영으로 윤곽이 울퉁불퉁해 모양 점수가 낮음 (사각 0.83~0.87, 원기둥 0.42~0.80) | 디버그 화면 6장: 예전 규칙 4장 원기둥 선택 → 새 규칙 6장 모두 사각 기둥. gtest `ShapeRulePrefersPillarOverLargerCylinder` (실제 실루엣 2장) |
+| 2026-10-06 | 추적 유지 `track_bonus`·`track_radius`·`track_hold_frames` 추가 (기본 0.05·0.15·5). 인지 노드 디버그 영상은 선택한 목표만 표시 (탈락 후보 빨간 윤곽은 `hsv_tuner`·`rerun_captures`에서만) | 사각 기둥과 원기둥이 함께 보이면 번갈아 선택됨. 424x240에서는 원기둥 윤곽이 매끈해져 모양 점수가 비슷함 (사각 0.92~0.98, 원기둥 0.74~0.96) → 0.02 동률 규칙으로 면적이 큰 원기둥이 가끔 선택 | 424x240 실카메라 337프레임 재검출: 선택 변경 18회 → 0회. 원기둥에서 시작해도 1프레임 만에 사각 기둥으로 이동. gtest 3개 추가 (실제 프레임 `pillar_cylinder_424x240_20261006.png` 포함), colcon test 60개 0 실패 |
+| 2026-10-06 | 카메라 컬러 기본 해상도 `640x480x30` → **`424x240x30`** (`realsense.launch.py` `color_profile` 기본값). 면적비 근거 주석·`hsv_tuner` 안내·gtest(424x240 1m·20cm) 갱신 | 원본 영상 크기 축소 (1장 0.92MB → 0.31MB, 27MB/s → 9.2MB/s). 팀원 혼동·통합 시 해상도 불일치 방지를 위해 실행 인자가 아닌 기본값으로 지정. 팀 `bringup.launch.py`는 `use_camera`만 넘기므로 이 기본값을 그대로 쓴다 | `ros2 topic bw` 0.31MB, 1m 정면 479/479 검출(면적비 0.0014, 하한의 2.3배), 인지 노드 CPU 21% → 9%, colcon test 0 실패 |

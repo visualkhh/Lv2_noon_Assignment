@@ -73,8 +73,9 @@ def generate_launch_description():
             description='false면 카메라를 실행하지 않음 (bag 재생으로 입력할 때)'),
         DeclareLaunchArgument(
             'color_profile',
-            default_value='640x480x30',
-            description='RealSense 컬러 해상도·FPS (폭x높이xFPS)'),
+            default_value='424x240x30',
+            description='RealSense 컬러 해상도·FPS (폭x높이xFPS). 기본 424x240x30: 영상 1장 약 300KB로 '
+                        '640x480(약 900KB)보다 전송·처리 부담이 작고 1m 기둥도 검출됨 (README 참고)'),
         DeclareLaunchArgument(
             'image_topic',
             default_value='',

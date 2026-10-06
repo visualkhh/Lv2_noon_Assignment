@@ -52,8 +52,9 @@ const char * USAGE =
   --snapshot          창 없이 한 장 저장하고 종료 (SSH·Pi 확인용)
 
 사용 전 카메라 노드를 실행한다:
-  ros2 launch realsense2_camera rs_launch.py rgb_camera.color_profile:=640x480x30 \
-      depth_module.depth_profile:=640x480x30 align_depth.enable:=true)";
+  ros2 launch realsense2_camera rs_launch.py rgb_camera.color_profile:=424x240x30 \
+      depth_module.depth_profile:=424x240x30 align_depth.enable:=true
+  (해상도는 인지 노드 기본값 realsense.launch.py color_profile과 같게 맞춘다))";
 
 const char * WINDOW = "tuner (left: result / right: mask)";
 const char * CONTROLS = "controls";
@@ -107,6 +108,13 @@ std::vector<Slider> sliders()
       }, [](auto & c, int v) {
         c.hsv_upper[2] = v;
       }},
+    // 후보 선택: "shape rule" 1 = 모양 점수 최고, 0 = 면적 최대 (예전 방식)
+    {"shape rule", 1, [](auto & c) {return c.select_rule == "shape" ? 1 : 0;},
+      [](auto & c, int v) {c.select_rule = v ? "shape" : "area";}},
+    {"shape min %", 100, [](auto & c) {
+        return static_cast<int>(std::lround(c.shape_score_min * 100));
+      },
+      [](auto & c, int v) {c.shape_score_min = v / 100.0;}},
     // 범위 2 (조명 받은 밝은 면). "B on" 0이면 범위 1만 쓴다
     {"B on", 1, [](auto & c) {return c.hsv_bright_enabled ? 1 : 0;},
       [](auto & c, int v) {c.hsv_bright_enabled = v != 0;}},
