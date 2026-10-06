@@ -95,13 +95,13 @@ ros2 launch fake_camera_bringup fake_camera_bringup.launch.py    # period_s:=…
 
 **실기에 붙여 쓰기**: `monitor_manager`만 띄우면 통제실 status·images·JointState 다이얼이 그대로 동작 (echo 패널·serial 쌍은 비어 있음).
 ```bash
-# Pi에서 (권장: 같은 컴퓨터라 영상이 네트워크를 안 탐) → out_dir을 sshfs/rsync로 PC에 공유
-ros2 run fake_camera_bringup monitor_manager --ros-args -p out_dir:=$HOME/monitor/topic
+# Pi에서 (권장: 같은 컴퓨터라 영상이 네트워크를 안 탐) → debug_dir을 sshfs/rsync로 PC에 공유
+ros2 run fake_camera_bringup monitor_manager --ros-args -p debug_dir:=$HOME/monitor
 # 다른 PC에서 네트워크로 받을 때는 무압축 영상을 반드시 제외 (640x480 30fps ≈ 27MB/s)
-ros2 run fake_camera_bringup monitor_manager --ros-args -p out_dir:=/path/debug/topic \
+ros2 run fake_camera_bringup monitor_manager --ros-args -p debug_dir:=/path/lv2_module5/debug \
   -p raw_images:=false -p exclude_topics:="[/camera/camera/color/camera_info]"
 ```
-파라미터: `out_dir`(저장 폴더), `period_s`(이미지 저장 간격, 기본 0.2), `raw_images`(false면 `sensor_msgs/Image` 구독 안 함), `exclude_topics`(이름으로 제외).
+파라미터: `debug_dir`(debug 폴더 — 그 아래 `topic/<토픽>/`에 저장, 기본 `/ws/debug`), `period_s`(이미지 저장 간격, 기본 0.2), `raw_images`(false면 `sensor_msgs/Image` 구독 안 함), `exclude_topics`(이름으로 제외).
 
 > `period_s`는 0.5초(`target_timeout`)보다 짧게. 길면 프레임마다 `/target` 타임아웃으로
 > LOST로 떨어져 모터 명령이 계속 0 (TRACKING 상태에서만 움직임 명령이 나옴).
@@ -119,7 +119,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # 최초 1�
 관절각 = serial-out `M,Δpan,Δtilt` 누적(펌웨어와 같은 계산) → 그 카메라 시점으로 렌더 → `debug/input-live/frame.png`
 → fake_camera(live) → perception → dynamixel → serial → 관절각… 기둥을 옮기면 카메라가 따라 돌아 가운데로 맞춘다.
 컨테이너에서 `test-fake_camera_bringup 0` (기본 30fps). 통제실은 하나만 실행됨(잠금).
-world 뷰: 클릭 = 상자 선택(노랑) · 드래그 = 이동 · Shift+드래그 = 높이 · Option(Alt)+드래그 = 회전 · 오른쪽/Ctrl 드래그 = 시점 · 휠 = 줌
+world 뷰: 클릭 = 상자 선택(노랑) · 드래그 = 이동 · Shift+드래그 = 높이 · Option(macOS)/Alt(Linux·Windows)+드래그 = 회전 · 오른쪽/Ctrl 드래그 = 시점 · 휠 = 줌
 (회전은 슬라이더로도, [선택 색변경]으로 선택한 물체(기둥·장애물) 색 변경 — perception HSV 범위 안인지 표시).
 장애물(회색 벽판) 기본 2개 + [장애물 추가]/[선택 삭제]. 기둥을 벽 뒤에 숨기면 미검출(z=0) → LOST, 다시 나오면 TRACKING.
 [영상 송출] 토글 (처음엔 꺼짐 — 장면을 놓고 켜기): 끄면 `frame.png`를 지워 fake_camera가 발행을 멈춤(카메라 뽑힌 상황, 통제실을 닫아도 꺼짐).
@@ -319,3 +319,138 @@ ros2 bag play recordings/<RUN_ID> --topics /camera/camera/color/image_raw
 | fake_camera가 영상을 안 보냄 ("영상 송출 꺼짐") | 통제실 [영상 송출]이 꺼져 있거나 통제실 미실행 (처음엔 꺼짐) | 통제실을 켜고 [영상 송출] 체크 |
 | 통제실을 하나 더 켜면 바로 종료 | 잠금: 두 개가 `frame.png`를 번갈아 쓰면 영상이 섞임 | 기존 창 사용 |
 | 시뮬레이션에서 모터 명령이 항상 0 | 발행 간격이 `lost_timeout`(0.5s)보다 길거나 기둥이 데드밴드 안 | 간격 0.5초 미만, 기둥을 옆으로 이동 |
+
+## 11. 실기(Raspberry Pi) 문제 해결
+
+### 11.1 PC에서 Pi의 토픽이 안 보임 (`ros2 topic list`에 `/parameter_events`·`/rosout`만 나옴)
+
+같은 네트워크에서도 아래 중 하나가 어긋나면 서로 발견하지 못한다. **양쪽(PC·Pi) 모두** 위에서부터 확인한다.
+
+| 확인 | 명령 | 맞아야 하는 값 |
+|---|---|---|
+| ① 도메인 ID | `echo $ROS_DOMAIN_ID` | 양쪽 같은 값 (비어 있으면 **0**으로 동작) |
+| ② RMW | `echo $RMW_IMPLEMENTATION` | 양쪽 같음 (둘 다 비어 있으면 기본 Fast DDS) |
+| ③ 발견 범위 | `echo $ROS_AUTOMATIC_DISCOVERY_RANGE` | `SUBNET` 또는 비어 있음 (`LOCALHOST`·`OFF`면 안 보임) |
+| ④ 같은 대역 | `ip -4 addr` | 같은 서브넷 (예: 둘 다 10.2.12.x) |
+| ⑤ 방화벽 | `sudo ufw status` | 비활성, 또는 상대 대역 UDP 허용 |
+| ⑥ 멀티캐스트 | 아래 시험 | Pi에서 `Received` 출력 |
+
+```bash
+# ① 도메인 맞추기 (양쪽, 계속 쓰려면 ~/.bashrc에 추가)
+export ROS_DOMAIN_ID=9
+ros2 daemon stop            # 예전 도메인으로 캐시된 목록 초기화
+ros2 topic list
+
+# ⑤ 방화벽: 같은 대역에서 오는 UDP 허용 (DDS 발견·통신은 UDP 7400번대 + 멀티캐스트)
+sudo ufw allow from 10.2.12.0/24 proto udp
+
+# ⑥ 멀티캐스트 시험 — Pi에서 받고 PC에서 보냄
+ros2 multicast receive      # Pi
+ros2 multicast send         # PC
+```
+
+⑥에서 `Received`가 안 뜨면 Wi-Fi(공유기)가 기기 간 멀티캐스트를 막고 있는 것이다 (학원·회사 Wi-Fi에서 흔함). 상대 IP를 직접 지정한다.
+
+```bash
+export ROS_STATIC_PEERS=<상대 IP>   # PC에선 Pi IP, Pi에선 PC IP (양쪽 모두)
+ros2 daemon stop && ros2 topic list
+```
+
+> SSH로 Pi에 접속해서 Pi 안에서 `ros2 topic list`를 실행하면 네트워크 설정과 무관하게 보인다. 노드 동작 확인은 Pi 안에서, PC는 시각화(rviz·이미지 확인)용으로 쓸 때만 위 설정이 필요하다.
+
+### 11.2 노드 시작 시 `OSError: [Errno 8] Exec format error`
+
+`install/`이 다른 CPU용으로 빌드된 것이다 (예: CI x86_64 패키지를 Pi(aarch64)에서 실행). `start.sh`는 실행 전에 이를 검사해 멈춘다.
+
+```bash
+uname -m                                   # Pi = aarch64
+./download-artifact.sh <RUN ID>            # 이 장치용(ros2_ws-deploy-aarch64.tar.gz) 받기
+./start.sh --build                         # 또는 저장소에서 Pi에서 직접 빌드
+```
+
+### 11.3 그 밖의 실기 증상
+
+| 증상 | 원인 | 조치 |
+|---|---|---|
+| `serial open /dev/opencr: No such file` | udev 링크 미설정 | `src/dynamixel/setup_pi.sh --device /dev/ttyACM0` |
+| `Permission denied: /dev/ttyACM0` | 시리얼 권한 | `sudo usermod -aG dialout $USER` 후 재로그인 |
+| `start.sh use_motor:=false`가 FAIL로 멈춤 | `dynamixel.launch.py`가 `use_motor`를 처리하지 않아 모터가 움직임 | 모터 전원(또는 OpenCR USB)을 분리하고 `use_motor:=false` 없이 실행 |
+| 펌웨어 업로드 실패·응답 없음 | 포트 점유 또는 보드 미응답 | `start.sh` 등 ROS 노드 종료 후 재시도, 안 되면 OpenCR SW2 누른 채 RESET |
+| bag 기록 중 영상 메시지 누락 | Pi SD카드·CPU 한계 (원본 영상 약 27MB/s) | `./bag-recording.sh -z`(압축) 또는 `-p control`, `<RUN_ID>.info.txt`의 Count 확인 |
+| `download-artifact.sh`가 HTTP 401·403 | 토큰 없음·만료·권한 부족 | `./download-artifact.sh -h`의 토큰 안내 (Actions: Read-only) |
+
+### 11.4 PC에서 실기(Pi) 토픽 모니터링 — `monitor_manager` + 통제실
+
+`monitor_manager`(`fake_camera_bringup` 패키지)는 보이는 모든 토픽의 최신 메시지를 `<debug_dir>/topic/<토픽>/message`(JSON)·이미지로 저장한다.
+PC에서 실행해 Pi 토픽을 `lv2_module5/debug/topic`에 저장하면, 통제실(`docker/test-controller/run-controller.py`)이 그 파일을 읽어 status·관절각을 보여준다.
+(실기는 시리얼이 OpenCR로 바로 가서 serial-out이 비므로, 통제실은 `/motor_cmd`를 누적해 관절각을 추정한다.)
+
+```
+Pi:  start.sh → 토픽 발행 ──(같은 ROS_DOMAIN_ID, 11.1)──▶ PC: monitor_manager → lv2_module5/debug/topic/ → 통제실
+```
+
+**1. 준비 (PC, 최초 1회)**
+
+```bash
+sudo apt install ros-lyrical-rosx-introspection      # monitor_manager 의존성
+cd lv2_module5/ros2_ws
+colcon build --packages-select fake_camera_bringup
+```
+
+**2. Pi 토픽이 PC에서 보이는지 확인** — 안 보이면 11.1
+
+```bash
+export ROS_DOMAIN_ID=<Pi와 같은 값>
+ros2 daemon stop && ros2 topic list                  # /target·/tracking_status 등이 보여야 함
+```
+
+**3. monitor_manager 노드만 실행 (PC)** — 기본 `debug_dir`은 컨테이너 경로(`/ws/debug`)라 호스트의 debug 폴더로 바꾼다
+
+```bash
+cd ~/workspaces/pa/source/Lv2_noon_Assignment/lv2_module5/ros2_ws
+source install/setup.bash
+
+# 기본
+ros2 run fake_camera_bringup monitor_manager --ros-args -p debug_dir:=$PWD/../debug
+
+# Pi 토픽을 Wi-Fi로 받을 때 (권장) — 원본 영상(약 27MB/s) 구독 안 함
+ros2 run fake_camera_bringup monitor_manager --ros-args -p debug_dir:=$PWD/../debug -p raw_images:=false
+
+# 스크립트로 (위와 같음: 저장 = monitor.sh 위치의 위 debug/, 원본 영상 제외) — 옵션은 ./monitor.sh -h
+./monitor.sh -D 9                 # Pi와 같은 ROS_DOMAIN_ID
+```
+
+- 결과: `lv2_module5/debug/topic/<토픽>/message` (예: `debug/topic/target/message`). `Ctrl+C`로 종료.
+- 폴더가 없으면 시작할 때 만든다. 못 만들면(권한 등) `[FATAL] 저장 폴더를 만들 수 없음`을 찍고 종료한다.
+- 로그로 동작 확인:
+  - 시작: `시작 | 저장: <경로> | ROS_DOMAIN_ID=<값> | ...`
+  - 토픽 발견: `message 저장 시작: /target (...)`
+  - 5초마다: `토픽 N개 구독 중, 최근 5초 저장 M건`
+  - `구독할 토픽 없음` 경고가 계속 나오면 → 도메인·네트워크 문제 (11.1)
+- `debug_dir`에는 **debug 폴더**를 준다. `topic/`은 노드가 붙인다 (`.../debug/topic`을 주면 `debug/topic/topic/...`이 됨).
+- 예전 파라미터 `out_dir`은 없어졌다 — 주면 무시되고 기본값(`/ws/debug`)에 저장된다.
+- `debug_dir`로 바뀐 뒤 처음이면 다시 빌드: `colcon build --packages-select fake_camera_bringup`
+
+| 파라미터 | 기본값 | 설명 |
+|---|---|---|
+| `debug_dir` | `/ws/debug` | debug 폴더 — 그 아래 `topic/<토픽>/`에 저장. 호스트에선 `lv2_module5/debug` |
+| `period_s` | `0.2` | 저장 주기(초) |
+| `raw_images` | `true` | 원본 영상(`Image`)도 이미지 파일로 저장 |
+| `exclude_topics` | `[]` | 저장하지 않을 토픽 (예: `-p exclude_topics:="['/camera/camera/color/image_raw']"`) |
+
+**4. 통제실 실행 (PC, 다른 터미널)**
+
+```bash
+cd docker/test-controller && source .venv/bin/activate
+python run-controller.py
+```
+
+- status: 토픽별 최신값·갱신 시각 (2초 넘게 안 바뀌면 빨강)
+- motors: `/motor_cmd` 누적 관절각 (추정치 — 실제 모터 위치 아님)
+- 통제실의 [영상 송출]은 fake_camera용이라 실기 모니터링에선 끈 채로 둔다
+
+**주의**
+
+- 원본 영상(`/camera/camera/color/image_raw`, 약 27MB/s)을 Wi-Fi로 받으면 네트워크가 막혀 Pi 쪽 추적에도 영향을 줄 수 있다. 영상은 `raw_images:=false` 또는 `exclude_topics`로 빼고, 압축 디버그 영상(`/perception_node/debug_image/compressed`)으로 확인한다.
+- `debug/` 폴더가 root 소유라 쓰기 실패하면 `docker/README.md`의 권한 해결 참고 (`sudo chown -R $USER:$USER lv2_module5/debug`).
+- PC에서 `ros2 run`한 노드도 Pi와 같은 도메인에 참여한다. 모니터링 중 PC에서 `/target`·`/motor_cmd`를 발행하는 노드(시뮬레이션·bag 재생 등)를 띄우면 **실기 모터가 움직일 수 있다.**

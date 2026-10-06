@@ -1,19 +1,21 @@
 // 모니터 매니저: 떠 있는 토픽을 파일로 떨궈 호스트(run-controller.py)에서 보게 한다.
 // 0.5초마다 그래프를 훑어 새 토픽을 자동 구독 (토픽·타입을 코드에 적지 않음 → 추가돼도 재빌드 불필요).
-//   <out_dir>/<토픽명>/message    마지막 메시지 JSON {"type": "...", "data": {...}} (덮어씀)
-//   <out_dir>/<토픽명>/image.jpg  Image / CompressedImage 토픽이면 마지막 영상 (덮어씀)
+//   <debug_dir>/topic/<토픽명>/message    마지막 메시지 JSON {"type": "...", "data": {...}} (덮어씀)
+//   <debug_dir>/topic/<토픽명>/image.jpg  Image / CompressedImage 토픽이면 마지막 영상 (덮어씀)
 //   예) /target → /ws/debug/topic/target/message
 //       /perception_node/mask/compressed → /ws/debug/topic/perception_node/mask/compressed/image.jpg
 // test-logger의 echo·info와 같은 폴더. 갱신 시각은 파일 mtime으로 본다.
 // message는 메시지마다 덮어씀 (통제실 모터 패널이 변화량 명령을 하나하나 누적함).
 // image.jpg는 토픽별로 period_s에 한 번만 (실카메라 30fps 영상을 다 쓰면 디스크만 바쁨).
+// 시작할 때 <debug_dir>/topic을 만들고(실패하면 FATAL 종료), 5초마다 구독 토픽 수·저장 건수를 로그로 남긴다
+// (토픽이 하나도 안 보이면 ROS_DOMAIN_ID·네트워크 확인 경고).
 //
-// 파라미터: out_dir, period_s(이미지 저장 간격),
+// 파라미터: debug_dir(debug 폴더, 기본 /ws/debug — 그 아래 topic/에 저장), period_s(이미지 저장 간격),
 //   raw_images (기본 true): false면 sensor_msgs/Image(무압축 영상)는 구독 자체를 안 함.
 //     네트워크 너머에서 띄울 때 필수 — 640x480 rgb8 30fps면 초당 ~27MB가 전송됨 (JSON에서 픽셀을 빼도 구독하면 다 옴).
 //     압축 토픽(CompressedImage: debug_image·mask)은 그대로 받음.
 //   exclude_topics (기본 []): 이름으로 뺄 토픽 목록
-//   예) ros2 run fake_camera_bringup monitor_manager --ros-args -p out_dir:=/tmp/monitor -p raw_images:=false
+//   예) ros2 run fake_camera_bringup monitor_manager --ros-args -p debug_dir:=/tmp/monitor -p raw_images:=false
 //         -p exclude_topics:="['/camera/camera/color/camera_info']"
 //
 // 메시지 → JSON: rosx_introspection(PlotJuggler가 쓰는 라이브러리)이 .msg 정의로 런타임 파싱.
@@ -26,6 +28,7 @@
 #include <map>
 #include <memory>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -44,17 +47,49 @@ class MonitorManager : public rclcpp::Node {
 public:
   MonitorManager()
   : rclcpp::Node("monitor_manager") {
-    out_dir_ = declare_parameter<std::string>("out_dir", "/ws/debug/topic");
+    // debug 폴더를 받는다. 토픽별 파일은 <debug_dir>/topic/<토픽>/ 에 저장 (통제실이 읽는 위치)
+    debug_dir_ = declare_parameter<std::string>("debug_dir", "/ws/debug");
     period_ = declare_parameter<double>("period_s", 0.2);
     raw_images_ = declare_parameter<bool>("raw_images", true);
     const auto excluded = declare_parameter<std::vector<std::string>>("exclude_topics", std::vector<std::string>{});
     excluded_ = std::set<std::string>(excluded.begin(), excluded.end());
+
+    // 저장 폴더를 시작할 때 만든다 (없으면 생성). 못 만들면 바로 알 수 있게 종료
+    const fs::path topic_dir = fs::absolute(fs::path(debug_dir_) / "topic");
+    std::error_code ec;
+    fs::create_directories(topic_dir, ec);
+    if (ec || !fs::is_directory(topic_dir)) {
+      RCLCPP_FATAL(get_logger(), "저장 폴더를 만들 수 없음: %s (%s) — 경로·권한 확인 (root 소유면 chown)",
+        topic_dir.c_str(), ec.message().c_str());
+      throw std::runtime_error("debug_dir 생성 실패");
+    }
+    RCLCPP_INFO(get_logger(), "시작 | 저장: %s | ROS_DOMAIN_ID=%zu | raw_images=%s | period_s=%.2f | 제외 %zu개",
+      topic_dir.c_str(), get_node_base_interface()->get_context()->get_domain_id(),
+      raw_images_ ? "true" : "false", period_, excluded_.size());
+
     // 0.5초: 첫 모터 명령(시작 후 ~0.7초)보다 먼저 구독해야 변화량 누적에서 앞부분을 안 놓침
     scan_timer_ = create_wall_timer(std::chrono::milliseconds(500), [this]() { scan(); });
+    // 5초마다 상태 로그 — 실행 중인지, 실제로 저장되고 있는지 확인용
+    status_timer_ = create_wall_timer(std::chrono::seconds(5), [this]() { report(); });
     scan();
   }
 
 private:
+  void report() {
+    if (subs_.empty()) {
+      RCLCPP_WARN(get_logger(), "구독할 토픽 없음 — 발행 노드가 떠 있는지, ROS_DOMAIN_ID(현재 %zu)·네트워크 확인",
+        get_node_base_interface()->get_context()->get_domain_id());
+    } else if (written_ == 0) {
+      RCLCPP_WARN(get_logger(), "토픽 %zu개 구독 중, 최근 5초 저장 0건 — 발행이 멈췄거나 QoS 불일치",
+        seen_.size() - excluded_count_);
+    } else {
+      RCLCPP_INFO(get_logger(), "토픽 %zu개 구독 중, 최근 5초 저장 %zu건%s",
+        seen_.size() - excluded_count_, written_, write_failed_ ? " (쓰기 실패 있음)" : "");
+    }
+    written_ = 0;
+    write_failed_ = 0;
+  }
+
   void scan() {
     for (const auto & [topic, types] : get_topic_names_and_types()) {
       // 숨김 토픽(이름 구간이 '_'로 시작, ros2 topic list에도 안 나옴) 제외.
@@ -68,6 +103,7 @@ private:
       seen_.insert(topic);
       if (excluded_.count(topic) || (!raw_images_ && types.front() == "sensor_msgs/msg/Image")) {
         RCLCPP_INFO(get_logger(), "제외: %s (%s)", topic.c_str(), types.front().c_str());
+        ++excluded_count_;
         continue;
       }
       subscribe_message(topic, types.front());
@@ -172,37 +208,47 @@ private:
   }
 
   fs::path dir_of(const std::string & topic) const {
-    return fs::path(out_dir_) / topic.substr(1);
+    return fs::path(debug_dir_) / "topic" / topic.substr(1);
   }
 
   // 임시 파일에 쓰고 rename → 호스트가 반쯤 쓰인 파일을 읽지 않게.
-  // 폴더는 매번 만든다 (test-logger가 시작할 때 out_dir을 지움).
+  // 폴더는 매번 만든다 (test-logger가 시작할 때 debug/topic을 지움).
   static fs::path prepare_tmp(const fs::path & out) {
     std::error_code ec;
     fs::create_directories(out.parent_path(), ec);
     return out.parent_path() / (".tmp-" + out.filename().string());
   }
 
-  void write_file(const fs::path & out, const std::string & text) const {
+  void write_file(const fs::path & out, const std::string & text) {
     const fs::path tmp = prepare_tmp(out);
-    std::ofstream(tmp) << text;
+    std::ofstream file(tmp);
+    file << text;
+    file.close();
     std::error_code ec;
-    fs::rename(tmp, out, ec);
+    if (!file || (fs::rename(tmp, out, ec), ec)) {
+      ++write_failed_;
+      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000, "쓰기 실패: %s — 권한·디스크 확인", out.c_str());
+      return;
+    }
+    ++written_;
   }
 
-  void save_image(const std::string & topic, const cv::Mat & image) const {
+  void save_image(const std::string & topic, const cv::Mat & image) {
     if (image.empty()) {
       return;
     }
     const fs::path out = dir_of(topic) / "image.jpg";
     const fs::path tmp = prepare_tmp(out);  // 확장자 .jpg 유지 → imwrite가 형식 판별
     std::error_code ec;
-    if (cv::imwrite(tmp.string(), image)) {
-      fs::rename(tmp, out, ec);
+    if (!cv::imwrite(tmp.string(), image) || (fs::rename(tmp, out, ec), ec)) {
+      ++write_failed_;
+      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000, "이미지 쓰기 실패: %s", out.c_str());
+      return;
     }
+    ++written_;
   }
 
-  std::string out_dir_;
+  std::string debug_dir_;
   bool raw_images_;
   std::set<std::string> excluded_;
   double period_;
@@ -210,6 +256,10 @@ private:
   std::vector<rclcpp::SubscriptionBase::SharedPtr> subs_;
   std::map<std::string, rclcpp::Time> last_;
   rclcpp::TimerBase::SharedPtr scan_timer_;
+  rclcpp::TimerBase::SharedPtr status_timer_;
+  size_t written_ = 0;         // 최근 5초 저장 건수 (report마다 초기화)
+  size_t write_failed_ = 0;
+  size_t excluded_count_ = 0;
 };
 
 int main(int argc, char ** argv) {
