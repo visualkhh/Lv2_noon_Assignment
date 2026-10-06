@@ -52,6 +52,8 @@ private:
   int jpeg_quality_;
   int probe_x_;
   int probe_y_;
+  std::optional<cv::Point2d> prev_center_;  // 직전에 고른 목표 중심 (추적 유지용, 발행에는 쓰지 않음)
+  int missed_ = 0;
 
   std::chrono::steady_clock::time_point last_debug_{};
   std::chrono::steady_clock::time_point stats_t0_;
