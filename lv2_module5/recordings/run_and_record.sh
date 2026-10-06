@@ -51,6 +51,10 @@ source "/opt/ros/$ROS_DISTRO_NAME/setup.bash"
 source "$WS/install/setup.bash"
 
 # --- ② 노드 실행 (별도 프로세스 그룹: 녹화 중 Ctrl+C가 launch까지 죽이지 않도록)
+if ss -ltn 2>/dev/null | grep -q ':9090 '; then
+  echo "⚠ 9090 포트가 이미 사용 중 — 이전 실행의 rosbridge가 남아 있으면 GUI가 그쪽에 붙음"
+  echo "  정리: pkill -f rosbridge_websocket"
+fi
 LOG="${TMPDIR:-/tmp}/$NAME.launch.log"
 echo "=== ros2 launch cognitive_control sim.launch.py $* (로그: $LOG)"
 setsid ros2 launch cognitive_control sim.launch.py "$@" >"$LOG" 2>&1 &
