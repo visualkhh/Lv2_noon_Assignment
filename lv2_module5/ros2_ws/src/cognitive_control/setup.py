@@ -30,6 +30,9 @@ setup(
         'console_scripts': [
             'virtual_world = cognitive_control.virtual_world:main',
             'tracker = cognitive_control.tracker:main',
+            'perception = cognitive_control.perception:main',
+            'device_manager = cognitive_control.device_manager:main',
+            'opencr_bridge = cognitive_control.opencr_bridge:main',
         ],
     },
 )
