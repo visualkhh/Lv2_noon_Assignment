@@ -368,7 +368,7 @@ document.getElementById('view3dEmpty').remove();
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(45, 1, 0.01, 50);
 cam.up.set(0, 0, 1);
-cam.position.set(-0.9, -0.55, 0.75);   // 장치 뒤 오른쪽 위에서 정면(+x)을 내려다봄
+cam.position.set(-0.35, -1.25, 0.7);   // 장치 오른쪽 뒤 위에서 비스듬히
 const controls = new OrbitControls(cam, renderer.domElement);
 controls.target.set(0.7, 0.25, -0.1);
 controls.enableDamping = true;
