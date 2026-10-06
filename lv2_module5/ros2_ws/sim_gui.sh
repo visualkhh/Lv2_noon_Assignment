@@ -1,5 +1,6 @@
 #!/bin/bash
-# 가상환경 + 웹 GUI: 빌드 → sim.launch.py (virtual_world + tracker + rosbridge) → 브라우저로 index.html
+# 가상환경 + 웹 GUI: 빌드 → index.html을 http://localhost:8000 으로 제공 → sim.launch.py
+#   GUI는 VS Code "Browser: Open Integrated Browser"에서 http://localhost:8000/index.html 로 연다
 #
 #   ./sim_gui.sh                                   # 장비 없이 가상환경
 #   ./sim_gui.sh use_sim:=false use_tracker:=false # 실기 노드가 따로 돌 때 GUI 연결만
@@ -10,6 +11,7 @@ set -eo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROS_DISTRO_NAME="${ROS_DISTRO_NAME:-jazzy}"
 GUI="$HERE/../index.html"
+HTTP_PORT="${HTTP_PORT:-8000}"
 
 # shellcheck disable=SC1090
 source "/opt/ros/$ROS_DISTRO_NAME/setup.bash"
@@ -20,6 +22,11 @@ ros2 pkg prefix rosbridge_server >/dev/null 2>&1 ||
 # shellcheck disable=SC1091
 source "$HERE/install/setup.bash"
 
-# launch가 rosbridge를 띄울 시간을 두고 브라우저를 연다
-(sleep 3; xdg-open "$GUI" >/dev/null 2>&1 || echo "브라우저로 열기: $GUI") &
-exec ros2 launch cognitive_control sim.launch.py "$@"
+# GUI는 http로 제공 (VS Code Integrated Browser는 file:// 대신 http 주소로 연다)
+python3 -m http.server "$HTTP_PORT" --bind 127.0.0.1 --directory "$(dirname "$GUI")" >/dev/null 2>&1 &
+HTTP_PID=$!
+trap 'kill $HTTP_PID 2>/dev/null' EXIT
+echo "=== GUI: http://localhost:$HTTP_PORT/index.html"
+echo "    VS Code: Ctrl+Shift+P → Browser: Open Integrated Browser → 위 주소 입력"
+
+ros2 launch cognitive_control sim.launch.py "$@"
