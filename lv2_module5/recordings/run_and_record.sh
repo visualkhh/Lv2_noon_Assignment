@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 사용법: ./run_and_record.sh [이름] [launch 인자...]
-#   ./run_and_record.sh                          ← 빈 번호 sceneN으로, 가상환경 실행 후 녹화
+#   ./run_and_record.sh                          ← sim_YYYYmmdd_HHMMSS 이름으로, 가상환경 실행 후 녹화
 #   ./run_and_record.sh scene5                   ← 이름 지정
 #   ./run_and_record.sh scene5 use_tracker:=false ← launch 인자는 sim.launch.py로 그대로 전달
 #   - 현재 브랜치의 cognitive_control을 빌드하고 sim.launch.py(virtual_world + tracker)를 백그라운드로 실행
@@ -17,12 +17,11 @@ set -eo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 WS="$(cd "$HERE/../ros2_ws" && pwd)"
 
-# 이름: ':='가 없는 첫 인자 > 비어 있는 sceneN
+# 이름: ':='가 없는 첫 인자 > sim_YYYYmmdd_HHMMSS (sim_gui.sh와 같은 규칙)
 if [ -n "$1" ] && [[ "$1" != *:=* ]]; then
   NAME="${1%/}"; shift
 else
-  n=1; while [ -e "$HERE/scene$n" ] || [ -e "$HERE/scene$n.tar.gz" ]; do n=$((n+1)); done
-  NAME="scene$n"
+  NAME="sim_$(date +%Y%m%d_%H%M%S)"
 fi
 [ -e "$HERE/$NAME" ] && { echo "$NAME 폴더가 이미 있음 — 다른 이름을 주세요"; exit 1; }
 
@@ -34,7 +33,7 @@ source "/opt/ros/$ROS_DISTRO_NAME/setup.bash"
 source "$WS/install/setup.bash"
 
 # --- 가상환경 실행 (별도 프로세스 그룹: 녹화 중 Ctrl+C가 launch까지 죽이지 않도록)
-LOG="${TMPDIR:-/tmp}/sim_$NAME.log"
+LOG="${TMPDIR:-/tmp}/$NAME.launch.log"
 echo "=== ros2 launch cognitive_control sim.launch.py $* (로그: $LOG)"
 setsid ros2 launch cognitive_control sim.launch.py "$@" >"$LOG" 2>&1 &
 SIM=$!

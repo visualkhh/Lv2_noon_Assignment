@@ -115,3 +115,21 @@
 - SHA256: `0804782af2d8db8c74a1bb43e9f70d376b6d1620047bb5daaec8223acd8ded4f`
 - 기준 커밋: `210fbd8`
 - 다운로드: (업로드 후 기입)
+
+[목록:scene7.tar.gz]
+- 장면: -
+- 기간: 15.5s
+- 토픽: /camera/camera/color/image_raw(226), /motor_cmd(219), /target(218), /tracking_status(17)
+- 용량: 1.5M
+- SHA256: `5c62ea716ec7d1c6b583d9b319b041ce4d0ee5c67eec627c626d53e5e7dbed43`
+- 기준 커밋: `9e63539`
+- 다운로드: (업로드 후 기입)
+
+[목록:scene8.tar.gz]
+- 장면: -
+- 기간: 27.1s
+- 토픽: /camera/camera/color/image_raw(406), /motor_cmd(336), /target(407), /tracking_status(29)
+- 용량: 2.7M
+- SHA256: `403a9572e48be788f438ba03042d404fda4bcf0e08af014286a9c0bcc8257e75`
+- 기준 커밋: `9e63539`
+- 다운로드: (업로드 후 기입)
