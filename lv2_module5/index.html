@@ -58,6 +58,11 @@
   .frame .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
   .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   @media (max-width: 520px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  .view3d { position: relative; height: 420px; border-radius: 6px; overflow: hidden; background: var(--grid); }
+  .view3d canvas { width: 100% !important; height: 100% !important; }
+  .view3d .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
+  .hint { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+  @media (max-width: 520px) { .view3d { height: 300px; } }
   .badge { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
            border: 1px solid var(--border); color: var(--muted); }
   .badge.real { background: var(--ok); border-color: var(--ok); color: #fff; }
@@ -91,6 +96,11 @@
 <main>
   <div class="col">
     <section>
+      <h2>3D 뷰 <span class="legend"><span><i style="background:#2f6fdb"></i>목표</span><span><i style="background:#e5484d"></i>검출 방향</span><span><i style="background:#f2b32e"></i>시야</span></span></h2>
+      <div id="view3d" class="view3d"><div class="empty" id="view3dEmpty">3D 로드 중…</div></div>
+      <p class="hint">드래그 = 회전 · 휠 = 확대 · 오른쪽 드래그 = 이동. <span id="jointNote"></span></p>
+    </section>
+    <section>
       <h2>디버그 영상 <code>/perception_node/debug_image/compressed</code></h2>
       <div class="frame"><img id="debugImg" alt=""><div class="empty" id="debugEmpty">영상 없음</div></div>
     </section>
@@ -116,13 +126,12 @@
       </dl>
     </section>
     <section>
-      <h2>모터 누적각 <code>/motor_cmd</code></h2>
+      <h2>관절각 <code>/joint_states</code></h2>
       <canvas id="dials" height="130"></canvas>
       <dl class="kv">
         <dt>마지막 Δpan, Δtilt</dt><dd id="lastCmd">—</dd>
         <dt>명령 수</dt><dd id="cmdCount">0</dd>
       </dl>
-      <button id="resetMotor" style="margin-top:8px">0으로 맞추기</button>
     </section>
     <section>
       <h2>마스크 <code>/perception_node/mask/compressed</code></h2>
@@ -144,6 +153,8 @@ const TOPICS = {
   motor:  { name: '/motor_cmd',       type: 'sensor_msgs/msg/JointState' },
   source: { name: '/camera_source',   type: 'std_msgs/msg/String' },
   opencr: { name: '/opencr_status',   type: 'std_msgs/msg/String' },
+  joints: { name: '/joint_states',    type: 'sensor_msgs/msg/JointState', throttle: 50 },
+  vtarget:{ name: '/virtual_target',  type: 'geometry_msgs/msg/PointStamped', throttle: 50 },
 };
 const STALE_MS = 2000, DEADBAND = 0.05, HISTORY_MS = 20000;
 const $ = id => document.getElementById(id);
@@ -155,6 +166,9 @@ $('url').value = params.get('ws') || `ws://${location.hostname || 'localhost'}:9
 const stats = {};       // 토픽별 {count, last, times[]}
 const history = [];     // {t, ex, ey, ok}
 let target = null, pan = 0, tilt = 0, cmdCount = 0, ros = null, subs = [];
+// 3D 뷰(module 스크립트)와 공유하는 상태
+const shared = window.trackerState = { pan: 0, tilt: 0, target: null, targetT: 0,
+                                       vtarget: null, vtargetT: 0, source: 'virtual' };
 
 function mark(key) {
   const s = stats[key] || (stats[key] = { count: 0, last: 0, times: [] });
@@ -200,6 +214,7 @@ function subscribe() {
   sub('target', m => {
     const p = m.point, ok = p.z > 0;
     target = { ex: p.x, ey: p.y, area: p.z, ok };
+    shared.target = target; shared.targetT = performance.now();
     history.push({ t: performance.now(), ex: p.x, ey: p.y, ok });
     $('ex').textContent = ok ? p.x.toFixed(3) : '—';
     $('ey').textContent = ok ? p.y.toFixed(3) : '—';
@@ -208,6 +223,8 @@ function subscribe() {
   sub('status', m => { const el = $('status'); el.textContent = m.data; el.className = 'status ' + m.data; });
   sub('source', m => {
     const real = m.data === 'realsense';
+    shared.source = m.data;
+    $('jointNote').textContent = real ? '실기: 관절각은 보낸 명령을 누적한 추정값' : '';
     $('camBadge').textContent = real ? '카메라: RealSense' : '카메라: 가상';
     $('camBadge').className = 'badge ' + (real ? 'real' : 'virtual');
   });
@@ -216,9 +233,15 @@ function subscribe() {
     $('opencrBadge').textContent = on ? 'OpenCR: ' + m.data.split(' ')[1] : 'OpenCR: 미연결';
     $('opencrBadge').className = 'badge ' + (on ? 'real' : '');
   });
+  sub('joints', m => {
+    const i = m.name.indexOf('pan_joint'), j = m.name.indexOf('tilt_joint');
+    if (i < 0 || j < 0) return;
+    pan = shared.pan = m.position[i]; tilt = shared.tilt = m.position[j];
+  });
+  sub('vtarget', m => { shared.vtarget = m.point; shared.vtargetT = performance.now(); });
   sub('motor', m => {
     if (m.position.length < 2) return;
-    pan += m.position[0]; tilt += m.position[1]; cmdCount++;
+    cmdCount++;
     $('lastCmd').textContent = `${deg(m.position[0])}°, ${deg(m.position[1])}°`;
     $('cmdCount').textContent = cmdCount;
   });
@@ -314,9 +337,145 @@ function frame() { drawTarget(); drawDials(); drawChart(); drawTopics(); request
 
 $('connect').onclick = connect;
 $('url').onkeydown = e => { if (e.key === 'Enter') connect(); };
-$('resetMotor').onclick = () => { pan = 0; tilt = 0; };
 requestAnimationFrame(frame);
 connect();
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+// 3D 뷰: world = x 정면, y 왼쪽, z 위 (ROS 규약), 원점 = pan/tilt 회전 중심, 단위 m
+//   pan +  = z축 기준 왼쪽 회전,  tilt + = 아래로 숙임 (y축 기준 +회전)
+//   목표 (파랑)   = /virtual_target (가상환경의 실제 위치)
+//   검출 방향 (빨강) = /target 의 ex, ey를 카메라 화각으로 되돌린 광선
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const HFOV = 69 * Math.PI / 180, ASPECT = 640 / 480;
+const TAN_H = Math.tan(HFOV / 2), TAN_V = TAN_H / ASPECT;
+const STALE = 600;   // ms: 이 시간 넘게 안 오면 숨김
+const box = document.getElementById('view3d');
+const st = window.trackerState;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(window.devicePixelRatio || 1);
+box.appendChild(renderer.domElement);
+document.getElementById('view3dEmpty').remove();
+
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(45, 1, 0.01, 50);
+cam.up.set(0, 0, 1);
+cam.position.set(-1.1, 1.3, 0.9);
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0.6, 0, 0);
+controls.enableDamping = true;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x667788, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(2, 1, 3); scene.add(sun);
+
+const FLOOR = -0.25;
+const grid = new THREE.GridHelper(4, 20, 0x8a93a3, 0xc3c8d0);
+grid.rotation.x = Math.PI / 2; grid.position.z = FLOOR; scene.add(grid);
+scene.add(new THREE.AxesHelper(0.25));   // 빨강 x(정면) · 초록 y(왼쪽) · 파랑 z(위)
+
+const mat = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, metalness: 0.1 });
+// 받침대
+const base = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 0.05), mat(0x4a5160));
+base.position.z = FLOOR + 0.025; scene.add(base);
+const post = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, -FLOOR - 0.07), mat(0x6b7280));
+post.rotation.x = Math.PI / 2; post.position.z = (FLOOR + 0.05) / 2 - 0.02; scene.add(post);
+// pan 링크 (z축 회전) → tilt 링크 (y축 회전) → 카메라
+const panLink = new THREE.Group(); scene.add(panLink);
+const yoke = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.11, 0.02), mat(0x2f6fdb));
+yoke.position.z = -0.03; panLink.add(yoke);
+for (const y of [-0.05, 0.05]) {
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.01, 0.05), mat(0x2f6fdb));
+  arm.position.set(0, y, -0.01); panLink.add(arm);
+}
+const tiltLink = new THREE.Group(); panLink.add(tiltLink);
+const body = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.09, 0.025), mat(0x22252b));
+tiltLink.add(body);
+const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.01, 20), mat(0x0b0c0f));
+lens.rotation.z = Math.PI / 2; lens.position.x = 0.018; tiltLink.add(lens);
+
+// 시야 (카메라 기준 +x 방향 사각뿔)
+const FRUSTUM = 1.8;
+const corners = [[1, 1], [1, -1], [-1, -1], [-1, 1]].map(([a, b]) =>
+  new THREE.Vector3(FRUSTUM, a * TAN_H * FRUSTUM, b * TAN_V * FRUSTUM));
+const fPts = [];
+for (const c of corners) fPts.push(new THREE.Vector3(), c);
+for (let i = 0; i < 4; i++) fPts.push(corners[i], corners[(i + 1) % 4]);
+const frustum = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(fPts),
+  new THREE.LineBasicMaterial({ color: 0xf2b32e }));
+tiltLink.add(frustum);
+// 정면 축 (카메라 중심선)
+const axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints(
+  [new THREE.Vector3(), new THREE.Vector3(FRUSTUM, 0, 0)]),
+  new THREE.LineDashedMaterial({ color: 0x9aa1ad, dashSize: 0.03, gapSize: 0.02 }));
+axis.computeLineDistances(); tiltLink.add(axis);
+
+// 검출 방향 광선
+const rayGeom = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3(1, 0, 0)]);
+const ray = new THREE.Line(rayGeom, new THREE.LineBasicMaterial({ color: 0xe5484d }));
+tiltLink.add(ray);
+
+// 목표 (실기 perception과 같은 30x30x60mm 파란 기둥) + 바닥 그림자 표시
+const tgt = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.03, 0.06), mat(0x2f6fdb));
+scene.add(tgt);
+const drop = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]),
+  new THREE.LineDashedMaterial({ color: 0x2f6fdb, dashSize: 0.02, gapSize: 0.02 }));
+scene.add(drop);
+// 지나온 목표 궤적
+const TRAIL = 300, trailPos = new Float32Array(TRAIL * 3);
+const trailGeom = new THREE.BufferGeometry();
+trailGeom.setAttribute('position', new THREE.BufferAttribute(trailPos, 3));
+const trail = new THREE.Line(trailGeom, new THREE.LineBasicMaterial({ color: 0x2f6fdb, transparent: true, opacity: 0.35 }));
+scene.add(trail);
+let trailN = 0, lastTrail = 0;
+
+function resize() {
+  const w = box.clientWidth, h = box.clientHeight;
+  renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(box); resize();
+
+function frame() {
+  const now = performance.now();
+  panLink.rotation.z = st.pan;
+  tiltLink.rotation.y = st.tilt;
+
+  const t = st.target;
+  ray.visible = !!(t && t.ok && now - st.targetT < STALE);
+  if (ray.visible) {
+    // 픽셀 오차 → 카메라 좌표 방향: ex + = 오른쪽(-y), ey + = 아래(-z)
+    const dir = new THREE.Vector3(1, -t.ex * TAN_H, -t.ey * TAN_V).normalize().multiplyScalar(2.2);
+    rayGeom.attributes.position.setXYZ(1, dir.x, dir.y, dir.z);
+    rayGeom.attributes.position.needsUpdate = true;
+  }
+
+  const v = st.vtarget;
+  tgt.visible = drop.visible = !!(v && now - st.vtargetT < STALE);
+  if (tgt.visible) {
+    tgt.position.set(v.x, v.y, v.z);
+    drop.geometry.setFromPoints([new THREE.Vector3(v.x, v.y, v.z), new THREE.Vector3(v.x, v.y, FLOOR)]);
+    drop.computeLineDistances();
+    if (now - lastTrail > 100) {
+      lastTrail = now;
+      if (trailN === TRAIL) { trailPos.copyWithin(0, 3); trailN--; }
+      trailPos.set([v.x, v.y, v.z], trailN * 3); trailN++;
+      trailGeom.setDrawRange(0, trailN); trailGeom.attributes.position.needsUpdate = true;
+    }
+  }
+  trail.visible = st.source !== 'realsense';
+
+  controls.update();
+  renderer.render(scene, cam);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
 </script>
 </body>
 </html>
