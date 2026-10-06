@@ -97,3 +97,12 @@
 - SHA256: `845ff0258907574299d21ce03500d7a47b39fd1a23e2fd68f7a1ffa4c386c5bc`
 - 기준 커밋: `e607399`
 - 다운로드: (업로드 후 기입)
+
+[목록:scene5.tar.gz]
+- 장면: -
+- 기간: 5.7s
+- 토픽: /camera/camera/color/image_raw(85), /motor_cmd(87), /target(87), /tracking_status(6)
+- 용량: 580K
+- SHA256: `5559f860a2f3e5e89c2e6ccf3b3a19fd6ee0f147be9f6665845c31ccb43f60c4`
+- 기준 커밋: `cd0662d`
+- 다운로드: (업로드 후 기입)
