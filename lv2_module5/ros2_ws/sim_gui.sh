@@ -16,7 +16,7 @@ ROS_DISTRO_NAME="${ROS_DISTRO_NAME:-jazzy}"
 GUI="$HERE/../index.html"
 REC_DIR="$(cd "$HERE/../recordings" && pwd)"
 HTTP_PORT="${HTTP_PORT:-8000}"
-REC_TOPICS=(/target /motor_cmd /tracking_status /camera_source /opencr_status
+REC_TOPICS=(/target /motor_cmd /tracking_status /camera_source /opencr_status /joint_states /virtual_target
             /perception_node/debug_image/compressed)
 [ "${RECORD_RAW:-0}" = 1 ] && REC_TOPICS+=(/camera/camera/color/image_raw)
 
