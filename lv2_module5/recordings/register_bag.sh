@@ -3,6 +3,7 @@
 #   - 이미 녹화된 bag 폴더를 pack_bag.sh로 압축·SHA256SUMS 기록 후 README.md [목록]에 등록
 #   - 같은 파일 항목이 있으면 교체
 #   - 설명을 안 주면 터미널에서 입력받음 (터미널이 아니면 "-")
+#   - /camera_source·/opencr_status가 녹화돼 있으면 설명 뒤에 "(카메라: …, OpenCR: …)" 자동 추가
 #   - 데이터 토픽이 없는 bag: 터미널이면 등록 여부를 묻고, 아니면 등록하지 않음
 set -e
 cd "$(dirname "$0")"
@@ -41,6 +42,27 @@ fi
 if [ -z "$DESC" ] && [ -t 0 ]; then
   read -rp "장면 설명 (README '장면' 칸, 엔터=생략): " DESC
 fi
+# 녹화 중 카메라 출처·OpenCR 연결 상태 (바뀌었으면 virtual→realsense 처럼)
+SOURCES=$(python3 - "$NAME" <<'PY' 2>/dev/null || true
+import sys
+from rclpy.serialization import deserialize_message
+import rosbag2_py
+from std_msgs.msg import String
+reader = rosbag2_py.SequentialReader()
+reader.open(rosbag2_py.StorageOptions(uri=sys.argv[1]), rosbag2_py.ConverterOptions('', ''))
+seen = {'/camera_source': [], '/opencr_status': []}
+while reader.has_next():
+    topic, data, _ = reader.read_next()
+    if topic in seen:
+        v = deserialize_message(data, String).data.split(' ')[0]
+        if v not in seen[topic]:
+            seen[topic].append(v)
+if any(seen.values()):
+    print(f"카메라: {'→'.join(seen['/camera_source']) or '-'}, "
+          f"OpenCR: {'→'.join(seen['/opencr_status']) or '-'}")
+PY
+)
+[ -n "$SOURCES" ] && DESC="${DESC:+$DESC }($SOURCES)"
 DESC="${DESC:--}"
 
 SIZE=$(du -h "$FILE" | cut -f1)
