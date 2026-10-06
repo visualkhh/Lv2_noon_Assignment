@@ -70,3 +70,21 @@
 - SHA256: `3ca4b6f615b0dd5fb144ba680e60aa9cfd3875d81f9f200978141b6dbde4338c`
 - 기준 커밋: `d1ea7e3`
 - 다운로드: (업로드 후 기입)
+
+[목록:sim_20261006_174624.tar.gz]
+- 장면: sim_gui 자동 녹화 (카메라: virtual, OpenCR: disconnected)
+- 기간: 52.3s
+- 토픽: /camera_source(52), /joint_states(786), /motor_cmd(666), /opencr_status(52), /perception_node/debug_image/compressed(393), /target(786), /tracking_status(57), /virtual_target(696)
+- 용량: 2.0M
+- SHA256: `30c8eac608939277d9c040484a9ac518e20ba37dd51ebf2a26a7bc1fff9b6e12`
+- 기준 커밋: `0fb218f`
+- 다운로드: (업로드 후 기입)
+
+[목록:sim_20261006_174730.tar.gz]
+- 장면: sim_gui 자동 녹화 (카메라: virtual, OpenCR: disconnected)
+- 기간: 73.8s
+- 토픽: /camera_source(73), /joint_states(1108), /motor_cmd(917), /opencr_status(74), /perception_node/debug_image/compressed(554), /target(1108), /tracking_status(81), /virtual_target(971)
+- 용량: 2.8M
+- SHA256: `ef1eaccfd106d50e82f511240a0b7d5c75cac1426a5c88536b8b4e7dbd2db682`
+- 기준 커밋: `0fb218f`
+- 다운로드: (업로드 후 기입)
