@@ -7,6 +7,9 @@ pan/tilt 카메라가 파란 사각 목표가 움직이는 가상 공간을 본�
 발행
   /camera/camera/color/image_raw  sensor_msgs/Image (rgb8, frame_id=virtual_camera_optical_frame)
   /camera_source                  std_msgs/String  "virtual" | "realsense"
+  /joint_states                   sensor_msgs/JointState  pan_joint, tilt_joint 절대각 [rad] (3D 뷰용)
+  /virtual_target                 geometry_msgs/PointStamped  가상 목표의 world 위치 [m] (보일 때만)
+                                  world: x 정면, y 왼쪽, z 위, 원점 = pan/tilt 회전 중심
 구독
   /motor_cmd  sensor_msgs/JointState  position = [Δpan, Δtilt] rad
 """
@@ -14,6 +17,7 @@ pan/tilt 카메라가 파란 사각 목표가 움직이는 가상 공간을 본�
 import math
 
 import cv2
+from geometry_msgs.msg import PointStamped
 import numpy as np
 import rclpy
 from rclpy.executors import ExternalShutdownException
@@ -48,6 +52,9 @@ class VirtualWorld(Node):
 
         self.raw_pub = self.create_publisher(Image, IMAGE_TOPIC, 10)
         self.source_pub = self.create_publisher(String, '/camera_source', 10)
+        self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
+        self.target_pub = self.create_publisher(PointStamped, '/virtual_target', 10)
+        self.target_distance = self.declare_parameter('target_distance_m', 1.5).value
         self.create_subscription(JointState, '/motor_cmd', self.on_motor_cmd, 10)
         self.create_timer(1.0 / fps, self.step)
         self.create_timer(1.0, self.check_source)
@@ -114,6 +121,22 @@ class VirtualWorld(Node):
         raw.step = raw.width * 3
         raw.data = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).tobytes()
         self.raw_pub.publish(raw)
+
+        joints = JointState()
+        joints.header.stamp = raw.header.stamp
+        joints.name = ['pan_joint', 'tilt_joint']
+        joints.position = [self.pan, self.tilt]
+        self.joint_pub.publish(joints)
+        az, el, visible = self.target_angles((now - self.t0).nanoseconds * 1e-9)
+        if visible:
+            d = self.target_distance
+            target = PointStamped()
+            target.header.stamp = raw.header.stamp
+            target.header.frame_id = 'world'
+            target.point.x = d * math.cos(el) * math.cos(az)
+            target.point.y = d * math.cos(el) * math.sin(az)
+            target.point.z = d * math.sin(el)
+            self.target_pub.publish(target)
 
 
 def main(args=None):

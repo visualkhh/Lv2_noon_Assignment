@@ -7,6 +7,8 @@
 
 구독  /motor_cmd (sensor_msgs/JointState, rad), /camera_source (std_msgs/String)
 발행  /opencr_status (std_msgs/String)  "connected <포트>" | "disconnected"
+      /joint_states (sensor_msgs/JointState)  보낸 명령을 누적한 pan/tilt 추정각 [rad] (3D 뷰용)
+                    엔코더 측정값이 아니라 명령 누적이므로 펌웨어 한계각에서 잘린 만큼은 반영 안 됨
 """
 
 import glob
@@ -38,6 +40,9 @@ class OpenCRBridge(Node):
         self.port = None
         self.camera_source = 'virtual'
         self.status_pub = self.create_publisher(String, '/opencr_status', 10)
+        self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
+        self.pan = 0.0     # 연결 시점 = 펌웨어 기준 0°(정면)로 가정
+        self.tilt = 0.0
         self.create_subscription(JointState, '/motor_cmd', self.on_motor_cmd, 10)
         self.create_subscription(String, '/camera_source', self.on_source, 10)
         self.create_timer(1.0, self.poll)
@@ -63,6 +68,7 @@ class OpenCRBridge(Node):
             self.get_logger().warn(f'{port} 열기 실패: {e}', throttle_duration_sec=5.0)
             return False
         self.fd, self.port = fd, port
+        self.pan = self.tilt = 0.0
         self.get_logger().info(f'OpenCR 연결: {port}')
         return True
 
@@ -97,6 +103,14 @@ class OpenCRBridge(Node):
         except OSError as e:
             self.get_logger().error(f'시리얼 쓰기 실패: {e}')
             self.close_port()
+            return
+        self.pan += msg.position[0]
+        self.tilt += msg.position[1]
+        joints = JointState()
+        joints.header.stamp = self.get_clock().now().to_msg()
+        joints.name = ['pan_joint', 'tilt_joint']
+        joints.position = [self.pan, self.tilt]
+        self.joint_pub.publish(joints)
 
 
 def main(args=None):

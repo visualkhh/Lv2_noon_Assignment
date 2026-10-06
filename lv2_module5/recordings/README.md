@@ -61,3 +61,12 @@
 - SHA256: `06d9fd745562116fa76c0a9478ca3c70ef48d5c529db04bb6cf22ab1b2488b2a`
 - 기준 커밋: `6aae1c0`
 - 다운로드: (업로드 후 기입)
+
+[목록:sim_20261006_174201.tar.gz]
+- 장면: sim_gui 자동 녹화 (카메라: virtual, OpenCR: disconnected)
+- 기간: 55.5s
+- 토픽: /camera_source(55), /motor_cmd(706), /opencr_status(55), /perception_node/debug_image/compressed(415), /target(831), /tracking_status(60)
+- 용량: 2.1M
+- SHA256: `3ca4b6f615b0dd5fb144ba680e60aa9cfd3875d81f9f200978141b6dbde4338c`
+- 기준 커밋: `d1ea7e3`
+- 다운로드: (업로드 후 기입)
