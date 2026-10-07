@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 # recordings 공통 환경 — 다른 스크립트가 source 한다 (직접 실행하지 않음)
 #   source env.sh          ← 로컬 모드: 이 PC 안에서만 통신 (다른 기기·로봇과 섞이지 않음)
-#   source env.sh --link   ← 연동 모드: connect.sh로 저장한 상대 기기(PEERS·DOMAIN_ID)와 통신
+#   source env.sh --link   ← 연동 모드: connect.sh로 저장한 상대 기기(PEERS)와, 찾아 둔 도메인(DOMAIN_ID)에서 통신
 #
 # 정하는 값
 #   REC_DIR  이 폴더 (어디로 옮기거나 zip으로 받아도 이 파일 위치 기준)
@@ -14,9 +14,6 @@
 REC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BAG_DIR="$REC_DIR/bags"
 LINK_FILE="$REC_DIR/.link.env"     # connect.sh가 기록하는 기기별 설정 (git·zip에 포함하지 않음)
-# 팀 공통 ROS_DOMAIN_ID — 2026-10-07 강의실 Wi-Fi 스캔에서 0·28·30·42·50·87이 다른 기기에 쓰이고 있어 비어 있는 63으로 정함
-#   바꿀 때는 여기만 고치면 connect.sh·record_agumon.sh 기본값이 따라감 (모든 팀원 기기가 같은 값이어야 함)
-LV2_TEAM_DOMAIN=63
 mkdir -p "$BAG_DIR"
 
 # shellcheck disable=SC1090
@@ -96,10 +93,15 @@ WS="$(lv2_find_ws)" || WS=""
 export RMW_IMPLEMENTATION="${RMW_IMPLEMENTATION:-rmw_fastrtps_cpp}"
 if [ "$1" = "--link" ] || [ "${LINK:-0}" = 1 ]; then
   LV2_MODE=link
-  export ROS_DOMAIN_ID="${DOMAIN_ID:-${LINK_DOMAIN_ID:-$LV2_TEAM_DOMAIN}}"
-  export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+  # 도메인은 고정하지 않음 — connect.sh·record_peer.sh가 상대가 노드를 띄운 도메인을 찾아 DOMAIN_ID로 넘김
+  export ROS_DOMAIN_ID="${DOMAIN_ID:-${LINK_DOMAIN_ID:-0}}"
   PEERS="${PEERS:-$LINK_PEERS}"
-  if [ -n "$PEERS" ]; then export ROS_STATIC_PEERS="$PEERS"; else unset ROS_STATIC_PEERS; fi
+  if [ -n "$PEERS" ]; then
+    # 상대를 지정하면 이 PC + 상대하고만 통신 (같은 도메인을 쓰는 다른 팀 기기와 섞이지 않음)
+    export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST ROS_STATIC_PEERS="$PEERS"
+  else
+    export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET; unset ROS_STATIC_PEERS
+  fi
   unset ROS_LOCALHOST_ONLY
 else
   LV2_MODE=local

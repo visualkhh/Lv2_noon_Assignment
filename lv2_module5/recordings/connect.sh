@@ -4,7 +4,8 @@
 # 사용법
 #   ./connect.sh                          ← 저장된 설정으로 (처음이면 물어봄) 점검·빌드·연동
 #   ./connect.sh agumon.local             ← 상대 주소 지정 (여러 대: ./connect.sh 192.168.0.10 agumon.local)
-#   ./connect.sh agumon.local --domain 63 ← ROS_DOMAIN_ID 지정 (상대와 같아야 함, 생략하면 팀 기본값 63 — env.sh)
+#                                         ROS_DOMAIN_ID는 상대가 노드를 띄운 도메인을 자동으로 찾아 맞춤
+#   ./connect.sh agumon.local --domain 63 ← 자동 탐색 대신 도메인 지정 (그 도메인에 상대 노드가 있는지만 확인)
 #   ./connect.sh --local                  ← 상대 없이 이 PC만 점검·빌드
 #   ./connect.sh --docker <컨테이너>      ← 호스트에 ROS가 없고 Docker 컨테이너에 있을 때: 이 폴더를 넣고 그 안에서 실행
 #   옵션: --ws <워크스페이스 경로>  --ros <배포판 또는 setup.bash 경로>  --no-build  --yes(묻지 않음)
@@ -15,7 +16,7 @@
 #   ② ROS 2 배포판 자동 탐지 (lyrical·kilted·jazzy·humble·소스 빌드) + 필수/선택 패키지 점검
 #   ③ cognitive_control 워크스페이스 찾기 → 이 기기 배포판으로 빌드 (없으면 녹화·재생 전용 모드)
 #   ④ VS Code가 이 기기의 ROS를 보도록 경로 연결 (저장소 안일 때)
-#   ⑤ 상대 기기 연결: 주소 확인 → ping → 같은 ROS_DOMAIN_ID에서 토픽 확인
+#   ⑤ 상대 기기 연결: 주소 확인 → ping → 상대가 노드를 띄운 ROS_DOMAIN_ID 자동 탐색 → 토픽 확인
 #   ⑥ 설정을 .link.env에 저장 → run_and_record.sh·record_peer.sh·play_bag.sh가 그대로 사용
 # NOTE: set -u 사용 금지 — ROS setup.bash가 미설정 변수를 참조해서 죽음.
 
@@ -71,7 +72,8 @@ PY
 }
 
 # zip·Windows를 거치며 생기는 문제 정리: 줄바꿈(CRLF) 제거, 실행 권한 복구
-for f in "$HERE"/*.sh; do
+for f in "$HERE"/*.sh "$HERE"/*.py; do
+  [ -f "$f" ] || continue
   grep -q $'\r' "$f" 2>/dev/null && sed -i 's/\r$//' "$f"
   [ -x "$f" ] || chmod +x "$f" 2>/dev/null
 done
@@ -199,18 +201,15 @@ else
 fi
 
 # ======================================================================
-step 5 "상대 기기 연결"
+step 5 "상대 기기 연결 (도메인 자동 탐색)"
 [ ${#NEW_PEERS[@]} -gt 0 ] && LINK_PEERS="$(IFS=';'; echo "${NEW_PEERS[*]}")"
-[ -n "$DOMAIN" ] && LINK_DOMAIN_ID="$DOMAIN"
 if [ "$MODE" != local ] && [ -z "$LINK_PEERS" ] && [ "$ASK" = 1 ]; then
   read -rp "  상대 기기 주소 (예: agumon.local 또는 192.168.0.10, 여러 대는 ;로 구분, 엔터=로컬만): " LINK_PEERS
 fi
-if [ "$MODE" != local ] && [ -n "$LINK_PEERS" ] && [ -z "$LINK_DOMAIN_ID" ] && [ "$ASK" = 1 ]; then
-  read -rp "  ROS_DOMAIN_ID (상대와 같은 값, 엔터=팀 기본값 $LV2_TEAM_DOMAIN): " LINK_DOMAIN_ID
-fi
-LINK_DOMAIN_ID="${LINK_DOMAIN_ID:-$LV2_TEAM_DOMAIN}"
-[[ "$LINK_DOMAIN_ID" =~ ^[0-9]+$ ]] && [ "$LINK_DOMAIN_ID" -le 101 ] || { fail "ROS_DOMAIN_ID는 0~101 (Fast DDS 안전 범위): $LINK_DOMAIN_ID"; LINK_DOMAIN_ID=$LV2_TEAM_DOMAIN; }
 [ "$MODE" = local ] && LINK_PEERS=""
+if [ -n "$DOMAIN" ] && ! { [[ "$DOMAIN" =~ ^[0-9]+$ ]] && [ "$DOMAIN" -le 101 ]; }; then
+  fail "--domain은 0~101 (Fast DDS 안전 범위): $DOMAIN"; DOMAIN=""
+fi
 # env.sh를 다시 source하면 .link.env의 옛 값이 돌아오므로 고른 값을 따로 보관
 SEL_PEERS="$LINK_PEERS"; SEL_DOMAIN="$LINK_DOMAIN_ID"; SEL_WS="$WS"
 
@@ -228,30 +227,39 @@ else
   if command -v ufw >/dev/null && ufw status 2>/dev/null | grep -q "Status: active"; then
     warn "ufw 방화벽 켜짐 → DDS(UDP 7400~7600대) 차단 가능: sudo ufw allow from <상대 IP>"
   fi
-  # 연동 모드로 다시 설정해서 상대 토픽 확인 (다른 배포판 daemon과 섞이지 않게 --no-daemon)
-  PEERS="$SEL_PEERS" DOMAIN_ID="$SEL_DOMAIN" LINK=1
-  export PEERS DOMAIN_ID
-  # shellcheck disable=SC1091
-  source "$HERE/env.sh" --link
-  echo "  … ROS_DOMAIN_ID=$ROS_DOMAIN_ID, ROS_STATIC_PEERS=$ROS_STATIC_PEERS 로 토픽 찾는 중 (8s)"
-  TOPICS=$(ros2 topic list --no-daemon --spin-time 8 2>/dev/null | grep -vxE '/(rosout|parameter_events)' || true)
-  if [ -z "$TOPICS" ]; then
-    fail "상대 토픽이 안 보임 — 상대 노드 실행, ROS_DOMAIN_ID($ROS_DOMAIN_ID) 일치, 같은 네트워크인지 확인"
-    # 도메인별로 어떤 기기(IP)가 노드를 띄우고 있는지 — 상대가 다른 도메인에 있는지, 아예 안 떠 있는지 구분
-    echo "      … 도메인별 기기 스캔 중 (0~101 / 10s)"
-    dds_who "${PEER_IPS[@]}" | sed 's/^/      /'
-    echo "      상대 기기에서도 이 PC 주소로 연결해야 함: ./connect.sh $(hostname -I 2>/dev/null | awk '{print $1}') --domain $ROS_DOMAIN_ID"
-    echo "      (상대가 이 스크립트가 없으면: export ROS_DOMAIN_ID=$ROS_DOMAIN_ID ROS_STATIC_PEERS=$(hostname -I 2>/dev/null | awk '{print $1}') RMW_IMPLEMENTATION=rmw_fastrtps_cpp)"
+
+  # 상대가 노드를 띄운 도메인 찾기 (--domain을 주면 그 값만 확인)
+  FOUND=""
+  if [ ${#PEER_IPS[@]} -gt 0 ]; then
+    if [ -n "$DOMAIN" ]; then FIND_ARGS=(--hint "$DOMAIN" --max -1)       # 지정한 도메인만 확인
+    else FIND_ARGS=(${SEL_DOMAIN:+--hint "$SEL_DOMAIN"}); fi             # 지난번 도메인부터, 없으면 0~101
+    FOUND=$(python3 "$HERE/find_domain.py" "${PEER_IPS[@]}" "${FIND_ARGS[@]}" 2> >(sed 's/^/  /' >&2))
+  fi
+  if [ -z "$FOUND" ]; then
+    fail "상대(${PEER_IPS[*]:-$SEL_PEERS})가 노드를 띄운 도메인을 찾지 못함 ($([ -n "$DOMAIN" ] && echo "domain $DOMAIN" || echo "0~101 전체") 확인)"
+    echo "      → 상대 기기에서 노드(bringup)가 실행 중인지 확인 (ros2 node list)"
+    echo "      → Docker면 network_mode: host 필요 (브리지 네트워크면 밖에서 안 보임)"
+    echo "      … 참고: 이 Wi-Fi에서 탐색 신호를 보내는 기기"
+    dds_who "${PEER_IPS[@]}" | grep '^domain' | sed 's/^/        /'
   else
-    ok "보이는 토픽 $(wc -l <<<"$TOPICS")개:"; sed 's/^/      /' <<<"$TOPICS"
-    # 같은 도메인을 쓰는 다른 팀 기기의 토픽을 상대 것으로 착각하지 않도록 출발지 확인
-    WHO=$(dds_who "${PEER_IPS[@]}" | grep -E "^domain +$ROS_DOMAIN_ID:" || true)
-    if [ -n "$WHO" ] && ! grep -q "← 상대" <<<"$WHO"; then
-      warn "domain $ROS_DOMAIN_ID 토픽의 출발지가 상대가 아님: ${WHO#*: } — 다른 팀과 도메인이 겹쳤을 수 있음"
+    SEL_DOMAIN=$(head -1 <<<"$FOUND" | cut -f1)
+    ok "상대 도메인: $SEL_DOMAIN (노드: $(head -1 <<<"$FOUND" | cut -f2))"
+    [ "$(wc -l <<<"$FOUND")" -gt 1 ] && echo "      (다른 도메인에도 노드 있음: $(tail -n +2 <<<"$FOUND" | cut -f1 | tr '\n' ' ')— 바꾸려면 --domain <번호>)"
+
+    # 찾은 도메인으로 연동 설정 → 상대 토픽 확인 (다른 배포판 daemon과 섞이지 않게 --no-daemon)
+    PEERS="$SEL_PEERS" DOMAIN_ID="$SEL_DOMAIN" LINK=1
+    export PEERS DOMAIN_ID
+    # shellcheck disable=SC1091
+    source "$HERE/env.sh" --link
+    TOPICS=$(ros2 topic list --no-daemon --spin-time 6 2>/dev/null | grep -vxE '/(rosout|parameter_events)' || true)
+    if [ -z "$TOPICS" ]; then
+      warn "노드는 있지만 아직 발행 중인 토픽이 없음"
+    else
+      ok "상대 토픽 $(wc -l <<<"$TOPICS")개:"; sed 's/^/      /' <<<"$TOPICS"
+      MISS=(); for t in "${TEAM_TOPICS[@]}"; do grep -qx "$t" <<<"$TOPICS" || MISS+=("$t"); done
+      [ ${#MISS[@]} -eq 0 ] && ok "팀 인터페이스(${TEAM_TOPICS[*]}) 확인 — 연동 완료" \
+                            || warn "팀 인터페이스 중 안 보이는 토픽: ${MISS[*]} (토픽 이름이 다른지 상대와 확인)"
     fi
-    MISS=(); for t in "${TEAM_TOPICS[@]}"; do grep -qx "$t" <<<"$TOPICS" || MISS+=("$t"); done
-    [ ${#MISS[@]} -eq 0 ] && ok "팀 인터페이스(${TEAM_TOPICS[*]}) 확인 — 연동 완료" \
-                          || warn "팀 인터페이스 중 안 보이는 토픽: ${MISS[*]}"
   fi
 fi
 

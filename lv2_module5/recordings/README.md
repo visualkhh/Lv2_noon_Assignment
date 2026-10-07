@@ -7,17 +7,20 @@
 - 무결성 확인: `cd recordings && sha256sum -c SHA256SUMS`
 
 [처음 한 번 — 연동]
-- `./connect.sh <상대 주소>` — 예: `./connect.sh agumon.local` (도메인 생략 시 팀 기본값 63)
+- `./connect.sh <상대 주소>` — 예: `./connect.sh agumon.local`
 - 기기 정보 → ROS 탐지·패키지 점검 → 워크스페이스 빌드 → VS Code 경로 → 상대 토픽 확인 → `.link.env` 저장
 - 상대 없이 이 PC만: `./connect.sh --local`
-- 상대도 이 PC 주소로 연결해야 함 (Wi-Fi가 멀티캐스트를 막아 `ROS_STATIC_PEERS`로 서로 지정)
 - ROS가 Docker 컨테이너에만 있으면: `./connect.sh --docker <컨테이너> <상대 주소>`
 - zip으로 받아 실행 권한이 없으면: `bash connect.sh` (줄바꿈·권한을 스스로 고침)
 
 [호환 기준]
-- 팀 `ROS_DOMAIN_ID` = **63** — 모든 기기(라즈베리파이·조원 PC·Docker)가 같은 값
-  - 2026-10-07 강의실 Wi-Fi 스캔: 0·28·30·42·50·87은 다른 기기가 사용 중 → 비어 있는 63으로 정함
-  - 값은 `env.sh`의 `LV2_TEAM_DOMAIN` 한 곳에서 관리
+- `ROS_DOMAIN_ID`는 정하지 않음 — 상대가 노드를 띄운 도메인을 `find_domain.py`가 찾아서 맞춤
+  - ① DDS 탐색 멀티캐스트에서 상대 IP가 보이는 도메인 → ② 상대에게만 직접 물어 노드가 있는지 확인 (0~101)
+  - 지난번 도메인부터 확인하므로 상대가 그대로면 몇 초, 처음·바뀐 경우 최대 약 40초
+  - 탐색 신호만 있고 노드가 없는 도메인(ros2 daemon만 떠 있음), 이 PC에서 띄운 노드는 제외
+  - 직접 지정하려면 `./connect.sh <상대> --domain <번호>`, `DOMAIN_ID=<번호> ./record_peer.sh`
+- 연동 모드는 지정한 상대하고만 통신 (`ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST` + `ROS_STATIC_PEERS`)
+  → 같은 Wi-Fi에서 같은 도메인을 쓰는 다른 팀 노드와 섞이지 않음, 상대 쪽 설정 변경 불필요
 - RMW `rmw_fastrtps_cpp`로 통일 — jazzy ↔ lyrical 양방향 통신 확인 (2026-10-07, 같은 PC)
 - bag 저장 형식 `mcap`(metadata v9) — jazzy ↔ lyrical 서로 읽기 확인
 - 녹화 토픽은 `--topics`로 지정 (lyrical은 토픽 위치 인자를 받지 않음, jazzy도 `--topics` 지원)
@@ -37,6 +40,7 @@
 - `pack_bag.sh <이름>` — `bags/<이름>` 압축 + `SHA256SUMS` 기록 (같은 파일 줄은 교체)
 - `register_bag.sh <이름> [장면]` — `metadata.yaml`로 [목록] 등록 (기존 장면 설명·다운로드 링크 유지)
 - `share_zip.sh` — 팀원에게 보낼 zip (스크립트·문서·`.tar.gz`, 원본 폴더·`.link.env` 제외), `NO_BAGS=1`이면 스크립트·문서만
+- `find_domain.py <상대 주소>` — 상대가 노드를 띄운 `ROS_DOMAIN_ID` 출력 (connect.sh·record_peer.sh가 사용)
 - `env.sh` — 공통 환경 (직접 실행하지 않음, 터미널에서 같은 설정을 쓰려면 `source env.sh --link`)
 - `../ros2_ws/sim_gui.sh` — 웹 GUI 서버를 띄우고 `run_and_record.sh` 실행
 

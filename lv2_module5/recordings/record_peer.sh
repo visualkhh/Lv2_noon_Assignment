@@ -2,7 +2,8 @@
 # 사용법: ./record_peer.sh [이름] [토픽...]
 #   connect.sh로 연동한 상대 기기(라즈베리파이·조원 PC·Docker)에서 돌고 있는 노드의 토픽을 이 PC에서 녹화만 한다
 #   - 이 PC에서는 노드를 띄우지 않음 (구독만) → 상대 설정·파일·모터 동작에 영향 없음
-#   - 상대 주소·도메인은 .link.env(connect.sh가 저장) 사용, 일회성으로 바꾸려면 PEERS=... DOMAIN_ID=...
+#   - 상대 주소는 .link.env(connect.sh가 저장) 사용, 일회성으로 바꾸려면 PEERS=...
+#   - ROS_DOMAIN_ID는 녹화 직전에 상대가 노드를 띄운 도메인을 자동으로 찾음 (직접 지정: DOMAIN_ID=...)
 #   - 원본 영상(image_raw)은 Wi-Fi로 받기엔 커서 기본에서 제외, 디버그 영상(jpeg)만 (RECORD_RAW=1이면 포함)
 #   - Ctrl+C로 녹화 종료 → 압축·SHA256SUMS → README [목록] 등록
 #   - 이름 기본: peer_YYYYmmdd_HHMMSS (NAME_PREFIX로 앞부분 변경)
@@ -23,6 +24,21 @@ if [ -n "$1" ] && [[ "$1" != /* ]]; then NAME="${1%/}"; shift; else NAME="${NAME
 if [ $# -gt 0 ]; then TOPICS=("$@"); else TOPICS=("${DEFAULT_TOPICS[@]}"); fi
 [ -e "$BAG_DIR/$NAME" ] && { echo "bags/$NAME 폴더가 이미 있음 — 다른 이름을 주세요"; exit 1; }
 [ -n "$ROS_STATIC_PEERS" ] || echo "⚠ 상대 주소(PEERS) 미설정 — 같은 서브넷 멀티캐스트로만 찾음 (Wi-Fi면 ./connect.sh <상대 주소> 먼저)"
+
+# 상대 도메인 자동 탐색 (DOMAIN_ID를 직접 주지 않았을 때)
+if [ -z "$DOMAIN_ID" ] && [ -n "$ROS_STATIC_PEERS" ]; then
+  IFS=';' read -ra PL <<<"$ROS_STATIC_PEERS"
+  echo "=== 상대(${PL[*]}) 도메인 찾는 중..."
+  FOUND=$(python3 "$HERE/find_domain.py" "${PL[@]}" ${LINK_DOMAIN_ID:+--hint "$LINK_DOMAIN_ID"} 2> >(sed 's/^/  /' >&2) | head -1)
+  if [ -z "$FOUND" ]; then
+    echo "FAIL: 상대가 노드를 띄운 도메인을 찾지 못함 — 상대 노드 실행 여부 확인 (./connect.sh ${PL[0]} 로 점검)"
+    exit 1
+  fi
+  export ROS_DOMAIN_ID="${FOUND%%$'\t'*}"
+  echo "=== 상대 도메인: $ROS_DOMAIN_ID (노드: ${FOUND#*$'\t'})"
+  # 다음 실행이 바로 찾도록 저장
+  [ -f "$LINK_FILE" ] && sed -i "s/^LINK_DOMAIN_ID=.*/LINK_DOMAIN_ID=$ROS_DOMAIN_ID/" "$LINK_FILE"
+fi
 
 echo "=== ROS $ROS_DISTRO · ROS_DOMAIN_ID=$ROS_DOMAIN_ID · PEERS=${ROS_STATIC_PEERS:-(없음)}"
 echo "=== 상대 토픽 찾는 중 (5s)..."
