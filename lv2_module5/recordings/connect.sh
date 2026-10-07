@@ -4,7 +4,7 @@
 # 사용법
 #   ./connect.sh                          ← 저장된 설정으로 (처음이면 물어봄) 점검·빌드·연동
 #   ./connect.sh agumon.local             ← 상대 주소 지정 (여러 대: ./connect.sh 192.168.0.10 agumon.local)
-#   ./connect.sh agumon.local --domain 9  ← ROS_DOMAIN_ID 지정 (상대와 같아야 함)
+#   ./connect.sh agumon.local --domain 63 ← ROS_DOMAIN_ID 지정 (상대와 같아야 함, 생략하면 팀 기본값 63 — env.sh)
 #   ./connect.sh --local                  ← 상대 없이 이 PC만 점검·빌드
 #   ./connect.sh --docker <컨테이너>      ← 호스트에 ROS가 없고 Docker 컨테이너에 있을 때: 이 폴더를 넣고 그 안에서 실행
 #   옵션: --ws <워크스페이스 경로>  --ros <배포판 또는 setup.bash 경로>  --no-build  --yes(묻지 않음)
@@ -38,7 +38,7 @@ dds_who() {
 import collections, select, socket, struct, sys, time
 peers = set(sys.argv[1:])
 socks = {}
-for d in list(range(21)) + [30, 42]:
+for d in range(102):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     if hasattr(socket, 'SO_REUSEPORT'):
@@ -206,10 +206,10 @@ if [ "$MODE" != local ] && [ -z "$LINK_PEERS" ] && [ "$ASK" = 1 ]; then
   read -rp "  상대 기기 주소 (예: agumon.local 또는 192.168.0.10, 여러 대는 ;로 구분, 엔터=로컬만): " LINK_PEERS
 fi
 if [ "$MODE" != local ] && [ -n "$LINK_PEERS" ] && [ -z "$LINK_DOMAIN_ID" ] && [ "$ASK" = 1 ]; then
-  read -rp "  ROS_DOMAIN_ID (상대와 같은 값, 엔터=9): " LINK_DOMAIN_ID
+  read -rp "  ROS_DOMAIN_ID (상대와 같은 값, 엔터=팀 기본값 $LV2_TEAM_DOMAIN): " LINK_DOMAIN_ID
 fi
-LINK_DOMAIN_ID="${LINK_DOMAIN_ID:-9}"
-[[ "$LINK_DOMAIN_ID" =~ ^[0-9]+$ ]] && [ "$LINK_DOMAIN_ID" -le 232 ] || { fail "ROS_DOMAIN_ID는 0~232: $LINK_DOMAIN_ID"; LINK_DOMAIN_ID=9; }
+LINK_DOMAIN_ID="${LINK_DOMAIN_ID:-$LV2_TEAM_DOMAIN}"
+[[ "$LINK_DOMAIN_ID" =~ ^[0-9]+$ ]] && [ "$LINK_DOMAIN_ID" -le 101 ] || { fail "ROS_DOMAIN_ID는 0~101 (Fast DDS 안전 범위): $LINK_DOMAIN_ID"; LINK_DOMAIN_ID=$LV2_TEAM_DOMAIN; }
 [ "$MODE" = local ] && LINK_PEERS=""
 # env.sh를 다시 source하면 .link.env의 옛 값이 돌아오므로 고른 값을 따로 보관
 SEL_PEERS="$LINK_PEERS"; SEL_DOMAIN="$LINK_DOMAIN_ID"; SEL_WS="$WS"
@@ -238,7 +238,7 @@ else
   if [ -z "$TOPICS" ]; then
     fail "상대 토픽이 안 보임 — 상대 노드 실행, ROS_DOMAIN_ID($ROS_DOMAIN_ID) 일치, 같은 네트워크인지 확인"
     # 도메인별로 어떤 기기(IP)가 노드를 띄우고 있는지 — 상대가 다른 도메인에 있는지, 아예 안 떠 있는지 구분
-    echo "      … 도메인별 기기 스캔 중 (0~20, 30, 42 / 10s)"
+    echo "      … 도메인별 기기 스캔 중 (0~101 / 10s)"
     dds_who "${PEER_IPS[@]}" | sed 's/^/      /'
     echo "      상대 기기에서도 이 PC 주소로 연결해야 함: ./connect.sh $(hostname -I 2>/dev/null | awk '{print $1}') --domain $ROS_DOMAIN_ID"
     echo "      (상대가 이 스크립트가 없으면: export ROS_DOMAIN_ID=$ROS_DOMAIN_ID ROS_STATIC_PEERS=$(hostname -I 2>/dev/null | awk '{print $1}') RMW_IMPLEMENTATION=rmw_fastrtps_cpp)"

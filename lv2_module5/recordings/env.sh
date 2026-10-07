@@ -14,6 +14,9 @@
 REC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BAG_DIR="$REC_DIR/bags"
 LINK_FILE="$REC_DIR/.link.env"     # connect.sh가 기록하는 기기별 설정 (git·zip에 포함하지 않음)
+# 팀 공통 ROS_DOMAIN_ID — 2026-10-07 강의실 Wi-Fi 스캔에서 0·28·30·42·50·87이 다른 기기에 쓰이고 있어 비어 있는 63으로 정함
+#   바꿀 때는 여기만 고치면 connect.sh·record_agumon.sh 기본값이 따라감 (모든 팀원 기기가 같은 값이어야 함)
+LV2_TEAM_DOMAIN=63
 mkdir -p "$BAG_DIR"
 
 # shellcheck disable=SC1090
@@ -93,7 +96,7 @@ WS="$(lv2_find_ws)" || WS=""
 export RMW_IMPLEMENTATION="${RMW_IMPLEMENTATION:-rmw_fastrtps_cpp}"
 if [ "$1" = "--link" ] || [ "${LINK:-0}" = 1 ]; then
   LV2_MODE=link
-  export ROS_DOMAIN_ID="${DOMAIN_ID:-${LINK_DOMAIN_ID:-0}}"
+  export ROS_DOMAIN_ID="${DOMAIN_ID:-${LINK_DOMAIN_ID:-$LV2_TEAM_DOMAIN}}"
   export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
   PEERS="${PEERS:-$LINK_PEERS}"
   if [ -n "$PEERS" ]; then export ROS_STATIC_PEERS="$PEERS"; else unset ROS_STATIC_PEERS; fi

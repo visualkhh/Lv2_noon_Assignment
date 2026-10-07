@@ -7,7 +7,7 @@
 - 무결성 확인: `cd recordings && sha256sum -c SHA256SUMS`
 
 [처음 한 번 — 연동]
-- `./connect.sh <상대 주소>` — 예: `./connect.sh agumon.local --domain 9`
+- `./connect.sh <상대 주소>` — 예: `./connect.sh agumon.local` (도메인 생략 시 팀 기본값 63)
 - 기기 정보 → ROS 탐지·패키지 점검 → 워크스페이스 빌드 → VS Code 경로 → 상대 토픽 확인 → `.link.env` 저장
 - 상대 없이 이 PC만: `./connect.sh --local`
 - 상대도 이 PC 주소로 연결해야 함 (Wi-Fi가 멀티캐스트를 막아 `ROS_STATIC_PEERS`로 서로 지정)
@@ -15,6 +15,9 @@
 - zip으로 받아 실행 권한이 없으면: `bash connect.sh` (줄바꿈·권한을 스스로 고침)
 
 [호환 기준]
+- 팀 `ROS_DOMAIN_ID` = **63** — 모든 기기(라즈베리파이·조원 PC·Docker)가 같은 값
+  - 2026-10-07 강의실 Wi-Fi 스캔: 0·28·30·42·50·87은 다른 기기가 사용 중 → 비어 있는 63으로 정함
+  - 값은 `env.sh`의 `LV2_TEAM_DOMAIN` 한 곳에서 관리
 - RMW `rmw_fastrtps_cpp`로 통일 — jazzy ↔ lyrical 양방향 통신 확인 (2026-10-07, 같은 PC)
 - bag 저장 형식 `mcap`(metadata v9) — jazzy ↔ lyrical 서로 읽기 확인
 - 녹화 토픽은 `--topics`로 지정 (lyrical은 토픽 위치 인자를 받지 않음, jazzy도 `--topics` 지원)
@@ -28,7 +31,7 @@
   - 이름 기본 `sim_YYYYmmdd_HHMMSS`, `NO_RECORD=1` 실행만, `RECORD_RAW=0` 디버그 영상만, `LINK=1` 상대와 같은 네트워크
   - 워크스페이스(`../ros2_ws` 또는 `--ws`로 저장한 경로) 필요
 - `record_peer.sh [이름] [토픽...]` — 연동한 상대 기기의 토픽을 녹화만 (노드 실행 없음) → 압축·등록
-- `record_agumon.sh [토픽...]` — 라즈베리파이(`agumon.local`, 도메인 9) 바로가기
+- `record_agumon.sh [토픽...]` — 라즈베리파이(`agumon.local`) 바로가기
 - `record_scene.sh [이름] [토픽...]` — 이 PC에서 따로 띄운 노드를 녹화 → 압축·등록
 - `play_bag.sh <이름> [옵션]` — 재생 (폴더가 없으면 `.tar.gz`를 체크섬 확인 후 풀어서), `LINK=1`이면 상대 쪽으로 (`/motor_cmd` 제외)
 - `pack_bag.sh <이름>` — `bags/<이름>` 압축 + `SHA256SUMS` 기록 (같은 파일 줄은 교체)
