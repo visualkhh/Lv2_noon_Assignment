@@ -206,3 +206,13 @@
 - SHA256: `24f183357cc71e7d3ce2eac4bbaa235afb98bef929db550b1fcff4bebcfd8537`
 - 기준 커밋: `70ea35a`
 - 다운로드: (업로드 후 기입)
+
+[목록:agumon_20261007_111246.tar.gz]
+- 녹화 일시: 2026-10-07 11:13:01
+- 장면: -
+- 기간: 95.2s
+- 토픽: /perception_node/debug_image/compressed(4), /target(739), /tracking_status(68)
+- 용량: 68K
+- SHA256: `823a259076a15a79a84a1278b05bbc07af11ef06f25e759b97cd31b107a24044`
+- 기준 커밋: `70ea35a`
+- 다운로드: (업로드 후 기입)

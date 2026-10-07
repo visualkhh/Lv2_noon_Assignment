@@ -8,3 +8,4 @@ export PEERS="${PEERS:-${PI_HOST:-agumon.local}}" NAME_PREFIX=agumon
 exec "$HERE/record_peer.sh" "$@"
 
 #RECORD_RAW=1 ./record_agumon.sh 를 시행하세요.
+#./record_agumon.sh /target /motor_cmd /tracking_status 용량이 적습니다.
