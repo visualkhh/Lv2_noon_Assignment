@@ -55,16 +55,39 @@ A/B를 각각 3회 기록하고, 매회 같은 표시와 순서를 사용한다.
 먼저 모터 출력 없이 아래 절차로 토픽과 명령 방향을 확인하고, 실기에서는 작은
 수동 명령으로 `abs(ex)`가 줄어드는 방향인지 확인한 뒤 본 시험을 진행한다.
 
-```bash
-cd lv2_module5/ros2_ws
-./start.sh --build use_motor:=false dynamixel_params_file:=$PWD/src/dynamixel/config/kp_pan_a.yaml
-# 다른 터미널에서 /motor_cmd·/tracking_status 확인. Ctrl+C로 종료.
+### Pi에서 이미 빌드된 노드로 실행 (재빌드 없음)
 
-# 실기 A_1: 기존 빌드 사용. B 회차는 kp_pan_b.yaml로 바꾼 뒤 재시작.
-./start.sh dynamixel_params_file:=$PWD/src/dynamixel/config/kp_pan_a.yaml
-# 기록은 별도 터미널에서 시작하고 토픽 구독 완료 후 목표 이동:
-./bag-recording.sh -p all -d 18 A_1
+각 터미널에서 `cd` 후 ROS 환경을 읽는다. 기존 `bringup` 또는 `dynamixel.launch.py`는
+종료해 중복 제어 노드가 없도록 한다. 새 A/B YAML은 시험 조건 보관용이며, 실행할 때는
+설치된 노드에 아래 파라미터를 직접 넘기므로 설치 파일을 바꾸거나 재빌드하지 않는다.
+
+```bash
+cd ~/git/Lv2_noon_Assignment/lv2_module5/ros2_ws  # Pi의 실제 저장소 경로에 맞게 변경
+source /opt/ros/lyrical/setup.bash
+source install/setup.bash
 ```
+
+1. 터미널 1: `ros2 launch realsense realsense.launch.py color_profile:=424x240x30`
+2. 터미널 2: 아래 A 명령으로 이동 노드 실행. **controller를 켜지 않은 상태**에서
+   `/target`, `/motor_cmd`의 부호와 크기를 확인한다.
+
+```bash
+ros2 run dynamixel dynamixel_move_node --ros-args \
+  -p pan_gain:=-0.015 -p tilt_gain:=0.0 \
+  -p horizontal_deadband:=0.05 -p vertical_deadband:=0.05 \
+  -p max_pan_command:=0.0174533 -p max_tilt_command:=0.0174533 \
+  -p lost_timeout:=0.5 -p status_publish_period:=1.0
+```
+
+3. 실기 확인 후 터미널 3에서 OpenCR 전송 노드만 실행한다:
+   `ros2 run dynamixel dynamixel_controller --ros-args -p serial_port:=/dev/opencr -p baud_rate:=115200`.
+4. 터미널 4에서 `./bag-recording.sh -p all -d 18 A_1`로 기록한다. 토픽 구독 완료 후
+   중앙 2초와 좌·중·우·중 각 3초의 이동을 시작한다.
+5. B 회차는 **터미널 2의 이동 노드만 종료**하고 위 명령의 `pan_gain`만 `-0.03`으로
+   바꿔 재실행한다. 기록 이름은 `B_1`이다. 이후 `A_2, B_2, A_3, B_3`로 반복한다.
+
+위 명령의 `-p` 값은 [A](../../ros2_ws/src/dynamixel/config/kp_pan_a.yaml)·
+[B](../../ros2_ws/src/dynamixel/config/kp_pan_b.yaml) 파일과 동일하다.
 
 bag의 `/target`, `/motor_cmd`, `/tracking_status`, 원본 영상 메시지 수와 실제
 기록 기간을 매회 확인한다. `results/metrics.csv`는 현재 헤더만 있는 서식이며
