@@ -30,6 +30,46 @@ fail() { echo "  ✘ $*"; FAILS=$((FAILS + 1)); }
 step() { echo; echo "[$1] $2"; }
 WARNS=0; FAILS=0
 
+# DDS 탐색(SPDP) 멀티캐스트를 받아 도메인별로 노드를 띄운 기기 IP를 출력 (root 불필요)
+#   포트 7400 + 250 × domain, 그룹 239.255.0.1 · 인자로 준 IP는 "← 상대" 표시
+#   상대가 멀티캐스트를 끈 경우(static peer 전용)엔 여기 안 잡힐 수 있음
+dds_who() {
+  python3 - "$@" <<'PY'
+import collections, select, socket, struct, sys, time
+peers = set(sys.argv[1:])
+socks = {}
+for d in list(range(21)) + [30, 42]:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    if hasattr(socket, 'SO_REUSEPORT'):
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+    try:
+        s.bind(('', 7400 + 250 * d))
+        s.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP,
+                     struct.pack('4s4s', socket.inet_aton('239.255.0.1'), socket.inet_aton('0.0.0.0')))
+    except OSError:
+        continue
+    socks[s] = d
+seen = collections.defaultdict(set)
+end = time.time() + 10
+while socks and time.time() < end:
+    for s in select.select(list(socks), [], [], 0.5)[0]:
+        data, (ip, _) = s.recvfrom(65535)
+        if data[:4] == b'RTPS':
+            seen[socks[s]].add(ip)
+for d in sorted(seen):
+    print(f'domain {d:2}: ' + ', '.join(ip + (' ← 상대' if ip in peers else '') for ip in sorted(seen[d])))
+found = set().union(*seen.values()) if seen else set()
+if peers and not peers & found:
+    print(f'→ 상대({", ".join(sorted(peers))})는 어느 도메인에서도 탐색 신호 없음: 상대 노드가 꺼져 있거나,')
+    print('  Docker 브리지 네트워크(network_mode: host 아님)·멀티캐스트 꺼짐 상태일 수 있음')
+elif peers & found:
+    print('→ 상대가 있는 도메인 번호로 맞추거나 상대를 약속한 도메인으로: ./connect.sh <상대> --domain <번호>')
+if not seen:
+    print('멀티캐스트 탐색 신호가 하나도 없음 (네트워크가 멀티캐스트를 막는 중일 수 있음)')
+PY
+}
+
 # zip·Windows를 거치며 생기는 문제 정리: 줄바꿈(CRLF) 제거, 실행 권한 복구
 for f in "$HERE"/*.sh; do
   grep -q $'\r' "$f" 2>/dev/null && sed -i 's/\r$//' "$f"
@@ -178,9 +218,11 @@ if [ -z "$SEL_PEERS" ]; then
   echo "  - 상대 없음: 로컬 전용 (나중에 ./connect.sh <상대 주소>)"
 else
   IFS=';' read -ra PL <<<"$SEL_PEERS"
+  PEER_IPS=()
   for h in "${PL[@]}"; do
     ip=$(getent ahostsv4 "$h" 2>/dev/null | awk 'NR==1{print $1}')
     if [ -z "$ip" ]; then fail "$h: 주소를 찾을 수 없음 (.local은 avahi-daemon 필요 → IP로 지정해 보세요)"; continue; fi
+    PEER_IPS+=("$ip")
     if ping -c1 -W2 "$ip" >/dev/null 2>&1; then ok "$h ($ip) 응답"; else warn "$h ($ip) ping 응답 없음 (방화벽일 수 있음, 계속 진행)"; fi
   done
   if command -v ufw >/dev/null && ufw status 2>/dev/null | grep -q "Status: active"; then
@@ -195,10 +237,18 @@ else
   TOPICS=$(ros2 topic list --no-daemon --spin-time 8 2>/dev/null | grep -vxE '/(rosout|parameter_events)' || true)
   if [ -z "$TOPICS" ]; then
     fail "상대 토픽이 안 보임 — 상대 노드 실행, ROS_DOMAIN_ID($ROS_DOMAIN_ID) 일치, 같은 네트워크인지 확인"
+    # 도메인별로 어떤 기기(IP)가 노드를 띄우고 있는지 — 상대가 다른 도메인에 있는지, 아예 안 떠 있는지 구분
+    echo "      … 도메인별 기기 스캔 중 (0~20, 30, 42 / 10s)"
+    dds_who "${PEER_IPS[@]}" | sed 's/^/      /'
     echo "      상대 기기에서도 이 PC 주소로 연결해야 함: ./connect.sh $(hostname -I 2>/dev/null | awk '{print $1}') --domain $ROS_DOMAIN_ID"
     echo "      (상대가 이 스크립트가 없으면: export ROS_DOMAIN_ID=$ROS_DOMAIN_ID ROS_STATIC_PEERS=$(hostname -I 2>/dev/null | awk '{print $1}') RMW_IMPLEMENTATION=rmw_fastrtps_cpp)"
   else
     ok "보이는 토픽 $(wc -l <<<"$TOPICS")개:"; sed 's/^/      /' <<<"$TOPICS"
+    # 같은 도메인을 쓰는 다른 팀 기기의 토픽을 상대 것으로 착각하지 않도록 출발지 확인
+    WHO=$(dds_who "${PEER_IPS[@]}" | grep -E "^domain +$ROS_DOMAIN_ID:" || true)
+    if [ -n "$WHO" ] && ! grep -q "← 상대" <<<"$WHO"; then
+      warn "domain $ROS_DOMAIN_ID 토픽의 출발지가 상대가 아님: ${WHO#*: } — 다른 팀과 도메인이 겹쳤을 수 있음"
+    fi
     MISS=(); for t in "${TEAM_TOPICS[@]}"; do grep -qx "$t" <<<"$TOPICS" || MISS+=("$t"); done
     [ ${#MISS[@]} -eq 0 ] && ok "팀 인터페이스(${TEAM_TOPICS[*]}) 확인 — 연동 완료" \
                           || warn "팀 인터페이스 중 안 보이는 토픽: ${MISS[*]}"
