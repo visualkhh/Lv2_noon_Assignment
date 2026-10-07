@@ -9,6 +9,7 @@
 | `realsense/perception_node` → `/target` → `dynamixel_move_node` | `geometry_msgs/msg/PointStamped`, best effort·volatile·depth 1 | `x`: 오른쪽 + 정규화 오차, `y`: 아래쪽 + 정규화 오차, `z`: OpenCV contour 면적 비율. `z=0`은 미검출 |
 | `dynamixel_move_node` → `/motor_cmd` → `dynamixel_controller` | `sensor_msgs/msg/JointState`, reliable·volatile·depth 1 | `name=[pan_joint, tilt_joint]`, `position=[pan_delta_rad, tilt_delta_rad]`; velocity/effort 없음 |
 | controller → `/dev/opencr` → OpenCR | 115200 bps ASCII | `M,<pan_delta_deg>,<tilt_delta_deg>\n` (실제 newline 바이트) |
+| OpenCR → controller → `/joint_states` | 115200 bps ASCII → `sensor_msgs/msg/JointState` | 50ms 주기 `S,<pan_deg>,<pan_rpm>,<tilt_deg>,<tilt_rpm>\n`; deg는 180° 중심 기준 상대각, ROS 단위는 position rad·velocity rad/s |
 | `dynamixel_move_node` → `/tracking_status` | `std_msgs/msg/String`, reliable·transient local·depth 1 | 현재 FSM 상태 `IDLE`, `TRACKING`, `LOST` |
 | OpenCR → XM430-W350-T | Protocol 2.0, 1,000,000 bps | pan ID **11**, tilt ID **12** |
 
@@ -42,6 +43,12 @@ Raspberry Pi 사용자 권한, OpenCR udev 규칙, `/dev/opencr` 설정은 [Sett
 
 ```bash
 ros2 topic echo /tracking_status std_msgs/msg/String --qos-durability transient_local
+```
+
+실제 모터 상태는 OpenCR 펌웨어를 새 버전으로 업로드한 뒤 다음 명령으로 확인한다. `position`은 중심 기준 radian, `velocity`는 rad/s다.
+
+```bash
+ros2 topic echo /joint_states sensor_msgs/msg/JointState
 ```
 
 ## 모터 없이 제어 확인하기
