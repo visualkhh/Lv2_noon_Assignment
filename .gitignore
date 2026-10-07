@@ -10,9 +10,12 @@ build/
 **/ros2_ws/build/
 **/cmake-build-debug/
 
-.venv/.vscode/browse.vc.db*
-.vscode/ipch/
+.venv/
 
 # VS Code C/C++ IntelliSense DB
 .vscode/browse.vc.db*
 .vscode/ipch/
+
+# connect.sh가 기기마다 만드는 ROS 경로 링크 (settings.json이 이 링크를 봄)
+.vscode/ros_include
+.vscode/ros_python

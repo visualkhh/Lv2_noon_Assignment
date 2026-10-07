@@ -1,0 +1,231 @@
+#!/usr/bin/env bash
+# 연동 스크립트 — 어떤 기기에서든 이 파일 하나만 실행하면 그 기기의 ROS 환경에 맞춰 설정하고 상대 기기와 연결한다
+#
+# 사용법
+#   ./connect.sh                          ← 저장된 설정으로 (처음이면 물어봄) 점검·빌드·연동
+#   ./connect.sh agumon.local             ← 상대 주소 지정 (여러 대: ./connect.sh 192.168.0.10 agumon.local)
+#   ./connect.sh agumon.local --domain 9  ← ROS_DOMAIN_ID 지정 (상대와 같아야 함)
+#   ./connect.sh --local                  ← 상대 없이 이 PC만 점검·빌드
+#   ./connect.sh --docker <컨테이너>      ← 호스트에 ROS가 없고 Docker 컨테이너에 있을 때: 이 폴더를 넣고 그 안에서 실행
+#   옵션: --ws <워크스페이스 경로>  --ros <배포판 또는 setup.bash 경로>  --no-build  --yes(묻지 않음)
+#   zip으로 받아 실행 권한이 없으면: bash connect.sh
+#
+# 하는 일
+#   ① 기기 정보 (OS·CPU·Python·Docker 안인지)
+#   ② ROS 2 배포판 자동 탐지 (lyrical·kilted·jazzy·humble·소스 빌드) + 필수/선택 패키지 점검
+#   ③ cognitive_control 워크스페이스 찾기 → 이 기기 배포판으로 빌드 (없으면 녹화·재생 전용 모드)
+#   ④ VS Code가 이 기기의 ROS를 보도록 경로 연결 (저장소 안일 때)
+#   ⑤ 상대 기기 연결: 주소 확인 → ping → 같은 ROS_DOMAIN_ID에서 토픽 확인
+#   ⑥ 설정을 .link.env에 저장 → run_and_record.sh·record_peer.sh·play_bag.sh가 그대로 사용
+# NOTE: set -u 사용 금지 — ROS setup.bash가 미설정 변수를 참조해서 죽음.
+
+set -o pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"
+LINK_FILE="$HERE/.link.env"
+TEAM_TOPICS=(/target /motor_cmd /tracking_status)    # 팀 공통 인터페이스 (있으면 연동 성공으로 봄)
+
+ok()   { echo "  ✔ $*"; }
+warn() { echo "  ⚠ $*"; WARNS=$((WARNS + 1)); }
+fail() { echo "  ✘ $*"; FAILS=$((FAILS + 1)); }
+step() { echo; echo "[$1] $2"; }
+WARNS=0; FAILS=0
+
+# zip·Windows를 거치며 생기는 문제 정리: 줄바꿈(CRLF) 제거, 실행 권한 복구
+for f in "$HERE"/*.sh; do
+  grep -q $'\r' "$f" 2>/dev/null && sed -i 's/\r$//' "$f"
+  [ -x "$f" ] || chmod +x "$f" 2>/dev/null
+done
+
+# ---- 인자
+# shellcheck disable=SC1090
+[ -f "$LINK_FILE" ] && . "$LINK_FILE"
+NEW_PEERS=(); DOMAIN=""; MODE=""; ASK=1; BUILD=1; DOCKER=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --local)   MODE=local ;;
+    --domain)  DOMAIN="$2"; shift ;;
+    --ws)      export LV2_WS="$2"; shift ;;
+    --ros)     if [ -f "$2" ]; then export ROS_SETUP="$2"; else export ROS_DISTRO_NAME="$2"; fi; shift ;;
+    --no-build) BUILD=0 ;;
+    --yes|-y)  ASK=0 ;;
+    --docker)  DOCKER="$2"; shift ;;
+    -h|--help) sed -n '2,23p' "$0"; exit 0 ;;
+    -*)        echo "알 수 없는 옵션: $1 (./connect.sh --help)"; exit 1 ;;
+    *)         NEW_PEERS+=("$1") ;;
+  esac
+  shift
+done
+[ -t 0 ] || ASK=0
+
+# ---- Docker: 이 폴더(압축본·스크립트만)를 컨테이너에 넣고 그 안에서 다시 실행
+if [ -n "$DOCKER" ]; then
+  command -v docker >/dev/null || { echo "docker 없음"; exit 1; }
+  echo "=== $DOCKER 컨테이너의 /tmp/lv2_recordings 로 복사 (bag 원본 폴더는 제외, .tar.gz만)"
+  tar -C "$HERE" --exclude='./bags/*/' --exclude='./bags/_empty' --exclude='./.link.env' -cf - . \
+    | docker exec -i "$DOCKER" sh -c 'mkdir -p /tmp/lv2_recordings && tar -C /tmp/lv2_recordings -xf -' || exit 1
+  ARGS=(); [ -n "$DOMAIN" ] && ARGS+=(--domain "$DOMAIN"); [ "$MODE" = local ] && ARGS+=(--local)
+  [ "$BUILD" = 0 ] && ARGS+=(--no-build)
+  TTY=(-i); [ -t 0 ] && TTY=(-it)
+  exec docker exec "${TTY[@]}" "$DOCKER" bash /tmp/lv2_recordings/connect.sh "${NEW_PEERS[@]}" "${ARGS[@]}"
+fi
+
+# ======================================================================
+step 1 "기기 정보"
+OS="$( (. /etc/os-release 2>/dev/null && echo "$PRETTY_NAME") || uname -s)"
+ARCH="$(uname -m)"
+PYV="$(python3 -c 'import sys; print(sys.version.split()[0])' 2>/dev/null || echo 없음)"
+IN_DOCKER=no; [ -f /.dockerenv ] && IN_DOCKER=yes
+ok "OS: $OS · CPU: $ARCH · Python: $PYV · 호스트: $(hostname) · Docker 내부: $IN_DOCKER"
+[ "$PYV" = 없음 ] && fail "python3 없음"
+
+# ======================================================================
+step 2 "ROS 2 탐지·점검"
+# 저장된 배포판이 이 기기에 없으면(다른 기기에서 받은 .link.env) 무시하고 다시 찾는다
+[ -n "$LINK_DISTRO" ] && [ ! -f "/opt/ros/$LINK_DISTRO/setup.bash" ] && LINK_DISTRO=""
+[ -n "$LINK_SETUP" ] && [ ! -f "$LINK_SETUP" ] && LINK_SETUP=""
+export LINK_DISTRO LINK_SETUP
+# shellcheck disable=SC1091
+if ! source "$HERE/env.sh" --local 2>/dev/null; then
+  fail "ROS 2를 찾지 못함"
+  if command -v docker >/dev/null && docker ps --format '{{.Names}}' >/dev/null 2>&1; then
+    C=$(docker ps --format '{{.Names}}' | while read -r n; do
+          docker exec "$n" sh -c 'ls -d /opt/ros/*/setup.bash' >/dev/null 2>&1 && echo "$n"; done)
+    [ -n "$C" ] && echo "    ROS가 있는 실행 중인 컨테이너: $(echo $C) → ./connect.sh --docker <이름> ${NEW_PEERS[*]}"
+  fi
+  echo "    설치: https://docs.ros.org (Ubuntu 24.04 → jazzy: sudo apt install ros-jazzy-ros-base)"
+  echo "    소스 빌드한 ROS: ./connect.sh --ros <setup.bash 경로>"
+  exit 1
+fi
+APT_ROS=no
+dpkg -l "ros-$ROS_DISTRO-ros2cli" 2>/dev/null | grep -q ^ii && APT_ROS=yes
+ok "ROS $ROS_DISTRO ($ROS_PREFIX, $([ "$APT_ROS" = yes ] && echo apt 설치 || echo 소스 빌드)) · RMW: $RMW_IMPLEMENTATION"
+OTHERS=$(ls -d /opt/ros/*/ 2>/dev/null | xargs -rn1 basename | grep -vx "$ROS_DISTRO" | tr '\n' ' ')
+[ -n "$OTHERS" ] && echo "    (이 기기의 다른 배포판: $OTHERS— 바꾸려면 ./connect.sh --ros <배포판>)"
+
+pkg_hint() {  # 패키지 설치 안내
+  if [ "$APT_ROS" = yes ]; then echo "sudo apt install ros-$ROS_DISTRO-${1//_/-}"; else echo "$ROS_DISTRO용 소스 빌드 필요"; fi
+}
+for p in rclpy std_msgs geometry_msgs sensor_msgs launch launch_ros ros2bag rosbag2_py rosbag2_storage_mcap "$RMW_IMPLEMENTATION"; do
+  [ -d "$ROS_PREFIX/share/$p" ] || ros2 pkg prefix "$p" >/dev/null 2>&1 || fail "필수 패키지 없음: $p ($(pkg_hint "$p"))"
+done
+python3 -c 'import rclpy' 2>/dev/null || fail "rclpy import 실패 — ROS가 다른 Python 버전용으로 빌드됨 (시스템 $PYV)"
+for m in cv2:python3-opencv numpy:python3-numpy yaml:python3-yaml; do
+  python3 -c "import ${m%%:*}" 2>/dev/null || fail "Python 모듈 없음: ${m%%:*} (sudo apt install ${m#*:})"
+done
+for t in tar sha256sum; do command -v "$t" >/dev/null || fail "명령 없음: $t"; done
+ros2 pkg prefix rosbridge_server >/dev/null 2>&1 \
+  && ok "rosbridge_server 있음 (웹 GUI 사용 가능)" \
+  || warn "rosbridge_server 없음 → 웹 GUI(index.html) 연결 불가 ($(pkg_hint rosbridge_suite))"
+ros2 pkg prefix realsense2_camera >/dev/null 2>&1 \
+  && ok "realsense2_camera 있음 (실기 카메라 자동 전환 가능)" \
+  || warn "realsense2_camera 없음 → 실기 RealSense 대신 가상 카메라만 ($(pkg_hint realsense2_camera))"
+[ "$FAILS" = 0 ] && ok "필수 항목 통과"
+
+# ======================================================================
+step 3 "워크스페이스·빌드"
+if [ -z "$WS" ]; then
+  # 저장소 밖(zip)으로 받은 경우: 홈 아래에서 cognitive_control 워크스페이스를 찾아본다
+  CAND=$(find "$HOME" -maxdepth 6 -path '*/src/cognitive_control/package.xml' -not -path '*/install/*' 2>/dev/null | head -1)
+  [ -n "$CAND" ] && WS="$(cd "$(dirname "$CAND")/../.." && pwd)"
+fi
+if [ -n "$WS" ]; then
+  ok "워크스페이스: $WS"
+  if [ "$BUILD" = 1 ]; then
+    if command -v colcon >/dev/null; then
+      if lv2_build >"${TMPDIR:-/tmp}/lv2_build.log" 2>&1; then
+        ok "빌드 완료 ($ROS_DISTRO) — 실행 파일: $(ros2 pkg executables cognitive_control 2>/dev/null | awk '{print $2}' | tr '\n' ' ')"
+      else
+        fail "빌드 실패 — 로그: ${TMPDIR:-/tmp}/lv2_build.log"; tail -15 "${TMPDIR:-/tmp}/lv2_build.log" | sed 's/^/      /'
+      fi
+    else
+      fail "colcon 없음 (sudo apt install python3-colcon-common-extensions)"
+    fi
+  fi
+else
+  warn "cognitive_control 워크스페이스 없음 → 녹화·재생 전용 (record_peer.sh, play_bag.sh 사용 가능 / run_and_record.sh는 --ws 지정 필요)"
+fi
+
+# ======================================================================
+step 4 "VS Code 경로"
+REPO=""; [ -n "$WS" ] && REPO="$(git -C "$WS" rev-parse --show-toplevel 2>/dev/null)"
+if [ -n "$REPO" ] && [ -d "$REPO/.vscode" ]; then
+  PYSITE="$(python3 -c 'import os, rclpy; print(os.path.dirname(os.path.dirname(rclpy.__file__)))' 2>/dev/null)"
+  ln -sfn "$ROS_PREFIX/include" "$REPO/.vscode/ros_include"
+  [ -n "$PYSITE" ] && ln -sfn "$PYSITE" "$REPO/.vscode/ros_python"
+  ok ".vscode/ros_include → $ROS_PREFIX/include"
+  ok ".vscode/ros_python  → ${PYSITE:-(없음)}"
+else
+  echo "  - 저장소 밖이라 생략"
+fi
+
+# ======================================================================
+step 5 "상대 기기 연결"
+[ ${#NEW_PEERS[@]} -gt 0 ] && LINK_PEERS="$(IFS=';'; echo "${NEW_PEERS[*]}")"
+[ -n "$DOMAIN" ] && LINK_DOMAIN_ID="$DOMAIN"
+if [ "$MODE" != local ] && [ -z "$LINK_PEERS" ] && [ "$ASK" = 1 ]; then
+  read -rp "  상대 기기 주소 (예: agumon.local 또는 192.168.0.10, 여러 대는 ;로 구분, 엔터=로컬만): " LINK_PEERS
+fi
+if [ "$MODE" != local ] && [ -n "$LINK_PEERS" ] && [ -z "$LINK_DOMAIN_ID" ] && [ "$ASK" = 1 ]; then
+  read -rp "  ROS_DOMAIN_ID (상대와 같은 값, 엔터=9): " LINK_DOMAIN_ID
+fi
+LINK_DOMAIN_ID="${LINK_DOMAIN_ID:-9}"
+[[ "$LINK_DOMAIN_ID" =~ ^[0-9]+$ ]] && [ "$LINK_DOMAIN_ID" -le 232 ] || { fail "ROS_DOMAIN_ID는 0~232: $LINK_DOMAIN_ID"; LINK_DOMAIN_ID=9; }
+[ "$MODE" = local ] && LINK_PEERS=""
+# env.sh를 다시 source하면 .link.env의 옛 값이 돌아오므로 고른 값을 따로 보관
+SEL_PEERS="$LINK_PEERS"; SEL_DOMAIN="$LINK_DOMAIN_ID"; SEL_WS="$WS"
+
+if [ -z "$SEL_PEERS" ]; then
+  echo "  - 상대 없음: 로컬 전용 (나중에 ./connect.sh <상대 주소>)"
+else
+  IFS=';' read -ra PL <<<"$SEL_PEERS"
+  for h in "${PL[@]}"; do
+    ip=$(getent ahostsv4 "$h" 2>/dev/null | awk 'NR==1{print $1}')
+    if [ -z "$ip" ]; then fail "$h: 주소를 찾을 수 없음 (.local은 avahi-daemon 필요 → IP로 지정해 보세요)"; continue; fi
+    if ping -c1 -W2 "$ip" >/dev/null 2>&1; then ok "$h ($ip) 응답"; else warn "$h ($ip) ping 응답 없음 (방화벽일 수 있음, 계속 진행)"; fi
+  done
+  if command -v ufw >/dev/null && ufw status 2>/dev/null | grep -q "Status: active"; then
+    warn "ufw 방화벽 켜짐 → DDS(UDP 7400~7600대) 차단 가능: sudo ufw allow from <상대 IP>"
+  fi
+  # 연동 모드로 다시 설정해서 상대 토픽 확인 (다른 배포판 daemon과 섞이지 않게 --no-daemon)
+  PEERS="$SEL_PEERS" DOMAIN_ID="$SEL_DOMAIN" LINK=1
+  export PEERS DOMAIN_ID
+  # shellcheck disable=SC1091
+  source "$HERE/env.sh" --link
+  echo "  … ROS_DOMAIN_ID=$ROS_DOMAIN_ID, ROS_STATIC_PEERS=$ROS_STATIC_PEERS 로 토픽 찾는 중 (8s)"
+  TOPICS=$(ros2 topic list --no-daemon --spin-time 8 2>/dev/null | grep -vxE '/(rosout|parameter_events)' || true)
+  if [ -z "$TOPICS" ]; then
+    fail "상대 토픽이 안 보임 — 상대 노드 실행, ROS_DOMAIN_ID($ROS_DOMAIN_ID) 일치, 같은 네트워크인지 확인"
+    echo "      상대 기기에서도 이 PC 주소로 연결해야 함: ./connect.sh $(hostname -I 2>/dev/null | awk '{print $1}') --domain $ROS_DOMAIN_ID"
+    echo "      (상대가 이 스크립트가 없으면: export ROS_DOMAIN_ID=$ROS_DOMAIN_ID ROS_STATIC_PEERS=$(hostname -I 2>/dev/null | awk '{print $1}') RMW_IMPLEMENTATION=rmw_fastrtps_cpp)"
+  else
+    ok "보이는 토픽 $(wc -l <<<"$TOPICS")개:"; sed 's/^/      /' <<<"$TOPICS"
+    MISS=(); for t in "${TEAM_TOPICS[@]}"; do grep -qx "$t" <<<"$TOPICS" || MISS+=("$t"); done
+    [ ${#MISS[@]} -eq 0 ] && ok "팀 인터페이스(${TEAM_TOPICS[*]}) 확인 — 연동 완료" \
+                          || warn "팀 인터페이스 중 안 보이는 토픽: ${MISS[*]}"
+  fi
+fi
+
+# ======================================================================
+step 6 "설정 저장"
+cat >"$LINK_FILE" <<EOF
+# connect.sh가 $(date '+%F %T') $(hostname)에서 기록 — 이 기기 전용 (git·zip에 포함하지 않음)
+LINK_DISTRO=${ROS_DISTRO}
+LINK_SETUP=${ROS_SETUP_FILE}
+LINK_WS=${SEL_WS}
+LINK_PEERS='${SEL_PEERS}'
+LINK_DOMAIN_ID=${SEL_DOMAIN}
+EOF
+ok "$LINK_FILE"
+
+echo
+echo "================ 결과: 실패 $FAILS · 경고 $WARNS ================"
+cat <<EOF
+다음 명령 (recordings 폴더에서)
+  ./record_peer.sh            상대 기기 토픽 녹화 → bags/ 압축·README 등록
+  ./play_bag.sh               bag 목록 → ./play_bag.sh <이름> 으로 재생 (LINK=1이면 상대 쪽으로, /motor_cmd 제외)
+  ./run_and_record.sh         이 PC에서 노드 실행 + 녹화 (워크스페이스 필요, LINK=1이면 상대와 같은 네트워크)
+  ./share_zip.sh              팀원에게 보낼 zip 만들기
+현재 터미널에서 ros2 명령을 같은 설정으로 쓰려면:
+  source "$HERE/env.sh" --link
+EOF
+[ "$FAILS" = 0 ]

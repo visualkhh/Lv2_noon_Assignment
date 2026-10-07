@@ -6,11 +6,10 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/opt/ros/lyrical/include/**",
+        "${workspaceFolder}/.vscode/ros_include/**",
         "/usr/include/**"
       ],
       "name": "ros2",
-      "intelliSenseMode": "linux-gcc-x64",
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "gnu11",
       "cppStandard": "c++17"

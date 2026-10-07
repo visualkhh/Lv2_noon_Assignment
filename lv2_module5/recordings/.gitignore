@@ -1,8 +1,7 @@
-# bag 원본·압축본은 Git에 올리지 않음 (링크+체크섬만 관리)
+# 허용 목록 방식: 스크립트·문서·체크섬만 Git에 올림
+# bag 원본·압축본(bags/)은 용량 때문에 올리지 않음 (링크+체크섬만 관리), .link.env는 기기 전용 설정
 *
 !.gitignore
 !README.md
 !SHA256SUMS
-!pack_bag.sh
-!run_and_record.sh
-!record_agumon.sh
+!*.sh

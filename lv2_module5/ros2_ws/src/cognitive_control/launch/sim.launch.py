@@ -13,6 +13,8 @@
   use_devices:=false  기기 자동 연결(device_manager, opencr_bridge) 끄기 — 가상환경만
 """
 
+import os
+
 from ament_index_python.packages import get_package_share_directory, PackageNotFoundError
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, LogInfo
@@ -27,7 +29,7 @@ def rosbridge():
         share = get_package_share_directory('rosbridge_server')
     except PackageNotFoundError:
         return LogInfo(msg='rosbridge_server 없음 → GUI 연결 불가. '
-                           'rosbridge_suite를 lyrical용으로 소스 빌드 필요')
+                           f'{os.environ.get("ROS_DISTRO", "<배포판>")}용 rosbridge_suite 설치 필요')
     return IncludeLaunchDescription(
         AnyLaunchDescriptionSource(f'{share}/launch/rosbridge_websocket_launch.xml'),
         launch_arguments={'port': LaunchConfiguration('port')}.items())
