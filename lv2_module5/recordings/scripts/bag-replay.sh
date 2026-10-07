@@ -55,7 +55,7 @@ done
 
 # bag 위치: 경로 그대로 → recordings/<RUN_ID> 순서로 찾는다
 bag=''
-for candidate in "$bag_arg" "$HERE/../recordings/$bag_arg" "$HERE/recordings/$bag_arg"; do
+for candidate in "$bag_arg" "$HERE/../$bag_arg"; do
   if [ -f "$candidate/metadata.yaml" ]; then
     bag="$(cd "$candidate" && pwd)"
     break
@@ -66,7 +66,7 @@ done
 # shellcheck disable=SC1090
 source "/opt/ros/$ROS_DISTRO_NAME/setup.bash"
 # shellcheck disable=SC1091
-[ -f "$HERE/install/setup.bash" ] && source "$HERE/install/setup.bash"
+[ -f "$HERE/../../ros2_ws/install/setup.bash" ] && source "$HERE/../../ros2_ws/install/setup.bash"
 
 if pgrep -f 'lib/dynamixel/dynamixel_controller' >/dev/null && [ "$force" = 0 ]; then
   echo "FAIL: dynamixel_controller 실행 중 → 재생한 명령으로 모터가 움직일 수 있음."

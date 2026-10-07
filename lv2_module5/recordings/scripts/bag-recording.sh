@@ -93,7 +93,7 @@ done
 topics=("${unique[@]}")
 
 if [ -z "$out_dir" ]; then
-  if [ -d "$HERE/../recordings" ]; then out_dir="$HERE/../recordings"; else out_dir="$HERE/recordings"; fi
+  out_dir="$HERE/.."
 fi
 mkdir -p "$out_dir"
 out_dir="$(cd "$out_dir" && pwd)"
@@ -101,7 +101,7 @@ out_dir="$(cd "$out_dir" && pwd)"
 # shellcheck disable=SC1090
 source "/opt/ros/$ROS_DISTRO_NAME/setup.bash"
 # shellcheck disable=SC1091
-[ -f "$HERE/install/setup.bash" ] && source "$HERE/install/setup.bash"
+[ -f "$HERE/../../ros2_ws/install/setup.bash" ] && source "$HERE/../../ros2_ws/install/setup.bash"
 
 # 지금 발행 중인 토픽인지 확인 (없어도 기록은 시작 — 나중에 뜨면 잡힘)
 live=$(ros2 topic list 2>/dev/null || true)
