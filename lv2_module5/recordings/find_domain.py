@@ -13,6 +13,7 @@
      → 자동 탐색은 이 PC 안으로 막고 상대에게만 직접 물어보므로, 같은 Wi-Fi 다른 팀 노드가 섞이지 않음
      후보(①·--hint)를 먼저, 없으면 0~max 전체를 한 프로세스에서 여러 도메인 동시에 확인
   탐색 신호만 있고 노드가 없는 도메인(ros2 daemon만 떠 있는 경우)은 제외
+  (ros2 topic pub 등 CLI가 만든 _ros2cli_<pid> 노드는 실제 데이터를 낼 수 있으므로 포함)
 """
 import argparse
 import collections
@@ -82,7 +83,7 @@ def probe(domains, wait):
     found = {}
     for d, ctx, node in probes:
         names = sorted({(ns.rstrip('/') + '/' + n) for n, ns in node.get_node_names_and_namespaces()
-                        if not n.startswith('lv2_find_domain_') and not n.startswith('_ros2cli')})
+                        if not n.startswith(('lv2_find_domain_', '_ros2cli_daemon'))})
         if names:
             found[d] = names
         node.destroy_node()
