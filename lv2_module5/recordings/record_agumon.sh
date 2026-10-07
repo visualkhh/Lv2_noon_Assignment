@@ -6,3 +6,5 @@
 HERE="$(cd "$(dirname "$0")" && pwd)"
 export PEERS="${PEERS:-${PI_HOST:-agumon.local}}" NAME_PREFIX=agumon
 exec "$HERE/record_peer.sh" "$@"
+
+#RECORD_RAW=1 ./record_agumon.sh 를 시행하세요.
