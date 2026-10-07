@@ -14,7 +14,7 @@
 # NOTE: set -u 사용 금지 — ROS setup.bash가 미설정 변수를 참조해서 죽음.
 
 # ===== 설정 =====
-ROS_DISTRO_NAME="${ROS_DISTRO_NAME:-jazzy}"
+ROS_DISTRO_NAME="${ROS_DISTRO_NAME:-lyrical}"
 WAIT_TOPICS=(/target /motor_cmd /tracking_status)                 # 뜰 때까지 기다리는 토픽
 REC_TOPICS=(/target /motor_cmd /tracking_status /camera_source /opencr_status
             /joint_states /virtual_target)                        # 상태·제어·3D

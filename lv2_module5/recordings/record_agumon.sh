@@ -12,7 +12,7 @@
 # ===== 설정 =====
 PI_HOST="${PI_HOST:-agumon.local}"
 DOMAIN_ID="${DOMAIN_ID:-9}"
-ROS_DISTRO_NAME="${ROS_DISTRO_NAME:-jazzy}"
+ROS_DISTRO_NAME="${ROS_DISTRO_NAME:-lyrical}"
 DEFAULT_TOPICS=(/target /motor_cmd /tracking_status /perception_node/debug_image/compressed)
 # ================
 

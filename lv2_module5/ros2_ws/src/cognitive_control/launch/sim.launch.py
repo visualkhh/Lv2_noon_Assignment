@@ -27,7 +27,7 @@ def rosbridge():
         share = get_package_share_directory('rosbridge_server')
     except PackageNotFoundError:
         return LogInfo(msg='rosbridge_server 없음 → GUI 연결 불가. '
-                           'sudo apt install ros-jazzy-rosbridge-suite')
+                           'rosbridge_suite를 lyrical용으로 소스 빌드 필요')
     return IncludeLaunchDescription(
         AnyLaunchDescriptionSource(f'{share}/launch/rosbridge_websocket_launch.xml'),
         launch_arguments={'port': LaunchConfiguration('port')}.items())
