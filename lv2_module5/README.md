@@ -26,7 +26,6 @@ lv2_module5/
 ├── presentation.md     # 5분 시연 순서
 ├── ros2_ws/src/        # ROS2 패키지 (인지·제어 노드)
 ├── firmware/           # OpenCR 펌웨어
-├── test-checklist.md   # 필수 시험·제출 체크리스트 (PDF 기준)
 ├── config/             # 사용한 설정 파일 목록 (패키지 안 설정으로 링크)
 ├── recordings/         # bag·영상 위치, 메타데이터, 재생 방법
 └── results/            # 제출용 산출물
@@ -301,7 +300,7 @@ ros2 bag play recordings/<RUN_ID> --topics /camera/camera/color/image_raw
 
 ## 9. 지표 계산
 
-산식은 [report.md 5.4](report.md#54-성능표) / [test-checklist.md](test-checklist.md) 참고.
+산식은 [report.md 5.4](report.md#54-성능표) 참고.
 
 ```bash
 # TODO(검증): results/metrics.csv → FPS·검출률·RMSE·복구율 계산 스크립트

@@ -1,0 +1,1 @@
+{"type": "sensor_msgs/msg/JointState", "data": {"header":{"stamp":{"sec":1791421223,"nanosec":589138196},"frame_id":""},"name":["pan_joint","tilt_joint"],"position":[0.0025813952273487149,0.0],"velocity":[],"effort":[]}}

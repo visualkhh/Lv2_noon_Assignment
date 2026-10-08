@@ -1,0 +1,36 @@
+Type: rosbag2_interfaces/msg/MessagesLostEvent
+
+Publisher count: 1
+
+Node name: rosbag2_recorder
+Node namespace: /
+Topic type: rosbag2_interfaces/msg/MessagesLostEvent
+Topic type hash: RIHS01_b4a1d6322a232c78fbb68976bda0b2313d8083b29259eaf6c63848a4c47ae967
+Endpoint type: PUBLISHER
+GID: 01.0f.42.10.9c.bb.09.2e.00.00.00.00.00.00.14.03
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (3)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 1
+
+Node name: monitor_manager
+Node namespace: /
+Topic type: rosbag2_interfaces/msg/MessagesLostEvent
+Topic type hash: RIHS01_b4a1d6322a232c78fbb68976bda0b2313d8083b29259eaf6c63848a4c47ae967
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.16.6b.0d.03.51.f3.00.00.00.00.00.00.3a.04
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (1)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+

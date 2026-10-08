@@ -1,0 +1,1 @@
+{"type": "sensor_msgs/msg/Image", "data": {"header":{"stamp":{"sec":1791422052,"nanosec":52544675},"frame_id":"camera_color_optical_frame"},"height":480,"width":640,"encoding":"rgb8","is_bigendian":0,"step":1920}}

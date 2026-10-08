@@ -1,168 +1,131 @@
-# 최종 보고서 — 비전 객체 추적 시스템
+# 발표 자료 — 비전 객체 추적 시스템
+
+> 카메라로 파란 사각 기둥을 찾고, 화면 중심과의 오차만큼 pan·tilt 모터를 돌려 따라간다.
+> 목표가 사라지거나 통신이 끊기면 멈추고, 다시 보이면 복귀한다.
+> 상세: [README.md](README.md) (실행·재현) · [report.md](report.md) (문제별 결과) · [devops.md](devops.md) (테스트베드·CI)
 
 ## 시스템 구성
+
 ### 구조도
 
 ```mermaid
 flowchart LR
-    CAM["📷 Intel RealSense"]
+    CAM["📷 RealSense D435<br/>424×240 rgb8 30fps"]
 
-    subgraph RPI["Raspberry Pi · Ubuntu 26.04 LTS · ROS2 Lyrical"]
+    subgraph RPI["Raspberry Pi 4 · Ubuntu 26.04 · ROS 2 Lyrical"]
         direction LR
-        subgraph PER["인지 (Perception)"]
-            direction TB
-            RS["realsense2_camera<br/>Intel 공식 ROS2 래퍼<br/>컬러 영상 발행"]:::ext
-            PN["PerceptionNode<br/>HSV · Contour 검출<br/>중심 오차 계산"]
-            RS -- "/camera/camera/color/image_raw<br/>sensor_msgs/Image<br/>QoS: 발행 reliable → 구독 best-effort" --> PN
-        end
-
-        subgraph CTL["제어 (Control)"]
-            direction TB
-            MV["DynamixelMoveNode<br/>상태 관리 · P 제어<br/>IDLE · TRACKING · LOST"]
-            DC["DynamixelController<br/>명령 → 시리얼 변환<br/>입력 타임아웃 정지"]
-            MV -- "/motor_cmd<br/>sensor_msgs/JointState<br/>QoS: reliable · volatile · depth 1" --> DC
-        end
-
-        PN -- "/target<br/>geometry_msgs/PointStamped<br/>QoS: best-effort · volatile · depth 1" --> MV
-        BAG[("ROS2 Bag<br/>/camera/camera/color/image_raw<br/>/target · /motor_cmd · /tracking_status")]
+        RS["realsense2_camera<br/>(Intel 공식 래퍼)"]:::ext
+        PN["perception_node<br/>HSV·Contour 검출<br/>정규화 중심 오차"]
+        MV["dynamixel_move_node<br/>IDLE·TRACKING·LOST<br/>오차 → 위치 변화량"]
+        DC["dynamixel_controller<br/>rad → deg 변환<br/>시리얼 송수신"]
+        RS -- "/camera/camera/color/image_raw" --> PN
+        PN -- "/target" --> MV
+        MV -- "/motor_cmd" --> DC
     end
 
-    subgraph OCR["OpenCR"]
-        FW["OpenCR Firmware<br/>명령 수신 · 통신 타임아웃 정지"]
+    subgraph OCR["OpenCR (opencr_pan_tilt)"]
+        FW["목표각 누적 · 범위 제한<br/>명령 500ms 끊기면 위치 유지<br/>상태 50ms마다 송신"]
     end
 
-    MOT["⚙️ Dynamixel × 2<br/>pan · tilt"]
+    MOT["⚙️ XM430 × 2<br/>pan(ID 11) · tilt(ID 12)<br/>위치 모드"]
 
     CAM -- "USB" --> RS
-    DC -- "USB 시리얼" --> FW
-    FW -- "TTL" --> MOT
+    DC -- "M,Δpan,Δtilt" --> FW
+    FW -- "S,pan,rpm,tilt,rpm" --> DC
+    FW -- "TTL 1Mbps" --> MOT
     MOT -. "카메라 방향 변화" .-> CAM
-
-    RS -. "record" .-> BAG
-    PN -. "record" .-> BAG
-    MV -. "/tracking_status<br/>std_msgs/String<br/>QoS: reliable · transient_local · depth 1" .-> BAG
 
     classDef ext stroke-dasharray: 5 5
 ```
 
-점선 테두리는 외부 패키지(직접 구현하지 않는 노드)입니다.
+점선 테두리는 외부 패키지(직접 구현하지 않음). 실행: `ros2 launch bringup bringup.launch.py` (`realsense.launch.py` + `dynamixel.launch.py`)
 
 ### 노드
 
 | 구분 | 노드 | 역할 | 구독 | 발행 |
 |---|---|---|---|---|
-| 인지 | `realsense2_camera` (외부 패키지) | RealSense 컬러 영상 발행 (Intel 공식 ROS2 래퍼) | — (USB 카메라) | `/camera/camera/color/image_raw` |
-| 인지 | `PerceptionNode` | HSV·Contour 검출, 정규화 중심 오차·면적비 계산 | `/camera/camera/color/image_raw` | `/target` |
-| 제어 | `DynamixelMoveNode` | 상태 전이(IDLE·TRACKING·LOST), P 제어, 속도·범위·데드밴드 제한 | `/target` | `/motor_cmd`, `/tracking_status` |
-| 제어 | `DynamixelController` | 모터 2개(pan·tilt) 명령을 OpenCR 시리얼 프로토콜로 변환·전송, 입력 타임아웃 시 정지 명령 | `/motor_cmd` | — (USB 시리얼) |
-| 펌웨어 | OpenCR Firmware | 시리얼 명령 수신 → Dynamixel 구동, 통신 타임아웃 시 정지 | — (USB 시리얼) | — (Dynamixel) |
+| 인지 | `realsense2_camera` (외부) | 컬러 영상 424×240 rgb8 30fps | — (USB) | `/camera/camera/color/image_raw` |
+| 인지 | `perception_node` | HSV 마스크 → 잡음 제거 → 컨투어 → 후보 필터 → 대상 선택 → 중심 계산 | 카메라 영상 | `/target`, 디버그·마스크 영상 |
+| 제어 | `dynamixel_move_node` | 상태 머신, 오차 → 위치 변화량 명령 (데드밴드·상한) | `/target` | `/motor_cmd`, `/tracking_status` |
+| 제어 | `dynamixel_controller` | 변화량을 시리얼 명령으로, 펌웨어 상태를 토픽으로 | `/motor_cmd` | `/joint_states`, `/opencr/serial_rx`, `/opencr/serial_tx` |
+| 펌웨어 | `opencr_pan_tilt` | 목표각 누적·범위 제한(−180~179.9°), watchdog, 상태 송신 | 시리얼 `M` | 시리얼 `S` |
 
-#### 토픽 정의
+### 토픽
 
-| 토픽 | 이름 근거 | 메시지 타입 | 발행 → 구독 | QoS |
-|---|---|---|---|---|
-| `/camera/camera/color/image_raw` | realsense2_camera 기본 | `sensor_msgs/msg/Image` | realsense2_camera → PerceptionNode | 발행: reliable · volatile (드라이버 기본) / 구독: best-effort · volatile · depth 1 |
-| `/target` | 과제 규약 | `geometry_msgs/msg/PointStamped` | PerceptionNode → DynamixelMoveNode | best-effort · volatile · depth 1 |
-| `/motor_cmd` | 팀 정의 | `sensor_msgs/msg/JointState` | DynamixelMoveNode → DynamixelController | reliable · volatile · depth 1 |
-| `/tracking_status` | 과제 예시 | `std_msgs/msg/String` | DynamixelMoveNode → (모니터링·bag) | reliable · transient_local · depth 1 |
-
-- PerceptionNode는 코드에서 `/image_raw`를 구독하고, launch에서 `/image_raw:=/camera/camera/color/image_raw`로 remap합니다 (`image_topic` 인자).
-- DynamixelController → OpenCR 구간은 토픽이 아닌 USB 시리얼(`MotorSerialCommand`, 커스텀)입니다.
-- 타임아웃: 마지막으로 신선한 입력을 받은 뒤 0.5초가 지나면 정지합니다. DynamixelMoveNode는 `/target`, DynamixelController는 `/motor_cmd`, OpenCR은 시리얼 명령 기준으로 각각 판단합니다.
-
-##### QoS 범례
-
-| 정책 | 값 | 의미 | 사용 토픽 |
+| 토픽 | 메시지 타입 | 발행 → 구독 | QoS |
 |---|---|---|---|
-| Reliability | `best-effort` | 유실된 메시지를 재전송하지 않음. 지연이 작고 최신 데이터가 중요한 센서 데이터에 사용 | 카메라 영상 구독(PerceptionNode), `/target` |
-| Reliability | `reliable` | 유실 시 재전송하여 전달을 보장 | 카메라 영상 발행(realsense2_camera 기본), `/motor_cmd`, `/tracking_status` |
-| Durability | `volatile` | 구독 이후에 발행된 메시지만 받음 (기본값) | 카메라 영상, `/target`, `/motor_cmd` |
-| Durability | `transient_local` | 발행자가 마지막 메시지를 보관하여, 나중에 접속한 구독자도 즉시 받음 | `/tracking_status` |
-| History | `keep_last` · `depth N` | 최근 N개만 큐에 보관. `depth 1`은 오래된 메시지를 버리고 최신 것만 유지 | 전체 |
+| `/camera/camera/color/image_raw` | `sensor_msgs/Image` | realsense2_camera → perception_node | 구독 reliable · depth 1 |
+| `/target` | `geometry_msgs/PointStamped` | perception_node → dynamixel_move_node | best-effort · volatile · depth 1 |
+| `/motor_cmd` | `sensor_msgs/JointState` | dynamixel_move_node → dynamixel_controller | reliable · volatile · depth 1 |
+| `/tracking_status` | `std_msgs/String` | dynamixel_move_node → (모니터링·bag) | reliable · **transient_local** · depth 1 |
+| `/joint_states` | `sensor_msgs/JointState` | dynamixel_controller → (모니터링·bag) | reliable · depth 10 |
+| `/opencr/serial_rx` · `/opencr/serial_tx` | `std_msgs/String` | dynamixel_controller → (디버그) | reliable · depth 50 |
+| `/perception_node/debug_image/compressed` · `mask/compressed` | `sensor_msgs/CompressedImage` | perception_node → (모니터링) | reliable · depth 1 |
 
-- 호환성: 발행 측이 `best-effort`이면 구독 측이 `reliable`일 때 연결되지 않습니다. 발행 측이 `volatile`이면 구독 측이 `transient_local`일 때 연결되지 않습니다. 구독 측은 발행 측과 같거나 더 약한 정책을 사용합니다.
-- `/tracking_status`는 상태가 바뀔 때마다, 그리고 1Hz 주기로 발행합니다. `transient_local`이므로 `ros2 topic echo`나 bag 기록을 나중에 시작해도 현재 상태를 바로 받습니다.
+- 모든 토픽은 ROS 2 표준 메시지를 쓴다. 커스텀은 OpenCR 시리얼 프로토콜뿐이다.
+- 영상 구독을 reliable로 둔 이유: 큰 영상 메시지는 best-effort에서 조각이 유실돼 1~2fps만 받았고, reliable에서 30fps를 받았다 (개발 PC 실측, [perception_env_record.md](results/perception_env_record.md)).
+- `/tracking_status`는 상태가 바뀔 때 + 1초마다 발행. transient_local이라 나중에 붙은 구독자도 현재 상태를 바로 받는다.
 
+### 메시지 규약
 
-#### 메시지 구조
+| 대상 | 필드 | 의미 |
+|---|---|---|
+| `/target` | `point.x` / `point.y` | 정규화 중심 오차 ex = (cx − W/2)/(W/2), ey = (cy − H/2)/(H/2) · 오른쪽·아래 + · −1~+1 |
+| | `point.z` | 면적비 contour_area/(W×H) · **0 = 미검출** (이때 x·y로 제어하지 않음) |
+| | `header.stamp` | 원본 영상 시각 그대로 |
+| `/motor_cmd` | `name` | `[pan_joint, tilt_joint]` |
+| | `position` | **이번에 움직일 변화량 [rad]** (속도가 아님) · 데드밴드 안이면 발행 안 함 |
+| `/joint_states` | `position` / `velocity` | 펌웨어가 읽은 **실제 모터 위치 [rad]·속도 [rad/s]** (명령 누적 추정이 아님) |
+| `/tracking_status` | `data` | `IDLE` · `TRACKING` · `LOST` |
+| 시리얼 (앱 → OpenCR) | `M,<Δpan>,<Δtilt>\n` | 변화량 [deg], 115200bps |
+| 시리얼 (OpenCR → 앱) | `S,<pan>,<pan_rpm>,<tilt>,<tilt_rpm>\n` | 현재 위치 [deg, 180° 중심 기준]·속도 [rpm], 50ms마다 |
 
-- 🟦 **ROS2 제공**: ROS2(Lyrical)에 포함된 표준 메시지입니다. 별도 정의 없이 사용합니다.
-- 🟧 **커스텀**: 팀이 직접 정의하는 메시지·프로토콜입니다.
-- 모든 ROS2 토픽은 ROS2 제공 메시지를 사용하므로 커스텀 메시지 패키지는 두지 않습니다. 커스텀은 OpenCR 시리얼 프로토콜뿐입니다.
+제어식 (`/target` 1개마다): `Δpan = clamp(pan_gain × ex, ±max_pan_command)` (|ex| ≤ 데드밴드면 0). tilt도 같은 형태.
 
-##### 사용 메시지 타입 목록
+| 파라미터 | 값 |
+|---|---|
+| `pan_gain` / `tilt_gain` | −0.03 / 0.06 rad per 정규화 오차 |
+| `max_pan_command` / `max_tilt_command` | 0.0873 rad (5°) per 프레임 |
+| `horizontal_deadband` / `vertical_deadband` | 0.05 |
+| `lost_timeout` | 0.5 s |
 
-| 메시지 타입 | 구분 | 패키지 | 사용 위치 |
-|---|---|---|---|
-| `sensor_msgs/msg/Image` | 🟦 ROS2 제공 | `sensor_msgs` | `/camera/camera/color/image_raw` |
-| `geometry_msgs/msg/PointStamped` | 🟦 ROS2 제공 | `geometry_msgs` | `/target` |
-| `geometry_msgs/msg/Point` | 🟦 ROS2 제공 | `geometry_msgs` | `PointStamped.point` |
-| `sensor_msgs/msg/JointState` | 🟦 ROS2 제공 | `sensor_msgs` | `/motor_cmd` |
-| `std_msgs/msg/String` | 🟦 ROS2 제공 | `std_msgs` | `/tracking_status` |
-| `std_msgs/msg/Header` | 🟦 ROS2 제공 | `std_msgs` | `Image`·`PointStamped`·`JointState`의 `header` |
-| `builtin_interfaces/msg/Time` | 🟦 ROS2 제공 | `builtin_interfaces` | `Header.stamp` |
-| `MotorSerialCommand` | 🟧 커스텀 | `firmware/` (ROS2 메시지 아님) | DynamixelController → OpenCR USB 시리얼 |
+### 상태와 정지
 
-##### `sensor_msgs/msg/Image` — 🟦 ROS2 제공
+| 상황 | 감지 | 동작 |
+|---|---|---|
+| 시작 | — | `IDLE`, 명령 없음 |
+| 유효한 목표 수신 (z > 0) | dynamixel_move_node | `TRACKING`, 오차만큼 변화량 명령 |
+| 미검출 (z = 0) | dynamixel_move_node | 명령을 보내지 않음 → 위치 모드라 그 자리에 정지. 마지막 유효 목표 후 0.5초 지나면 `LOST` |
+| 인지 입력 중단 (`/target` 침묵) | dynamixel_move_node (50ms마다 확인) | 0.5초 후 `LOST`, 명령 없음 |
+| 제어 통신 중단 (컨트롤러 종료·USB 단절) | OpenCR watchdog | 명령 500ms 미수신 → **현재 위치에서 정지** |
+| 목표 재등장 | dynamixel_move_node | 유효 목표 1개로 `TRACKING` 복귀 |
 
-```
-std_msgs/Header header    # stamp: realsense2_camera가 넣는 프레임 시각 (촬영 시각 기준 여부는 검증 후 기록)
-                          # frame_id: "camera_color_optical_frame"
-uint32  height            # 영상 높이 [px]
-uint32  width             # 영상 너비 [px]
-string  encoding          # "rgb8" (realsense2_camera 컬러 기본) → PerceptionNode에서 BGR로 변환
-uint8   is_bigendian
-uint32  step              # 한 행의 바이트 수 (width × 3)
-uint8[] data              # 픽셀 데이터
-```
+> 위치 모드는 "명령을 멈추면 멈춘다"를 가정하지 않고, 펌웨어가 현재 위치를 목표로 다시 지정해 실제로 세운다.
 
-##### `geometry_msgs/msg/PointStamped` — 🟦 ROS2 제공
+## 개발·검증 환경 (테스트베드 · CI/CD)
 
-```
-std_msgs/Header header    # stamp: 원본 영상 시각 유지 (입력 영상의 stamp 복사)
-geometry_msgs/Point point # 아래 Point 참고
-```
+> 상세: [devops.md](devops.md) — 다이어그램, 검사 단계, 배포 패키지, 실제로 잡은 문제, 한계
 
-> 이 과제의 목표 정보 전달 규약이며, 일반적인 3차원 위치로 해석하지 않습니다.
-> 정상 영상에서 미검출이면 `z = 0`으로 발행합니다. 발행 중단(토픽 침묵)은 미검출과 구분하여 타임아웃으로 처리합니다.
+실기(Pi·RealSense·OpenCR·Dynamixel)가 한 대뿐이라, 장비 없이 4명이 각자 검증하고 통과한 코드만 실기에 올리는 흐름을 만들었습니다.
 
-##### `geometry_msgs/msg/Point` — 🟦 ROS2 제공
-
-```
-float64 x                 # ex = (cx − W/2) / (W/2), −1 ~ +1, 오른쪽 +
-float64 y                 # ey = (cy − H/2) / (H/2), −1 ~ +1, 아래쪽 +
-float64 z                 # 면적비 = contour_area / (W × H), 0 = 미검출 (이때 x·y는 사용하지 않음)
-```
-
-##### `sensor_msgs/msg/JointState` — 🟦 ROS2 제공
-
-```
-std_msgs/Header header    # stamp: 명령 생성 시각
-string[]  name            # ["pan", "tilt"]
-float64[] position        # 사용하지 않음 (빈 배열)
-float64[] velocity        # 각 축 속도 명령 [rad/s], name과 같은 순서, 0 = 정지
-float64[] effort          # 사용하지 않음 (빈 배열)
+```mermaid
+flowchart LR
+    DEV["개발자 PC<br/>Docker 테스트베드 · 통제실<br/>(SIL)"] -->|"test-all 통과 후 push"| CI["GitHub Actions<br/>x86_64 · aarch64 검사"]
+    CI -->|"배포 패키지<br/>install · firmware · 스크립트"| PI["Raspberry Pi 실기<br/>(HIL)"]
 ```
 
-> 원래 관절 상태 보고용 타입이지만, 이 프로젝트에서는 모터 속도 명령 용도로 사용합니다.
-> 기본 구현(수평 1축)에서는 `tilt` 속도를 항상 0으로 보냅니다.
+| 단계 | 하는 일 | 근거 |
+|---|---|---|
+| **SIL** (Software-in-the-Loop) | 가상 카메라 장면 → 실제와 같은 인지·제어 노드 → 가상 시리얼 → 가상 관절각 → 다시 장면 (폐루프) | [devops.md 2](devops.md#2-테스트베드) |
+| **CI** | push·PR마다 `test-all` (시리얼 · 펌웨어 컴파일·업로드 · bringup) 자동 실행 | [devops.md 2.3](devops.md#23-test-all-상세) |
+| **CD** | 아키텍처별 배포 패키지 생성, main 병합 시 Release | [devops.md 3](devops.md#3-ci-github-actions) |
+| **HIL** | 실기에서 패키지 받기 → 펌웨어 업로드 → `start.sh` | [devops.md 4](devops.md#4-실기-배포) |
 
-##### `std_msgs/msg/String` — 🟦 ROS2 제공
+**효과 — 실기 투입 전에 잡은 문제** ([devops.md 5](devops.md#5-효과--실제로-잡은-문제))
 
-```
-string data               # "IDLE" | "TRACKING" | "LOST"
-```
+- x86 Docker에서 펌웨어 컴파일 실패 (32비트 툴체인) → 시스템 컴파일러로 교체
+- 테스트베드에 `/dev/opencr`가 없어 모터 명령이 안 나감 → 가상 시리얼 링크 추가
+- Pi에서 `Exec format error` (x86 빌드) → aarch64 빌드 추가, 실행 전 아키텍처 검사
+- `use_motor:=false`가 모터를 끄지 않음 → 실행 스크립트에서 차단
 
-##### `std_msgs/msg/Header` — 🟦 ROS2 제공
-
-```
-builtin_interfaces/Time stamp   # 아래 Time 참고
-string frame_id                 # 좌표계 이름 (예: "camera_color_optical_frame")
-```
-
-##### `builtin_interfaces/msg/Time` — 🟦 ROS2 제공
-
-```
-int32  sec                # 초
-uint32 nanosec            # 나노초
-```
+**한계**: 실제 모터 동작·카메라 조건·Pi 성능·네트워크는 실기(HIL)에서만 확인 가능 ([devops.md 6](devops.md#6-한계))

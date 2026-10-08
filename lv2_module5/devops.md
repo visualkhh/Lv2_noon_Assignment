@@ -25,7 +25,7 @@
 | **MIL** (Model-in-the-Loop) | 코드 대신 수식·모델로 알고리즘 검증 | (사용 안 함) |
 | **SIL** (Software-in-the-Loop) | 하드웨어를 가상으로 대체하고 **실제 코드**를 그대로 돌려 검증 | Docker 테스트베드 + 통제실 — 카메라·시리얼·모터만 가상, 노드 코드는 실기와 동일 |
 | **PIL** (Processor-in-the-Loop) | 실제 대상 CPU에서 코드 실행, 나머지는 가상 | Pi에서 노드 실행 + 가상 영상 입력 (선택 시험) |
-| **HIL** (Hardware-in-the-Loop) | 실제 제어기·장치를 붙여 검증 | Raspberry Pi + RealSense + OpenCR + Dynamixel 실기 시험 ([test-checklist.md](test-checklist.md)) |
+| **HIL** (Hardware-in-the-Loop) | 실제 제어기·장치를 붙여 검증 | Raspberry Pi + RealSense + OpenCR + Dynamixel 실기 시험 ([report.md](report.md)) |
 | **드라이 런** (Dry run, 드라이 테스트) | 실제 결과(부작용) 없이 동작만 미리 돌려 봄 — 장비 유무와 무관 | 실기에서 **모터 출력 끈 시험** (`use_motor:=false` — 노드는 다 돌고 모터 명령만 안 나감), `bag-replay.sh` 재처리. 장비 없는 가상 환경 검증은 SIL로 구분 |
 | **폐루프(Closed-loop) 시뮬레이션** | 출력이 다시 입력에 영향을 주는 시뮬레이션 | 모터 명령 → 가상 관절각 → 카메라 장면이 바뀜 → 다시 인지 |
 | **디지털 트윈** (Digital Twin) | 실제 기구를 본뜬 가상 모델 | `pan_tilt.urdf`로 pan·tilt 자세 계산 → 그 시점의 장면 렌더 |
@@ -183,6 +183,7 @@ flowchart TB
 | 준비 대기 | `/run/testbed-ready`가 생길 때까지 대기 | `docker run -d`는 entrypoint(가상 시리얼 준비)를 기다리지 않음 |
 | 패키지 | tar.gz 하나, 최상위 폴더 없음 | zip은 실행 권한을 잃음 · `archive: false`로 이중 압축 방지 |
 | Release | main 병합 때만 | 시험 실행마다 Release가 쌓이지 않게. Release는 인증 없이 wget 가능 |
+| 제출 태그 `lv2-module5-submit` | main 병합 때만 (x86_64 잡, 검사 통과 후) | 마지막 main 병합 커밋 = 제출본. 다시 병합하면 태그를 새 커밋으로 옮김 → 최종 커밋에 `run-<RUN ID>`·`lv2-module5-submit` 두 태그 |
 | debug | 실패했을 때만 올림 | 원격 실패 원인을 볼 유일한 근거 |
 
 ### 3.1 배포 패키지 구성
@@ -237,7 +238,7 @@ sequenceDiagram
 
 ## 6. 한계
 
-테스트베드·CI가 검증하지 **못하는** 것 — 실기에서 따로 확인한다 ([README 11장](README.md#11-실기raspberry-pi-문제-해결), [test-checklist.md](test-checklist.md)).
+테스트베드·CI가 검증하지 **못하는** 것 — 실기에서 따로 확인한다 ([README 11장](README.md#11-실기raspberry-pi-문제-해결), [report.md](report.md)).
 
 - 실제 모터 동작: 방향·속도·범위·정지 (테스트베드는 명령을 누적한 **추정** 관절각)
 - 실제 카메라: 조명·노출·지연·FPS (fake_camera는 렌더된 장면)

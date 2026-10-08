@@ -56,7 +56,6 @@ Lv2_noon_Assignment/
     ├── report.md           # 최종 보고서
     ├── team.md             # 역할·Issue·PR·리뷰 기록
     ├── presentation.md     # 5분 시연 순서와 핵심 결과
-    ├── test-checklist.md   # 필수 시험·제출 체크리스트
     ├── devops.md           # 테스트베드·CI·배포 흐름 (다이어그램·효과·한계)
     ├── ros2_ws/src/        # ROS2 패키지 (realsense 인지 · dynamixel 제어 · bringup · fake_camera_bringup)
     ├── firmware/           # OpenCR 펌웨어

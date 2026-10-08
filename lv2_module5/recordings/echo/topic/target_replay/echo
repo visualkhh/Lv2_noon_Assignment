@@ -1,0 +1,5550 @@
+header:
+  stamp:
+    sec: 1791422032
+    nanosec: 884776288
+  frame_id: camera_color_opt...
+point:
+  x: -0.04830461248285332
+  y: 0.00550983081847281
+  z: 0.0009852430555555556
+---
+header:
+  stamp:
+    sec: 1791422032
+    nanosec: 977107764
+  frame_id: camera_color_opt...
+point:
+  x: -0.0482710481099657
+  y: 0.005517373043146121
+  z: 0.0009809027777777778
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 22970153
+  frame_id: camera_color_opt...
+point:
+  x: -0.04830515710382528
+  y: 0.005479659987856659
+  z: 0.000993923611111111
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 60559054
+  frame_id: camera_color_opt...
+point:
+  x: -0.04823898565573774
+  y: 0.005441712204007211
+  z: 0.000993923611111111
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 148806565
+  frame_id: camera_color_opt...
+point:
+  x: -0.0483040633608816
+  y: 0.005540250994796262
+  z: 0.0009765625
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 191467703
+  frame_id: camera_color_opt...
+point:
+  x: -0.048413397048960506
+  y: 0.007083240181831564
+  z: 0.00099609375
+---
+A message was lost!!!
+	total count change:1
+	total count: 1---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 367070214
+  frame_id: camera_color_opt...
+point:
+  x: -0.048338039014373634
+  y: 0.005509924709103428
+  z: 0.0009895833333333334
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 641433021
+  frame_id: camera_color_opt...
+point:
+  x: -0.048172814207650384
+  y: 0.005403764420157763
+  z: 0.000993923611111111
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 678950664
+  frame_id: camera_color_opt...
+point:
+  x: -0.0482710481099657
+  y: 0.005517373043146121
+  z: 0.0009809027777777778
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 714463840
+  frame_id: camera_color_opt...
+point:
+  x: -0.04834755689424384
+  y: 0.0068719321731369595
+  z: 0.0010004340277777778
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 809005171
+  frame_id: camera_color_opt...
+point:
+  x: -0.04813958333333339
+  y: 0.004003703703703662
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 906756106
+  frame_id: camera_color_opt...
+point:
+  x: -0.04820637355146555
+  y: 0.005396500795273735
+  z: 0.0009982638888888888
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 944868039
+  frame_id: camera_color_opt...
+point:
+  x: -0.04823898565573774
+  y: 0.005441712204007211
+  z: 0.000993923611111111
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 464962
+  frame_id: camera_color_opt...
+point:
+  x: -0.04820637355146555
+  y: 0.005396500795273735
+  z: 0.0009982638888888888
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 106681072
+  frame_id: camera_color_opt...
+point:
+  x: -0.04807500000000005
+  y: 0.003955555555555495
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 161362559
+  frame_id: camera_color_opt...
+point:
+  x: -0.048106629926519776
+  y: 0.004000593780152902
+  z: 0.0010047743055555556
+---
+A message was lost!!!
+	total count change:1
+	total count: 2---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 302214205
+  frame_id: camera_color_opt...
+point:
+  x: -0.04820542436687205
+  y: 0.005449083580500277
+  z: 0.0009895833333333334
+---
+A message was lost!!!
+	total count change:1
+	total count: 3---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 438968237
+  frame_id: camera_color_opt...
+point:
+  x: -0.04818370841487276
+  y: 0.0052438936000579394
+  z: 0.0010199652777777778
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 478698955
+  frame_id: camera_color_opt...
+point:
+  x: -0.048272409679618454
+  y: 0.005441945012497089
+  z: 0.0009982638888888888
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 574998737
+  frame_id: camera_color_opt...
+point:
+  x: -0.048272409679618454
+  y: 0.005441945012497089
+  z: 0.0009982638888888888
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 621415642
+  frame_id: camera_color_opt...
+point:
+  x: -0.04810625000000002
+  y: 0.0038629629629628286
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 666935332
+  frame_id: camera_color_opt...
+point:
+  x: -0.04817389455782326
+  y: 0.0053439153439152655
+  z: 0.0010026041666666666
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 749364615
+  frame_id: camera_color_opt...
+point:
+  x: -0.048248291015625
+  y: 0.005381944444444444
+  z: 0.0010243055555555556
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 846465483
+  frame_id: camera_color_opt...
+point:
+  x: -0.04807612657389004
+  y: 0.003769972756056145
+  z: 0.0010221354166666666
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 918754014
+  frame_id: camera_color_opt...
+point:
+  x: -0.048043243691899204
+  y: 0.003766415818208518
+  z: 0.0010177951388888888
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 27246143
+  frame_id: camera_color_opt...
+point:
+  x: -0.04807500000000005
+  y: 0.003955555555555495
+  z: 0.0010091145833333334
+---
+A message was lost!!!
+	total count change:1
+	total count: 4---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 136455899
+  frame_id: camera_color_opt...
+point:
+  x: -0.04827173169062302
+  y: 0.005479504144801852
+  z: 0.0009895833333333334
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 235834178
+  frame_id: camera_color_opt...
+point:
+  x: -0.04817027162977876
+  y: 0.004068857589984355
+  z: 0.00099609375
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 289576118
+  frame_id: camera_color_opt...
+point:
+  x: -0.0482788965291423
+  y: 0.005464600160081387
+  z: 0.0010112847222222222
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 437074105
+  frame_id: camera_color_opt...
+point:
+  x: -0.04810795076513656
+  y: 0.003958749168330024
+  z: 0.001013454861111111
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 523938187
+  frame_id: camera_color_opt...
+point:
+  x: -0.048248291015625
+  y: 0.005425347222222222
+  z: 0.0010243055555555556
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 580283144
+  frame_id: camera_color_opt...
+point:
+  x: -0.048170833333333364
+  y: 0.003903703703703659
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 632861408
+  frame_id: camera_color_opt...
+point:
+  x: -0.048170833333333364
+  y: 0.003903703703703659
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 669053304
+  frame_id: camera_color_opt...
+point:
+  x: -0.048043243691899204
+  y: 0.003766415818208518
+  z: 0.0010177951388888888
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 771313652
+  frame_id: camera_color_opt...
+point:
+  x: -0.04811002994011968
+  y: 0.0037258815701929075
+  z: 0.001013454861111111
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 827653090
+  frame_id: camera_color_opt...
+point:
+  x: -0.04807612657389004
+  y: 0.003769972756056145
+  z: 0.0010221354166666666
+---
+A message was lost!!!
+	total count change:1
+	total count: 5---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 962790805
+  frame_id: camera_color_opt...
+point:
+  x: -0.04813958333333339
+  y: 0.004003703703703662
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 54928662
+  frame_id: camera_color_opt...
+point:
+  x: -0.04807500000000005
+  y: 0.003955555555555495
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 94933325
+  frame_id: camera_color_opt...
+point:
+  x: -0.04811133200795226
+  y: 0.003685295633605613
+  z: 0.0010221354166666666
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 146756282
+  frame_id: camera_color_opt...
+point:
+  x: -0.048238168724279794
+  y: 0.005486968449931359
+  z: 0.0009852430555555556
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 245153756
+  frame_id: camera_color_opt...
+point:
+  x: -0.048106629926519776
+  y: 0.004000593780152902
+  z: 0.0010047743055555556
+---
+A message was lost!!!
+	total count change:3
+	total count: 8---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 477121610
+  frame_id: camera_color_opt...
+point:
+  x: -0.04813958333333339
+  y: 0.004003703703703662
+  z: 0.0010091145833333334
+---
+A message was lost!!!
+	total count change:1
+	total count: 9---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 557046362
+  frame_id: camera_color_opt...
+point:
+  x: -0.048239795918367356
+  y: 0.005396825396825338
+  z: 0.0010026041666666666
+---
+A message was lost!!!
+	total count change:1
+	total count: 10---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 695359481
+  frame_id: camera_color_opt...
+point:
+  x: -0.04810625000000002
+  y: 0.0038629629629628286
+  z: 0.0010091145833333334
+---
+A message was lost!!!
+	total count change:2
+	total count: 12---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 846443017
+  frame_id: camera_color_opt...
+point:
+  x: -0.04817027162977876
+  y: 0.004068857589984355
+  z: 0.00099609375
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 889844745
+  frame_id: camera_color_opt...
+point:
+  x: -0.048136737089201985
+  y: 0.00393471942767718
+  z: 0.00099609375
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 930620735
+  frame_id: camera_color_opt...
+point:
+  x: -0.048239795918367356
+  y: 0.005396825396825338
+  z: 0.0010026041666666666
+---
+A message was lost!!!
+	total count change:2
+	total count: 14---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 128038886
+  frame_id: camera_color_opt...
+point:
+  x: -0.04827173169062302
+  y: 0.005479504144801852
+  z: 0.0009895833333333334
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 172667920
+  frame_id: camera_color_opt...
+point:
+  x: -0.048238142952572005
+  y: 0.0038187486083276984
+  z: 0.0010047743055555556
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 221200387
+  frame_id: camera_color_opt...
+point:
+  x: -0.04813794255177033
+  y: 0.0039003933793512464
+  z: 0.0010047743055555556
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 259844283
+  frame_id: camera_color_opt...
+point:
+  x: -0.04820265531062127
+  y: 0.003933793512951746
+  z: 0.0010047743055555556
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 357177010
+  frame_id: camera_color_opt...
+point:
+  x: -0.048104919678714886
+  y: 0.003904506916555148
+  z: 0.0010004340277777778
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 548656507
+  frame_id: camera_color_opt...
+point:
+  x: -0.048169762382864786
+  y: 0.003930536962665422
+  z: 0.0010004340277777778
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 595039064
+  frame_id: camera_color_opt...
+point:
+  x: -0.048105298457411294
+  y: 0.004042775169535654
+  z: 0.00099609375
+---
+header:
+  stamp:
+    sec: 1791422079
+    nanosec: 230436682
+  frame_id: camera_color_opt...
+point:
+  x: -0.3340569930503848
+  y: -0.003449987589972636
+  z: 0.005399305555555556
+---
+header:
+  stamp:
+    sec: 1791422079
+    nanosec: 278151817
+  frame_id: camera_color_opt...
+point:
+  x: -0.34467040618350236
+  y: -0.0037196979179705005
+  z: 0.005438368055555556
+---
+header:
+  stamp:
+    sec: 1791422079
+    nanosec: 331820114
+  frame_id: camera_color_opt...
+point:
+  x: -0.35367976641414145
+  y: -0.002390572390572427
+  z: 0.005453559027777778
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 276089255
+  frame_id: camera_color_opt...
+point:
+  x: 0.0011464152700185082
+  y: 0.48869749637906035
+  z: 0.0006944444444444445
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 369236781
+  frame_id: camera_color_opt...
+point:
+  x: 0.0016160714285714307
+  y: 0.3612592592592591
+  z: 0.0006792534722222223
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 452889311
+  frame_id: camera_color_opt...
+point:
+  x: 0.0022980769230768416
+  y: 0.2645527065527064
+  z: 0.0006662326388888888
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 494371659
+  frame_id: camera_color_opt...
+point:
+  x: 0.00047141119221407737
+  y: 0.20873208975398747
+  z: 0.0005447048611111111
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 567174307
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 647173598
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 690074927
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 769199164
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 853485045
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 889918286
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 933562133
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 44876575
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 93145087
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 195909514
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 233272661
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 296432758
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 342354845
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 422037710
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 465938336
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 552388438
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 635001284
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 678312002
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 757894368
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 837989585
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 908547400
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 958216651
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 51721843
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 98815300
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 187837735
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 233772877
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 267947193
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 315997501
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 442254027
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 482390006
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 559898650
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 639125942
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 679416477
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 769569040
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 850768850
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 889740144
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 944278097
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 35760345
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 89783502
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 188923672
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 234654722
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 278986291
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 345486608
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 402247115
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 483836850
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 573305192
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 617787243
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 693590795
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 740256975
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 816742490
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 898729391
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 949744957
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 40342687
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 87084681
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 135188211
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 239443397
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 287922501
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 363213647
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 428113354
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 476263662
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 568920946
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 616000329
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 669729374
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 753986923
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 830107364
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 900701012
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 950084431
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 49520175
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 88693728
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 169360815
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 227902710
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 271681465
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 326072640
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 423300385
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 498389512
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 542392359
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 659065113
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 697949444
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 761081318
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 842978738
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 877064961
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 954719235
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 11108501
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 96551697
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 179199635
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 224411722
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 292915945
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 332970794
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 417212454
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 466781594
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 569496892
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 625755455
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 674229670
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 758327644
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 836485381
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 872288954
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 970249199
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 22125505
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 104302165
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 174219628
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 211579257
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 251304810
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 330863101
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 427559902
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 472042563
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 597633923
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 698000907
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 755671728
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 819311658
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 893429915
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 941503741
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 992081918
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 95746327
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 137056990
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 226088906
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 276075194
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 370382848
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 423591023
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 482138900
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 537763722
+  frame_id: camera_color_opt...
+point:
+  x: -0.11756475621190816
+  y: -0.3215424285044538
+  z: 0.0011588541666666668
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 597361543
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 657510103
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 749124796
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 836288861
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 878530246
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 923086574
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 31983313
+  frame_id: camera_color_opt...
+point:
+  x: -0.0014396067415729519
+  y: 0.029971794516113922
+  z: 0.001306423611111111
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 127544207
+  frame_id: camera_color_opt...
+point:
+  x: 0.016980798520452468
+  y: 0.07894787738129767
+  z: 0.0013020833333333333
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 164098817
+  frame_id: camera_color_opt...
+point:
+  x: 0.022738651535380506
+  y: 0.07534243188448783
+  z: 0.0012803819444444444
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 214916031
+  frame_id: camera_color_opt...
+point:
+  x: 0.03399003623188399
+  y: 0.06004428341384861
+  z: 0.0012326388888888888
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 267203985
+  frame_id: camera_color_opt...
+point:
+  x: 0.04520833333333325
+  y: 0.05365967365967366
+  z: 0.0012065972222222222
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 346432202
+  frame_id: camera_color_opt...
+point:
+  x: 0.05425322769953045
+  y: 0.052986437141366596
+  z: 0.0011979166666666666
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 430244102
+  frame_id: camera_color_opt...
+point:
+  x: 0.06572357580037665
+  y: 0.06274848294622298
+  z: 0.0011805555555555556
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 552962741
+  frame_id: camera_color_opt...
+point:
+  x: 0.0753959468664851
+  y: 0.08259410636794813
+  z: 0.0012174479166666666
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 629519237
+  frame_id: camera_color_opt...
+point:
+  x: 0.08298155737704924
+  y: 0.10096539162112934
+  z: 0.0013237847222222223
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 688538410
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 768067590
+  frame_id: camera_color_opt...
+point:
+  x: 0.09441964285714288
+  y: 0.17875661375661372
+  z: 0.0009114583333333333
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 824172393
+  frame_id: camera_color_opt...
+point:
+  x: 0.09742144808743163
+  y: 0.19031572556162724
+  z: 0.0007942708333333334
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 908469552
+  frame_id: camera_color_opt...
+point:
+  x: 0.10160751028806576
+  y: 0.19668495656149962
+  z: 0.00033420138888888887
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 959126877
+  frame_id: camera_color_opt...
+point:
+  x: 0.10400502873563226
+  y: 0.21006811409110246
+  z: 0.0003559027777777778
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 49045441
+  frame_id: camera_color_opt...
+point:
+  x: 0.10921474358974362
+  y: 0.24624449624449624
+  z: 0.0002951388888888889
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 98937896
+  frame_id: camera_color_opt...
+point:
+  x: 0.11273674242424239
+  y: 0.26860269360269357
+  z: 0.00028645833333333333
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 152069646
+  frame_id: camera_color_opt...
+point:
+  x: 0.11471253229974146
+  y: 0.27240884295147855
+  z: 0.0002669270833333333
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 209913096
+  frame_id: camera_color_opt...
+point:
+  x: 0.1189611486486486
+  y: 0.28198198198198193
+  z: 0.00032118055555555556
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 287548314
+  frame_id: camera_color_opt...
+point:
+  x: 0.1187334656084655
+  y: 0.2714579659024103
+  z: 0.00026041666666666666
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 360830257
+  frame_id: camera_color_opt...
+point:
+  x: 0.1189611486486486
+  y: 0.27642642642642634
+  z: 0.00032118055555555556
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 462996499
+  frame_id: camera_color_opt...
+point:
+  x: 0.11965277777777779
+  y: 0.29368998628257875
+  z: 0.0002734375
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 559176819
+  frame_id: camera_color_opt...
+point:
+  x: 0.11859537760416661
+  y: 0.29450231481481476
+  z: 0.00026475694444444447
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 636049278
+  frame_id: camera_color_opt...
+point:
+  x: 0.11843297101449277
+  y: 0.29894179894179873
+  z: 0.00033420138888888887
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 697645875
+  frame_id: camera_color_opt...
+point:
+  x: 0.11804946393762172
+  y: 0.30020576131687227
+  z: 0.00035807291666666664
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 769576911
+  frame_id: camera_color_opt...
+point:
+  x: 0.11785276610644253
+  y: 0.3104497354497354
+  z: 0.0005013020833333333
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 820057217
+  frame_id: camera_color_opt...
+point:
+  x: 0.11793293060718693
+  y: 0.3153517830097755
+  z: 0.0005685763888888889
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 866795230
+  frame_id: camera_color_opt...
+point:
+  x: 0.11950782627865948
+  y: 0.33171173819321953
+  z: 0.0006987847222222222
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 961580883
+  frame_id: camera_color_opt...
+point:
+  x: 0.11835642317380354
+  y: 0.33674783095438005
+  z: 0.0007573784722222222
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 39774619
+  frame_id: camera_color_opt...
+point:
+  x: 0.1171875
+  y: 0.3416666666666667
+  z: 0.0009505208333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 89678093
+  frame_id: camera_color_opt...
+point:
+  x: 0.1171875
+  y: 0.3416666666666667
+  z: 0.0009505208333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 165776164
+  frame_id: camera_color_opt...
+point:
+  x: 0.1078125
+  y: 0.3138888888888889
+  z: 0.0008723958333333333
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 208054030
+  frame_id: camera_color_opt...
+point:
+  x: 0.0984375
+  y: 0.2611111111111111
+  z: 0.0008333333333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 296083261
+  frame_id: camera_color_opt...
+point:
+  x: 0.0890625
+  y: 0.19722222222222222
+  z: 0.0007942708333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 351322065
+  frame_id: camera_color_opt...
+point:
+  x: 0.0796875
+  y: 0.13055555555555556
+  z: 0.0007942708333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 426075229
+  frame_id: camera_color_opt...
+point:
+  x: 0.07262095055413446
+  y: 0.06318082788671009
+  z: 0.0008072916666666667
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 503200725
+  frame_id: camera_color_opt...
+point:
+  x: 0.06206617647058828
+  y: -0.027908496732026184
+  z: 0.0008723958333333333
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 536137745
+  frame_id: camera_color_opt...
+point:
+  x: 0.05904670221169024
+  y: -0.05450675794277705
+  z: 0.0008919270833333333
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 613280500
+  frame_id: camera_color_opt...
+point:
+  x: 0.053889202407825285
+  y: -0.0944402641919573
+  z: 0.0009071180555555555
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 706404099
+  frame_id: camera_color_opt...
+point:
+  x: 0.049851813110181095
+  y: -0.11972725863939265
+  z: 0.0010221354166666666
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 747207966
+  frame_id: camera_color_opt...
+point:
+  x: 0.046875
+  y: -0.12222222222222222
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 832222810
+  frame_id: camera_color_opt...
+point:
+  x: 0.040625
+  y: -0.12777777777777777
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 884788486
+  frame_id: camera_color_opt...
+point:
+  x: 0.03789714960058088
+  y: -0.12903251835713722
+  z: 0.0009657118055555556
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 976288307
+  frame_id: camera_color_opt...
+point:
+  x: 0.03483770970094806
+  y: -0.12911094902342168
+  z: 0.00095703125
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 12037326
+  frame_id: camera_color_opt...
+point:
+  x: 0.034375
+  y: -0.12777777777777777
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 112906290
+  frame_id: camera_color_opt...
+point:
+  x: 0.028424873737373523
+  y: -0.11774490941157612
+  z: 0.0009787326388888888
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 159254618
+  frame_id: camera_color_opt...
+point:
+  x: 0.028384870719776245
+  y: -0.11491575432875231
+  z: 0.001013454861111111
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 207401388
+  frame_id: camera_color_opt...
+point:
+  x: 0.028424873737373523
+  y: -0.10663379830046502
+  z: 0.0009787326388888888
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 290799733
+  frame_id: camera_color_opt...
+point:
+  x: 0.028583333333333273
+  y: -0.09201949317738796
+  z: 0.0010026041666666666
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 86799535
+  frame_id: camera_color_opt...
+point:
+  x: 0.09013212769184094
+  y: -0.3723469147036026
+  z: 0.0022743055555555555
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 158846977
+  frame_id: camera_color_opt...
+point:
+  x: 0.09294155604719752
+  y: -0.3650622746640446
+  z: 0.0022938368055555555
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 238865879
+  frame_id: camera_color_opt...
+point:
+  x: 0.10393601190476183
+  y: -0.3866071428571428
+  z: 0.002287326388888889
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 319676576
+  frame_id: camera_color_opt...
+point:
+  x: 0.11551625457875456
+  y: -0.42407407407407405
+  z: 0.002265625
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 366256847
+  frame_id: camera_color_opt...
+point:
+  x: 0.12025414576365652
+  y: -0.4448764399851356
+  z: 0.0024045138888888888
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 405046882
+  frame_id: camera_color_opt...
+point:
+  x: 0.12368889123696807
+  y: -0.4746830092983939
+  z: 0.002400173611111111
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 497088777
+  frame_id: camera_color_opt...
+point:
+  x: 0.1280810692078939
+  y: -0.5364738217536271
+  z: 0.002421875
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 570905126
+  frame_id: camera_color_opt...
+point:
+  x: 0.1252518220572057
+  y: -0.5175177239946217
+  z: 0.0023697916666666667
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 643651068
+  frame_id: camera_color_opt...
+point:
+  x: 0.11319617622610138
+  y: -0.43347341522736377
+  z: 0.0023350694444444443
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 764726300
+  frame_id: camera_color_opt...
+point:
+  x: 0.10125213376784607
+  y: -0.3367577074280985
+  z: 0.0021180555555555558
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 849787661
+  frame_id: camera_color_opt...
+point:
+  x: 0.08554905582922814
+  y: -0.21479109651523456
+  z: 0.001955295138888889
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 888045233
+  frame_id: camera_color_opt...
+point:
+  x: 0.07859035677352644
+  y: -0.1678444214638631
+  z: 0.0018988715277777778
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 970387504
+  frame_id: camera_color_opt...
+point:
+  x: 0.06507424645390056
+  y: -0.07188731284475977
+  z: 0.0018402777777777777
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 51190108
+  frame_id: camera_color_opt...
+point:
+  x: 0.0607199754901961
+  y: -0.048469498910675354
+  z: 0.0019075520833333334
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 88916403
+  frame_id: camera_color_opt...
+point:
+  x: 0.06047758868648127
+  y: -0.05597812577678351
+  z: 0.0019574652777777776
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 167856082
+  frame_id: camera_color_opt...
+point:
+  x: 0.06453974895397482
+  y: -0.08785061211839462
+  z: 0.0017621527777777778
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 207110228
+  frame_id: camera_color_opt...
+point:
+  x: 0.06741201677607567
+  y: -0.10708728422076348
+  z: 0.0017100694444444444
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 270306768
+  frame_id: camera_color_opt...
+point:
+  x: 0.07363217768147354
+  y: -0.1422876289073473
+  z: 0.0017013888888888888
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 383499818
+  frame_id: camera_color_opt...
+point:
+  x: 0.08981340177580463
+  y: -0.19982529699510837
+  z: 0.0016124131944444445
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 446470321
+  frame_id: camera_color_opt...
+point:
+  x: 0.0931894841269841
+  y: -0.20206790123456797
+  z: 0.0014995659722222222
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 477024008
+  frame_id: camera_color_opt...
+point:
+  x: 0.092608173076923
+  y: -0.2004095441595442
+  z: 0.0014214409722222222
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 561771092
+  frame_id: camera_color_opt...
+point:
+  x: 0.09401223776223784
+  y: -0.18059440559440562
+  z: 0.0012413194444444444
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 617455785
+  frame_id: camera_color_opt...
+point:
+  x: 0.09321078431372545
+  y: -0.1583660130718954
+  z: 0.0011067708333333333
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 691321004
+  frame_id: camera_color_opt...
+point:
+  x: 0.08921542553191486
+  y: -0.1324349881796691
+  z: 0.0010199652777777778
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 759120560
+  frame_id: camera_color_opt...
+point:
+  x: 0.08720619658119659
+  y: -0.10895061728395064
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 796023892
+  frame_id: camera_color_opt...
+point:
+  x: 0.08440170940170937
+  y: -0.09726970560303888
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 834177446
+  frame_id: camera_color_opt...
+point:
+  x: 0.08305084745762717
+  y: -0.08844161958568734
+  z: 0.0010243055555555556
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 880315939
+  frame_id: camera_color_opt...
+point:
+  x: 0.08154633620689662
+  y: -0.076125478927203
+  z: 0.0010069444444444444
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 51012384
+  frame_id: camera_color_opt...
+point:
+  x: 0.07615377428998507
+  y: -0.053180534794884694
+  z: 0.00044921875
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 124073789
+  frame_id: camera_color_opt...
+point:
+  x: 0.07066984304932741
+  y: -0.052690582959641255
+  z: 0.00044921875
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 199591082
+  frame_id: camera_color_opt...
+point:
+  x: 0.06979166666666661
+  y: -0.03907224055738918
+  z: 0.0003971354166666667
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 332767343
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 413629855
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 468289659
+  frame_id: camera_color_opt...
+point:
+  x: 0.03979952830188686
+  y: 0.4506813417190775
+  z: 0.00041883680555555554
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 535201216
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 582084931
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 700384682
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 740294475
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 840081699
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 944764050
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 40311999
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 76339998
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 182002329
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 239208058
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 283158553
+  frame_id: camera_color_opt...
+point:
+  x: 0.0018229166666666075
+  y: 0.6059731299927377
+  z: 0.0004253472222222222
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 380107519
+  frame_id: camera_color_opt...
+point:
+  x: 0.0026785714285713523
+  y: 0.602154195011338
+  z: 0.00030164930555555555
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 421857404
+  frame_id: camera_color_opt...
+point:
+  x: 0.003926282051282115
+  y: 0.6007122507122508
+  z: 0.0003385416666666667
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 469055174
+  frame_id: camera_color_opt...
+point:
+  x: 7.548309178737612e-05
+  y: 0.6420711601871021
+  z: 0.0009657118055555556
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 568464250
+  frame_id: camera_color_opt...
+point:
+  x: 0.00013454861111110715
+  y: 0.6202584876543208
+  z: 0.0010308159722222222
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 647347726
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.6166666666666667
+  z: 0.0010026041666666666
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 700451198
+  frame_id: camera_color_opt...
+point:
+  x: -7.773631840812811e-05
+  y: 0.600398799652531
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 752775114
+  frame_id: camera_color_opt...
+point:
+  x: -8.498445998466053e-05
+  y: 0.5448415781749115
+  z: 0.0009223090277777778
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 798134793
+  frame_id: camera_color_opt...
+point:
+  x: -0.00022303921568642693
+  y: 0.5063747276688452
+  z: 0.0009049479166666666
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 904936365
+  frame_id: camera_color_opt...
+point:
+  x: -0.004537630579297236
+  y: 0.3572491294713517
+  z: 0.0007443576388888889
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 951276284
+  frame_id: camera_color_opt...
+point:
+  x: -0.003605980650835683
+  y: 0.2566940291214697
+  z: 0.0007921006944444444
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 37834775
+  frame_id: camera_color_opt...
+point:
+  x: -0.0038686260623229884
+  y: 0.1534938621340888
+  z: 0.0007291666666666667
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 76704383
+  frame_id: camera_color_opt...
+point:
+  x: -0.0046875
+  y: 0.05
+  z: 0.0007552083333333333
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 123125877
+  frame_id: camera_color_opt...
+point:
+  x: -0.005822222222222351
+  y: -0.001580246913580336
+  z: 0.00078125
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 226233117
+  frame_id: camera_color_opt...
+point:
+  x: -0.006477029914529986
+  y: -0.15705603038936383
+  z: 0.0008181423611111111
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 311647960
+  frame_id: camera_color_opt...
+point:
+  x: -0.006932375222816489
+  y: -0.2599574173103586
+  z: 0.0007703993055555555
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 345828052
+  frame_id: camera_color_opt...
+point:
+  x: -0.009117240646258472
+  y: -0.35842781557067277
+  z: 0.0008289930555555556
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 396200118
+  frame_id: camera_color_opt...
+point:
+  x: -0.009565124250214297
+  y: -0.40413215271827096
+  z: 0.0008203125
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 514393369
+  frame_id: camera_color_opt...
+point:
+  x: -0.009977489406779583
+  y: -0.4902189265536723
+  z: 0.0009787326388888888
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 556028828
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 611414798
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 708033542
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 745843466
+  frame_id: camera_color_opt...
+point:
+  x: -0.009837709700948416
+  y: -0.4820001620876894
+  z: 0.00095703125
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 860348811
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 900136845
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 276089255
+  frame_id: camera_color_opt...
+point:
+  x: 0.0011464152700185082
+  y: 0.48869749637906035
+  z: 0.0006944444444444445
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 369236781
+  frame_id: camera_color_opt...
+point:
+  x: 0.0016160714285714307
+  y: 0.3612592592592591
+  z: 0.0006792534722222223
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 452889311
+  frame_id: camera_color_opt...
+point:
+  x: 0.0022980769230768416
+  y: 0.2645527065527064
+  z: 0.0006662326388888888
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 494371659
+  frame_id: camera_color_opt...
+point:
+  x: 0.00047141119221407737
+  y: 0.20873208975398747
+  z: 0.0005447048611111111
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 567174307
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 647173598
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 690074927
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 769199164
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 853485045
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 889918286
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 933562133
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 44876575
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 93145087
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 195909514
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 233272661
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 296432758
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 342354845
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 422037710
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 465938336
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 552388438
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 635001284
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 678312002
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 757894368
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 837989585
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 908547400
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 958216651
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 51721843
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 98815300
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 187837735
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 233772877
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 315997501
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 355861795
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 442254027
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 482390006
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 559898650
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 639125942
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 679416477
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 769569040
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 850768850
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 889740144
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 944278097
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 35760345
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 89783502
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 188923672
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 234654722
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 278986291
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 345486608
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 402247115
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 483836850
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 573305192
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 617787243
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 693590795
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 740256975
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 816742490
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 898729391
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 949744957
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 40342687
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 87084681
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 135188211
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 239443397
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 287922501
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 363213647
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 428113354
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 476263662
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 568920946
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 616000329
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 712318685
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 753986923
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 830107364
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 900701012
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 950084431
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 49520175
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 88693728
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 169360815
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 227902710
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 271681465
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 326072640
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 423300385
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 498389512
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 542392359
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 659065113
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 697949444
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 761081318
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 842978738
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 877064961
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 954719235
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 11108501
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 96551697
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 179199635
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 224411722
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 292915945
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 332970794
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 417212454
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 466781594
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 569496892
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 625755455
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 674229670
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 758327644
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 836485381
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 872288954
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 970249199
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 22125505
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 104302165
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 174219628
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 211579257
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 251304810
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 330863101
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 427559902
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 472042563
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 551070429
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 597633923
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 698000907
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 755671728
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 819311658
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 893429915
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 941503741
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 992081918
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 95746327
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 137056990
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 226088906
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 276075194
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 370382848
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 423591023
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 482138900
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 537763722
+  frame_id: camera_color_opt...
+point:
+  x: -0.11756475621190816
+  y: -0.3215424285044538
+  z: 0.0011588541666666668
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 597361543
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 657510103
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 749124796
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 836288861
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 878530246
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 923086574
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 31983313
+  frame_id: camera_color_opt...
+point:
+  x: -0.0014396067415729519
+  y: 0.029971794516113922
+  z: 0.001306423611111111
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 85909099
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 164098817
+  frame_id: camera_color_opt...
+point:
+  x: 0.022738651535380506
+  y: 0.07534243188448783
+  z: 0.0012803819444444444
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 214916031
+  frame_id: camera_color_opt...
+point:
+  x: 0.03399003623188399
+  y: 0.06004428341384861
+  z: 0.0012326388888888888
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 267203985
+  frame_id: camera_color_opt...
+point:
+  x: 0.04520833333333325
+  y: 0.05365967365967366
+  z: 0.0012065972222222222
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 346432202
+  frame_id: camera_color_opt...
+point:
+  x: 0.05425322769953045
+  y: 0.052986437141366596
+  z: 0.0011979166666666666
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 430244102
+  frame_id: camera_color_opt...
+point:
+  x: 0.06572357580037665
+  y: 0.06274848294622298
+  z: 0.0011805555555555556
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 552962741
+  frame_id: camera_color_opt...
+point:
+  x: 0.0753959468664851
+  y: 0.08259410636794813
+  z: 0.0012174479166666666
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 629519237
+  frame_id: camera_color_opt...
+point:
+  x: 0.08298155737704924
+  y: 0.10096539162112934
+  z: 0.0013237847222222223
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 688538410
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 768067590
+  frame_id: camera_color_opt...
+point:
+  x: 0.09441964285714288
+  y: 0.17875661375661372
+  z: 0.0009114583333333333
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 824172393
+  frame_id: camera_color_opt...
+point:
+  x: 0.09742144808743163
+  y: 0.19031572556162724
+  z: 0.0007942708333333334
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 908469552
+  frame_id: camera_color_opt...
+point:
+  x: 0.10160751028806576
+  y: 0.19668495656149962
+  z: 0.00033420138888888887
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 959126877
+  frame_id: camera_color_opt...
+point:
+  x: 0.10400502873563226
+  y: 0.21006811409110246
+  z: 0.0003559027777777778
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 49045441
+  frame_id: camera_color_opt...
+point:
+  x: 0.10921474358974362
+  y: 0.24624449624449624
+  z: 0.0002951388888888889
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 98937896
+  frame_id: camera_color_opt...
+point:
+  x: 0.11273674242424239
+  y: 0.26860269360269357
+  z: 0.00028645833333333333
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 152069646
+  frame_id: camera_color_opt...
+point:
+  x: 0.11471253229974146
+  y: 0.27240884295147855
+  z: 0.0002669270833333333
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 209913096
+  frame_id: camera_color_opt...
+point:
+  x: 0.1189611486486486
+  y: 0.28198198198198193
+  z: 0.00032118055555555556
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 287548314
+  frame_id: camera_color_opt...
+point:
+  x: 0.1187334656084655
+  y: 0.2714579659024103
+  z: 0.00026041666666666666
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 360830257
+  frame_id: camera_color_opt...
+point:
+  x: 0.1189611486486486
+  y: 0.27642642642642634
+  z: 0.00032118055555555556
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 462996499
+  frame_id: camera_color_opt...
+point:
+  x: 0.11965277777777779
+  y: 0.29368998628257875
+  z: 0.0002734375
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 559176819
+  frame_id: camera_color_opt...
+point:
+  x: 0.11859537760416661
+  y: 0.29450231481481476
+  z: 0.00026475694444444447
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 636049278
+  frame_id: camera_color_opt...
+point:
+  x: 0.11843297101449277
+  y: 0.29894179894179873
+  z: 0.00033420138888888887
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 697645875
+  frame_id: camera_color_opt...
+point:
+  x: 0.11804946393762172
+  y: 0.30020576131687227
+  z: 0.00035807291666666664
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 769576911
+  frame_id: camera_color_opt...
+point:
+  x: 0.11785276610644253
+  y: 0.3104497354497354
+  z: 0.0005013020833333333
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 820057217
+  frame_id: camera_color_opt...
+point:
+  x: 0.11793293060718693
+  y: 0.3153517830097755
+  z: 0.0005685763888888889
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 866795230
+  frame_id: camera_color_opt...
+point:
+  x: 0.11950782627865948
+  y: 0.33171173819321953
+  z: 0.0006987847222222222
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 961580883
+  frame_id: camera_color_opt...
+point:
+  x: 0.11835642317380354
+  y: 0.33674783095438005
+  z: 0.0007573784722222222
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 39774619
+  frame_id: camera_color_opt...
+point:
+  x: 0.1171875
+  y: 0.3416666666666667
+  z: 0.0009505208333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 89678093
+  frame_id: camera_color_opt...
+point:
+  x: 0.1171875
+  y: 0.3416666666666667
+  z: 0.0009505208333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 165776164
+  frame_id: camera_color_opt...
+point:
+  x: 0.1078125
+  y: 0.3138888888888889
+  z: 0.0008723958333333333
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 208054030
+  frame_id: camera_color_opt...
+point:
+  x: 0.0984375
+  y: 0.2611111111111111
+  z: 0.0008333333333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 296083261
+  frame_id: camera_color_opt...
+point:
+  x: 0.0890625
+  y: 0.19722222222222222
+  z: 0.0007942708333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 351322065
+  frame_id: camera_color_opt...
+point:
+  x: 0.0796875
+  y: 0.13055555555555556
+  z: 0.0007942708333333334
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 426075229
+  frame_id: camera_color_opt...
+point:
+  x: 0.07262095055413446
+  y: 0.06318082788671009
+  z: 0.0008072916666666667
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 503200725
+  frame_id: camera_color_opt...
+point:
+  x: 0.06206617647058828
+  y: -0.027908496732026184
+  z: 0.0008723958333333333
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 536137745
+  frame_id: camera_color_opt...
+point:
+  x: 0.05904670221169024
+  y: -0.05450675794277705
+  z: 0.0008919270833333333
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 613280500
+  frame_id: camera_color_opt...
+point:
+  x: 0.053889202407825285
+  y: -0.0944402641919573
+  z: 0.0009071180555555555
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 706404099
+  frame_id: camera_color_opt...
+point:
+  x: 0.049851813110181095
+  y: -0.11972725863939265
+  z: 0.0010221354166666666
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 747207966
+  frame_id: camera_color_opt...
+point:
+  x: 0.046875
+  y: -0.12222222222222222
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 832222810
+  frame_id: camera_color_opt...
+point:
+  x: 0.040625
+  y: -0.12777777777777777
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 884788486
+  frame_id: camera_color_opt...
+point:
+  x: 0.03789714960058088
+  y: -0.12903251835713722
+  z: 0.0009657118055555556
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 976288307
+  frame_id: camera_color_opt...
+point:
+  x: 0.03483770970094806
+  y: -0.12911094902342168
+  z: 0.00095703125
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 12037326
+  frame_id: camera_color_opt...
+point:
+  x: 0.034375
+  y: -0.12777777777777777
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 112906290
+  frame_id: camera_color_opt...
+point:
+  x: 0.028424873737373523
+  y: -0.11774490941157612
+  z: 0.0009787326388888888
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 159254618
+  frame_id: camera_color_opt...
+point:
+  x: 0.028384870719776245
+  y: -0.11491575432875231
+  z: 0.001013454861111111
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 207401388
+  frame_id: camera_color_opt...
+point:
+  x: 0.028424873737373523
+  y: -0.10663379830046502
+  z: 0.0009787326388888888
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 290799733
+  frame_id: camera_color_opt...
+point:
+  x: 0.028583333333333273
+  y: -0.09201949317738796
+  z: 0.0010026041666666666
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 86799535
+  frame_id: camera_color_opt...
+point:
+  x: 0.09013212769184094
+  y: -0.3723469147036026
+  z: 0.0022743055555555555
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 158846977
+  frame_id: camera_color_opt...
+point:
+  x: 0.09294155604719752
+  y: -0.3650622746640446
+  z: 0.0022938368055555555
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 238865879
+  frame_id: camera_color_opt...
+point:
+  x: 0.10393601190476183
+  y: -0.3866071428571428
+  z: 0.002287326388888889
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 319676576
+  frame_id: camera_color_opt...
+point:
+  x: 0.11551625457875456
+  y: -0.42407407407407405
+  z: 0.002265625
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 366256847
+  frame_id: camera_color_opt...
+point:
+  x: 0.12025414576365652
+  y: -0.4448764399851356
+  z: 0.0024045138888888888
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 405046882
+  frame_id: camera_color_opt...
+point:
+  x: 0.12368889123696807
+  y: -0.4746830092983939
+  z: 0.002400173611111111
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 497088777
+  frame_id: camera_color_opt...
+point:
+  x: 0.1280810692078939
+  y: -0.5364738217536271
+  z: 0.002421875
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 570905126
+  frame_id: camera_color_opt...
+point:
+  x: 0.1252518220572057
+  y: -0.5175177239946217
+  z: 0.0023697916666666667
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 643651068
+  frame_id: camera_color_opt...
+point:
+  x: 0.11319617622610138
+  y: -0.43347341522736377
+  z: 0.0023350694444444443
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 764726300
+  frame_id: camera_color_opt...
+point:
+  x: 0.10125213376784607
+  y: -0.3367577074280985
+  z: 0.0021180555555555558
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 849787661
+  frame_id: camera_color_opt...
+point:
+  x: 0.08554905582922814
+  y: -0.21479109651523456
+  z: 0.001955295138888889
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 888045233
+  frame_id: camera_color_opt...
+point:
+  x: 0.07859035677352644
+  y: -0.1678444214638631
+  z: 0.0018988715277777778
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 970387504
+  frame_id: camera_color_opt...
+point:
+  x: 0.06507424645390056
+  y: -0.07188731284475977
+  z: 0.0018402777777777777
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 51190108
+  frame_id: camera_color_opt...
+point:
+  x: 0.0607199754901961
+  y: -0.048469498910675354
+  z: 0.0019075520833333334
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 122089237
+  frame_id: camera_color_opt...
+point:
+  x: 0.06105777603622418
+  y: -0.06839660977592009
+  z: 0.0018033854166666667
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 167856082
+  frame_id: camera_color_opt...
+point:
+  x: 0.06453974895397482
+  y: -0.08785061211839462
+  z: 0.0017621527777777778
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 207110228
+  frame_id: camera_color_opt...
+point:
+  x: 0.06741201677607567
+  y: -0.10708728422076348
+  z: 0.0017100694444444444
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 270306768
+  frame_id: camera_color_opt...
+point:
+  x: 0.07363217768147354
+  y: -0.1422876289073473
+  z: 0.0017013888888888888
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 383499818
+  frame_id: camera_color_opt...
+point:
+  x: 0.08981340177580463
+  y: -0.19982529699510837
+  z: 0.0016124131944444445
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 446470321
+  frame_id: camera_color_opt...
+point:
+  x: 0.0931894841269841
+  y: -0.20206790123456797
+  z: 0.0014995659722222222
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 477024008
+  frame_id: camera_color_opt...
+point:
+  x: 0.092608173076923
+  y: -0.2004095441595442
+  z: 0.0014214409722222222
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 561771092
+  frame_id: camera_color_opt...
+point:
+  x: 0.09401223776223784
+  y: -0.18059440559440562
+  z: 0.0012413194444444444
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 617455785
+  frame_id: camera_color_opt...
+point:
+  x: 0.09321078431372545
+  y: -0.1583660130718954
+  z: 0.0011067708333333333
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 691321004
+  frame_id: camera_color_opt...
+point:
+  x: 0.08921542553191486
+  y: -0.1324349881796691
+  z: 0.0010199652777777778
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 759120560
+  frame_id: camera_color_opt...
+point:
+  x: 0.08720619658119659
+  y: -0.10895061728395064
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 796023892
+  frame_id: camera_color_opt...
+point:
+  x: 0.08440170940170937
+  y: -0.09726970560303888
+  z: 0.001015625
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 834177446
+  frame_id: camera_color_opt...
+point:
+  x: 0.08305084745762717
+  y: -0.08844161958568734
+  z: 0.0010243055555555556
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 880315939
+  frame_id: camera_color_opt...
+point:
+  x: 0.08154633620689662
+  y: -0.076125478927203
+  z: 0.0010069444444444444
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 51012384
+  frame_id: camera_color_opt...
+point:
+  x: 0.07615377428998507
+  y: -0.053180534794884694
+  z: 0.00044921875
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 124073789
+  frame_id: camera_color_opt...
+point:
+  x: 0.07066984304932741
+  y: -0.052690582959641255
+  z: 0.00044921875
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 199591082
+  frame_id: camera_color_opt...
+point:
+  x: 0.06979166666666661
+  y: -0.03907224055738918
+  z: 0.0003971354166666667
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 332767343
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 413629855
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 468289659
+  frame_id: camera_color_opt...
+point:
+  x: 0.03979952830188686
+  y: 0.4506813417190775
+  z: 0.00041883680555555554
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 535201216
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 582084931
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 700384682
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 740294475
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 840081699
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 944764050
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 40311999
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 76339998
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 182002329
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 239208058
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 283158553
+  frame_id: camera_color_opt...
+point:
+  x: 0.0018229166666666075
+  y: 0.6059731299927377
+  z: 0.0004253472222222222
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 380107519
+  frame_id: camera_color_opt...
+point:
+  x: 0.0026785714285713523
+  y: 0.602154195011338
+  z: 0.00030164930555555555
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 469055174
+  frame_id: camera_color_opt...
+point:
+  x: 7.548309178737612e-05
+  y: 0.6420711601871021
+  z: 0.0009657118055555556
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 514219391
+  frame_id: camera_color_opt...
+point:
+  x: 8.790436005607915e-05
+  y: 0.6207766838568527
+  z: 0.0010047743055555556
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 568464250
+  frame_id: camera_color_opt...
+point:
+  x: 0.00013454861111110715
+  y: 0.6202584876543208
+  z: 0.0010308159722222222
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 647347726
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.6166666666666667
+  z: 0.0010026041666666666
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 700451198
+  frame_id: camera_color_opt...
+point:
+  x: -7.773631840812811e-05
+  y: 0.600398799652531
+  z: 0.0010091145833333334
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 752775114
+  frame_id: camera_color_opt...
+point:
+  x: -8.498445998466053e-05
+  y: 0.5448415781749115
+  z: 0.0009223090277777778
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 798134793
+  frame_id: camera_color_opt...
+point:
+  x: -0.00022303921568642693
+  y: 0.5063747276688452
+  z: 0.0009049479166666666
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 904936365
+  frame_id: camera_color_opt...
+point:
+  x: -0.004537630579297236
+  y: 0.3572491294713517
+  z: 0.0007443576388888889
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 951276284
+  frame_id: camera_color_opt...
+point:
+  x: -0.003605980650835683
+  y: 0.2566940291214697
+  z: 0.0007921006944444444
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 37834775
+  frame_id: camera_color_opt...
+point:
+  x: -0.0038686260623229884
+  y: 0.1534938621340888
+  z: 0.0007291666666666667
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 76704383
+  frame_id: camera_color_opt...
+point:
+  x: -0.0046875
+  y: 0.05
+  z: 0.0007552083333333333
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 123125877
+  frame_id: camera_color_opt...
+point:
+  x: -0.005822222222222351
+  y: -0.001580246913580336
+  z: 0.00078125
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 226233117
+  frame_id: camera_color_opt...
+point:
+  x: -0.006477029914529986
+  y: -0.15705603038936383
+  z: 0.0008181423611111111
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 311647960
+  frame_id: camera_color_opt...
+point:
+  x: -0.006932375222816489
+  y: -0.2599574173103586
+  z: 0.0007703993055555555
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 345828052
+  frame_id: camera_color_opt...
+point:
+  x: -0.009117240646258472
+  y: -0.35842781557067277
+  z: 0.0008289930555555556
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 396200118
+  frame_id: camera_color_opt...
+point:
+  x: -0.009565124250214297
+  y: -0.40413215271827096
+  z: 0.0008203125
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 514393369
+  frame_id: camera_color_opt...
+point:
+  x: -0.009977489406779583
+  y: -0.4902189265536723
+  z: 0.0009787326388888888
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 556028828
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 611414798
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 708033542
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 745843466
+  frame_id: camera_color_opt...
+point:
+  x: -0.009837709700948416
+  y: -0.4820001620876894
+  z: 0.00095703125
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 860348811
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 900136845
+  frame_id: camera_color_opt...
+point:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
