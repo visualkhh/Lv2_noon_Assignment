@@ -13,6 +13,8 @@ size_t line_length = 0;
 bool motors_ready = false;
 uint32_t last_command_ms = 0;
 bool watchdog_tripped = false;
+uint32_t last_state_publish_ms = 0;
+constexpr uint32_t STATE_PUBLISH_PERIOD_MS = 50;
 
 void stop_at_present_position(uint8_t id, float &target_deg)
 {
@@ -26,6 +28,32 @@ void stop_at_present_position(uint8_t id, float &target_deg)
         return;
     }
     target_deg = constrain(position - 180.0f, MIN_TARGET_DEG, MAX_TARGET_DEG);
+}
+
+void publish_motor_state()
+{
+    const float pan_position_deg = dxl.getPresentPosition(PAN_ID, UNIT_DEGREE);
+    if (!isfinite(pan_position_deg) || dxl.getLastLibErrCode() != 0)
+        return;
+    const float pan_velocity_rpm = dxl.getPresentVelocity(PAN_ID, UNIT_RPM);
+    if (!isfinite(pan_velocity_rpm) || dxl.getLastLibErrCode() != 0)
+        return;
+    const float tilt_position_deg = dxl.getPresentPosition(TILT_ID, UNIT_DEGREE);
+    if (!isfinite(tilt_position_deg) || dxl.getLastLibErrCode() != 0)
+        return;
+    const float tilt_velocity_rpm = dxl.getPresentVelocity(TILT_ID, UNIT_RPM);
+    if (!isfinite(tilt_velocity_rpm) || dxl.getLastLibErrCode() != 0)
+        return;
+
+    // Report position relative to the project's 180 degree center; velocity is RPM.
+    Serial.print("S,");
+    Serial.print(pan_position_deg - 180.0f, 4);
+    Serial.print(',');
+    Serial.print(pan_velocity_rpm, 4);
+    Serial.print(',');
+    Serial.print(tilt_position_deg - 180.0f, 4);
+    Serial.print(',');
+    Serial.println(tilt_velocity_rpm, 4);
 }
 
 void check_command_timeout()
@@ -111,5 +139,13 @@ void loop()
         {
             line_length = 0;
         }
+    }
+
+    const uint32_t now_ms = millis();
+    if (motors_ready &&
+        static_cast<uint32_t>(now_ms - last_state_publish_ms) >= STATE_PUBLISH_PERIOD_MS)
+    {
+        last_state_publish_ms = now_ms;
+        publish_motor_state();
     }
 }
