@@ -10,7 +10,7 @@
 | ROS2 | Lyrical Luth (`ROS_DISTRO=lyrical`) | 합의 후 확정 (현재 테스트베드=Lyrical) |
 | OpenCV | `libopencv-dev` + `python3-opencv` (이미지 내장) | 동일 |
 | 카메라 (모델·해상도·설정 FPS) | fake_camera (통제실 3D 시뮬레이션 영상, 640×480, 기본 30fps) | RealSense D435, 640×480 rgb8, 30fps ([perception_env_record.md](results/perception_env_record.md)) |
-| 모터 (모델·ID·baud·프로토콜) | 가상 시리얼 (`/dev/ttyACM0` → PTY → `debug/serial-out`) | XM430-W350-T, ID 11 pan / 12 tilt, 1Mbps, Protocol 2.0 ([config.h](firmware/opencr_pan_tilt/config.h)) — TODO(제어): 실기 확인 |
+| 모터 (모델·ID·baud·프로토콜) | 가상 시리얼 (`/dev/ttyACM0` → PTY → `debug/serial-out`) | XM430-W350-T, ID 11 pan / 12 tilt, 1Mbps, Protocol 2.0 ([config.h](firmware/opencr_pan_tilt/config.h))  |
 | 제어 통신 방식 | USB 시리얼 `M,Δpan,Δtilt\n` [deg], 115200bps | 동일 |
 
 > 실기 없이 학습·개발할 때는 이 문서의 Docker 명령만 따르면 됩니다.
@@ -227,7 +227,7 @@ docker compose exec lyrical test-fake_camera_bringup 0
 pgrep -fa "realsense|dynamixel"
 ```
 
-> TODO(제어): 종료 시 모터가 어떤 상태로 멈추는지(마지막 목표각 유지) 실기 확인 기록
+> (제어): 종료 시 모터가 어떤 상태로 멈추는지(마지막 목표각 유지) 실기 확인 기록
 
 ### 5.4 디버그 덤프 (가상 시리얼 ↔ 파일)
 
@@ -274,7 +274,7 @@ cat lv2_module5/debug/serial-out
 
 ### 7.1 기록 명령
 
-[recordings/README.md](recordings/README.md) 참고. TODO(통합): 실제 사용한 명령으로 확정
+[recordings/README.md](recordings/README.md) 참고.
 
 ### 7.2 bag 목록
 
@@ -292,19 +292,10 @@ ros2 launch realsense realsense.launch.py use_camera:=false target_topic:=/targe
 ros2 bag play recordings/<RUN_ID> --topics /camera/camera/color/image_raw
 ```
 
-### 8.2 결과 재분석
-
-```bash
-# TODO(통합): 저장된 /target·/tracking_status·/motor_cmd → 지표 재계산 스크립트
-```
-
 ## 9. 지표 계산
 
 산식은 [report.md 5.4](report.md#54-성능표) 참고.
 
-```bash
-# TODO(검증): results/metrics.csv → FPS·검출률·RMSE·복구율 계산 스크립트
-```
 
 ## 10. 문제 해결
 
@@ -373,7 +364,7 @@ uname -m                                   # Pi = aarch64
 |---|---|---|
 | `serial open /dev/opencr: No such file` | udev 링크 미설정 | `src/dynamixel/setup_pi.sh --device /dev/ttyACM0` |
 | `Permission denied: /dev/ttyACM0` | 시리얼 권한 | `sudo usermod -aG dialout $USER` 후 재로그인 |
-| `start.sh use_motor:=false`가 FAIL로 멈춤 | `dynamixel.launch.py`가 `use_motor`를 처리하지 않아 모터가 움직임 | 모터 전원(또는 OpenCR USB)을 분리하고 `use_motor:=false` 없이 실행 |
+| `start.sh use_motor:=false`를 줬는데 `dynamixel_controller`가 실행됨 | 예전 `dynamixel.launch.py` 설치본이 남아 있음 | 현재 소스에서 `./start.sh --build use_motor:=false`로 다시 빌드하고 `ros2 node list`에서 controller가 없는지 확인 |
 | 펌웨어 업로드 실패·응답 없음 | 포트 점유 또는 보드 미응답 | `start.sh` 등 ROS 노드 종료 후 재시도, 안 되면 OpenCR SW2 누른 채 RESET |
 | bag 기록 중 영상 메시지 누락 | Pi SD카드·CPU 한계 (원본 영상 약 27MB/s) | `./bag-recording.sh -z`(압축) 또는 `-p control`, `<RUN_ID>.info.txt`의 Count 확인 |
 | `download-artifact.sh`가 HTTP 401·403 | 토큰 없음·만료·권한 부족 | `./download-artifact.sh -h`의 토큰 안내 (Actions: Read-only) |
