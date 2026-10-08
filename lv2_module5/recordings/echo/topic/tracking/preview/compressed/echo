@@ -1,0 +1,50 @@
+header:
+  stamp:
+    sec: 1791420299
+    nanosec: 109895035
+  frame_id: camera_color_opt...
+format: rgb8; jpeg compr...
+data:
+- 255
+- 216
+- 255
+- 224
+- 0
+- 16
+- 74
+- 70
+- 73
+- 70
+- 0
+- 1
+- 1
+- 0
+- 0
+- 1
+- '...'
+---
+header:
+  stamp:
+    sec: 1791420307
+    nanosec: 676108682
+  frame_id: camera_color_opt...
+format: rgb8; jpeg compr...
+data:
+- 255
+- 216
+- 255
+- 224
+- 0
+- 16
+- 74
+- 70
+- 73
+- 70
+- 0
+- 1
+- 1
+- 0
+- 0
+- 1
+- '...'
+---

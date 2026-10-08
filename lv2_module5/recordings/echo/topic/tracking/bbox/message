@@ -1,0 +1,1 @@
+{"type": "geometry_msgs/msg/PolygonStamped", "data": {"header":{"stamp":{"sec":1791422671,"nanosec":900136845},"frame_id":"camera_color_optical_frame"},"polygon":{"points":[]}}}

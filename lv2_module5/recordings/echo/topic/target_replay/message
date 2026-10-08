@@ -1,0 +1,1 @@
+{"type": "geometry_msgs/msg/PointStamped", "data": {"header":{"stamp":{"sec":1791422671,"nanosec":900136845},"frame_id":"camera_color_optical_frame"},"point":{"x":0.0,"y":0.0,"z":0.0}}}
