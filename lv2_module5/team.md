@@ -1,6 +1,6 @@
 # team — 4인 기여, Issue·PR·리뷰, 권한/보호 설정, 대행·예외, 통합 확인
 
-> 기준: `feature/control_perception` 브랜치 커밋 `5f05189` (2026-10-08, PR #15 병합 이후) · 저장소 <https://github.com/visualkhh/Lv2_noon_Assignment>
+> 기준: `feature/control_perception` 브랜치 커밋 `e4732b3` (2026-10-08, PR #19 `docs/checklist` 병합 이후) · 저장소 <https://github.com/visualkhh/Lv2_noon_Assignment>
 > 근거: `git log`, GitHub PR·Issue·리뷰 기록. 확인되지 않은 항목은 TODO로 둔다.
 
 ## 1. 협업 증거 (요약)
@@ -10,9 +10,9 @@
 | 이름 / GitHub ID | 역할 | 담당 Issue | 병합된 본인 PR | 다른 PR 리뷰 | 구현·검증 내용 |
 |---|---|---|---|---|---|
 | 김현하 / [visualkhh](https://github.com/visualkhh) | **팀장** · 테크리드 + 통합(테스트베드·CI·실행 구성) | 작성 [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) | ⏳ 통합 PR → `develop` → `main`  | [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) | Docker 테스트베드·통제실(SIL)·CI/CD·실기 스크립트·문서 — [2.1](#21-김현하--팀장--테크리드--통합) |
-| 정구영 / [a71143055](https://github.com/a71143055) | 통합 (bag 기록·재생) | — | ❌ 없음 ([#17](https://github.com/visualkhh/Lv2_noon_Assignment/pull/17) → `main` 미병합 종료) | ❌ 없음 | bag 기록·재생 스크립트 (팀장이 반영) — [2.2](#22-정구영--통합-bag-기록재생) |
-| 심규진 / [Gyujion](https://github.com/Gyujion) | 제어 | 담당 [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) | ✅ [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) [#14](https://github.com/visualkhh/Lv2_noon_Assignment/pull/14) [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) | ✅ [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) | 상태 토픽·udev·Pi 설정·펌웨어 watchdog·모터 상태 피드백 — [2.3](#23-심규진--제어) |
-| 문태영 / [Teewhy-M](https://github.com/Teewhy-M) | 인지 | 담당 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#11](https://github.com/visualkhh/Lv2_noon_Assignment/issues/11) | ✅ [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) | ✅ [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) | 파란 기둥 인지 노드·gtest·해상도 축소·환경 기록·문제별 결과 정리 — [2.4](#24-문태영--인지) |
+| 정구영 / [a71143055](https://github.com/a71143055) | 통합 (bag 기록·재생) | — | ✅ [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) | ❌ 없음 | bag 기록·재생 스크립트 (팀장이 반영)·통합 산출물 [`INTEGRATION.md`](INTEGRATION.md) — [2.2](#22-정구영--통합-bag-기록재생) |
+| 심규진 / [Gyujion](https://github.com/Gyujion) | 제어 | 담당 [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) | ✅ [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) [#14](https://github.com/visualkhh/Lv2_noon_Assignment/pull/14) [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) | ✅ [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) | 상태 토픽·udev·Pi 설정·펌웨어 watchdog·모터 상태 피드백 — [2.3](#23-심규진--제어) |
+| 문태영 / [Teewhy-M](https://github.com/Teewhy-M) | 인지 | 담당 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#11](https://github.com/visualkhh/Lv2_noon_Assignment/issues/11) | ✅ [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19) | ✅ [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) | 파란 기둥 인지 노드·gtest·해상도 축소·환경 기록·문제별 결과 정리 — [2.4](#24-문태영--인지) |
 
 > 검증 역할(시험 조건·측정·그래프·해석·발표)은 전원 공동 — [report.md](report.md).
 > git 커밋 작성자 `Ubuntu`(Pi 기본 사용자)는 이메일이 `Gyujion`과 같아 **심규진**의 커밋이다. Pi에서 `git config user.name`·`user.email` 설정 필요.
@@ -21,9 +21,9 @@
 
 | 요구 | 김현하 | 정구영 | 심규진 | 문태영 |
 |---|---|---|---|---|
-| 본인 PR 병합 1건 이상 | develop·main 통합 PR | ❌ ([#17](https://github.com/visualkhh/Lv2_noon_Assignment/pull/17) base `main` → 종료) | ✅ 4건 | ✅ 3건 |
-| 다른 PR 리뷰 1건 이상 | ✅ 3건 ([#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6)) | ❌ | ✅ 1건 ([#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15)) | ✅ 1건 ([#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16)) |
-| 타인 Approve로 병합 | — | — | ❌ | ❌ |
+| 본인 PR 병합 1건 이상 | develop·main 통합 PR | ✅ 1건 ([#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18)) | ✅ 4건 | ✅ 4건 |
+| 다른 PR 리뷰 1건 이상 | ✅ 3건 ([#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6)) | ❌ | ✅ 2건 ([#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18)) | ✅ 2건 ([#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18)) |
+| 타인 Approve로 병합 | ⏳ 통합 PR | ❌ | ❌ | ❌ |
 
 > 리뷰는 모두 `COMMENTED`(라인 코멘트·의견)이며 GitHub **Approve 상태 리뷰는 아직 0건**이다. 이후 PR(develop·main 통합 포함)은 Approve 후 병합한다.
 
@@ -47,11 +47,11 @@
 | 10 | 제어 | 미검출·입력 타임아웃·보드 통신 중단 시 정지와 유효 입력 3회 후 복귀를 검증했는가? | 심규진 | ✅ | 미검출 시 명령 없음, `/target` 0.5초 → LOST, 펌웨어 500ms watchdog (PR [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6)), 실기 정지·복귀 확인. 복귀 조건은 코드상 유효 입력 1회 |
 | 11 | 통합 | SSH로 Raspberry Pi에서 OpenCR 빌드·업로드·시리얼 확인을 수행하고 재현 명령을 README.md에 남겼는가? | 김현하·심규진 | ✅ | Pi 빌드·업로드·시리얼 확인 (`firmware/upload.sh`, `ros2_ws/firmware-upload.sh`, `setup_pi.sh` PR [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6), `/opencr/serial_rx`), 재현 명령 [README.md](README.md) |
 | 12 | 통합 | 인지·제어 노드의 메시지·QoS·실행 순서·설정을 맞추고 모의 입력 및 전체 연결을 검증했는가? | 김현하 | ✅ | 인터페이스·QoS·bringup 실행 구성, 모의 입력 전체 연결(테스트베드 폐루프, [devops.md](devops.md)) 및 실기 전체 연결 |
-| 13 | 통합 | bag과 재생 설정을 정리하고 다른 팀원이 모터 비활성 상태에서 재현할 수 있도록 확인했는가? | 정구영·김현하 | ✅ | `bag-recording.sh`·`bag-replay.sh` (재생 시 컨트롤러 실행 중이면 거부), bag 기록 [`recordings/20261006_201051_run`](recordings/), 녹화·재생·검증 자료 [노션](https://app.notion.com/p/teamsparta/A-_-3eb2dc3ef51480bc8878c20e26c1b61e?source=copy_link#3f32dc3ef514805e8508fc375e70fdd0) |
+| 13 | 통합 | bag과 재생 설정을 정리하고 다른 팀원이 모터 비활성 상태에서 재현할 수 있도록 확인했는가? | 정구영·김현하 | ✅ | 통합 산출물 [`INTEGRATION.md`](INTEGRATION.md), `bag-recording.sh`·`bag-replay.sh` (재생 시 컨트롤러 실행 중이면 거부), bag 기록 [`recordings/20261006_201051_run`](recordings/), 녹화·재생·검증 자료 [노션](https://app.notion.com/p/teamsparta/A-_-3eb2dc3ef51480bc8878c20e26c1b61e?source=copy_link#3f32dc3ef514805e8508fc375e70fdd0) |
 | 14 | 검증·문서화 | 시험 전 조건·산식·횟수를 정리하고 정상 30초·가림 5회·중단 시험 결과를 빠짐없이 기록했는가? | 전원 | ✅ | 시험 조건·산식·횟수와 정상·가림·중단 시험 결과 [report.md](report.md), 녹화·재생·검증 자료 [노션](https://app.notion.com/p/teamsparta/A-_-3eb2dc3ef51480bc8878c20e26c1b61e?source=copy_link#3f32dc3ef514805e8508fc375e70fdd0) |
 | 15 | 검증·문서화 | FPS·오차·유효 추적 비율·복구 결과를 원본 데이터로 계산하고 실패와 한계를 구분해 해석했는가? | 전원 | ✅ | FPS·오차·유효 추적 비율·복구 결과 [report.md](report.md), [results/](results/), 녹화·재생·검증 자료 [노션](https://app.notion.com/p/teamsparta/A-_-3eb2dc3ef51480bc8878c20e26c1b61e?source=copy_link#3f32dc3ef514805e8508fc375e70fdd0) |
 | 16 | 검증·문서화 | report.md·presentation.md에 요구사항별 증빙과 시연 순서를 연결하고 접근 권한·파일 누락을 확인했는가? | 전원 | ✅ | 요구사항별 증빙·시연 순서 [report.md](report.md), [presentation.md](presentation.md) |
-| 17 | 팀원 공통 (4명 각각) | 본인 기여가 포함된 PR을 1개 이상 병합하고, 타인 PR에 구체적인 코드 리뷰를 1개 이상 남겼는가? | 4명 | ❌ | 충족: 김현하 리뷰 [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6), 심규진 PR·리뷰([#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15)), 문태영 PR·리뷰([#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16)). 미충족: 정구영 병합 PR 0건([#17](https://github.com/visualkhh/Lv2_noon_Assignment/pull/17) 미병합)·리뷰 0건, 김현하 본인 PR은 통합 PR 예정 — [1.1](#11-요구사항-충족-현황-2026-10-08) |
+| 17 | 팀원 공통 (4명 각각) | 본인 기여가 포함된 PR을 1개 이상 병합하고, 타인 PR에 구체적인 코드 리뷰를 1개 이상 남겼는가? | 4명 | ❌ | 병합 PR: 정구영 [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18), 심규진 [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) [#14](https://github.com/visualkhh/Lv2_noon_Assignment/pull/14) [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16), 문태영 [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19), 김현하 통합 PR 예정. 리뷰: 김현하 [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6), 심규진 [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18), 문태영 [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18). **미충족: 정구영 리뷰 0건** — [1.1](#11-요구사항-충족-현황-2026-10-08) |
 | 18 | 팀원 공통 (4명 각각) | 담당 결과·Issue·PR·리뷰를 team.md에 연결하고 본인 구현 내용과 측정 결과를 설명할 수 있는가? | 4명 | ✅ | 담당 결과·Issue·PR·리뷰 연결 ([2. 개인별 기여](#2-개인별-기여)) |
 
 ## 2. 개인별 기여
@@ -81,9 +81,9 @@
 
 | Issue | 내용 | 담당 | 상태 |
 |---|---|---|---|
-| [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) | 제어 노드 `tracking_status` 토픽 지속 발행 필요 | 심규진 | open |
-| [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) | Raspberry Pi·firmware timeout 기능 누락 | 심규진 | open |
-| [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) | x·y축 Dynamixel이 뒤로 넘어간 뒤 좌우 반전되는 버그 | 심규진·문태영 | open |
+| [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) | 제어 노드 `tracking_status` 토픽 지속 발행 필요 | 심규진 | ✅ closed 10-08 (PR [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6)) |
+| [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) | Raspberry Pi·firmware timeout 기능 누락 | 심규진 | ✅ closed 10-08 (PR [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) `setup_pi.sh`·watchdog) |
+| [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) | x·y축 Dynamixel이 뒤로 넘어간 뒤 좌우 반전되는 버그 | 심규진·문태영 | open — 미해결, 한계로 기록 ([2.3 회고](#23-심규진--제어)) |
 
 **작성한 리뷰**
 
@@ -102,7 +102,7 @@
 | `develop` ← `feature/control_perception` | 인지·제어·테스트베드·CI·스크립트·문서 통합  |  |
 |`main` ← `develop` | 제출 버전 | 태그 `lv2-module5-submit` |
 
-**병합한 PR (팀장 병합)**: [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) [#13](https://github.com/visualkhh/Lv2_noon_Assignment/pull/13) [#14](https://github.com/visualkhh/Lv2_noon_Assignment/pull/14)
+**병합한 PR (팀장 병합)**: [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) [#4](https://github.com/visualkhh/Lv2_noon_Assignment/pull/4) [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) [#13](https://github.com/visualkhh/Lv2_noon_Assignment/pull/13) [#14](https://github.com/visualkhh/Lv2_noon_Assignment/pull/14) [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19)
 
 **회고**
 
@@ -130,10 +130,12 @@
 |---|---|---|
 | [#2](https://github.com/visualkhh/Lv2_noon_Assignment/pull/2) | `feature/control` → `main` | 종료 (base `main` 불가, 이후 제어 코드 대체) |
 | [#17](https://github.com/visualkhh/Lv2_noon_Assignment/pull/17) | `feature/integration` → `main` — bag 녹화 압축(`recordings.zip`, 47MB)·`INTEGRATION.md`·소감 | 2026-10-08 종료 (팀장: main 직접 병합 불허). 녹화 자료는 노션으로 대체 |
+| [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) | `docs/integration` → `docs/checklist` — `feature/integration` 작업 요약 [`INTEGRATION.md`](INTEGRATION.md) | ✅ 2026-10-08 병합 (작성자 본인). 리뷰: 심규진 "설계원칙 잘 정리해주셨네요", 문태영 "bag 스크립트 확인했습니다" → [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19)로 통합 브랜치 반영 |
 
-**리뷰**: 다른 PR 리뷰 기록 없음
+**리뷰**: 다른 PR 리뷰 기록 없음 — TODO(정구영): 통합 PR(→ `develop`)에 라인 리뷰 1건 이상
 
 **구현·검증**
+- **통합 산출물**: `feature/integration` 작업 요약 [`INTEGRATION.md`](INTEGRATION.md) (가상 카메라·웹 GUI·rosbag 공유 구성. 해당 코드는 통합 브랜치에 병합되지 않고 문서로만 반영)
 - [bag 구현,검증 다운로드](https://app.notion.com/p/teamsparta/A-_-3eb2dc3ef51480bc8878c20e26c1b61e?source=copy_link#3f32dc3ef514805e8508fc375e70fdd0)
 
 **회고***
@@ -158,7 +160,7 @@
 | udev 규칙(`/dev/opencr`)·Pi 설정 스크립트 `setup_pi.sh`, 상태 토픽 수정 | 4·5 | PR [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6) |
 | 펌웨어 watchdog: 명령 500ms 미수신 시 위치 유지 (`COMMAND_TIMEOUT_MS`) | 4 (제어 통신 중단) | PR [#6](https://github.com/visualkhh/Lv2_noon_Assignment/pull/6), 커밋 [`3ee2bbc`](https://github.com/visualkhh/Lv2_noon_Assignment/commit/3ee2bbc) |
 | 모터 상태 피드백: 펌웨어 `S,…` 50ms 송신 → `/joint_states` | 3 (실측 위치) | PR [#14](https://github.com/visualkhh/Lv2_noon_Assignment/pull/14) |
-| Kp A/B 시험 설정(`kp_pan_a.yaml`·`kp_pan_b.yaml`)·launch 인자, 문제 3 결과 정리, presentation 보강 | 3·전체 | PR [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) (`docs/checklist`에 병합 — 통합 브랜치 반영 TODO) |
+| Kp A/B 시험 설정(`kp_pan_a.yaml`·`kp_pan_b.yaml`)·launch 인자, 문제 3 결과 정리, presentation 보강 | 3·전체 | PR [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) (`docs/checklist`에 병합 → [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19)로 통합 브랜치 반영) |
 
 **병합된 PR**
 
@@ -174,8 +176,9 @@
 | PR | 작성자 | 리뷰 내용 |
 |---|---|---|
 | [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) | 문태영 | `README.md` 라인 코멘트(본인 작업 반영 확인), "체크리스트와 그래프, 문서작성 잘 되어있는거 같습니다. merge해도 될거 같습니다." |
+| [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) | 정구영 | `INTEGRATION.md` 라인 코멘트 "설계원칙 잘 정리해주셨네요", "머지하시면 될거 같아요" |
 
-**Issue**: 담당 [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) (파란색 객체 인식 수정 → 문태영). 모두 open — TODO(심규진): 해결된 Issue는 해당 PR을 연결해 닫기
+**Issue**: 담당 [#5](https://github.com/visualkhh/Lv2_noon_Assignment/issues/5) [#8](https://github.com/visualkhh/Lv2_noon_Assignment/issues/8) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) (파란색 객체 인식 수정 → 문태영). #5 #7 #8 closed (2026-10-08), #9 open — tilt 반전 시 pan 방향 뒤바뀜, 한계·개선 방안은 회고에 기록
 
 **회고**
 
@@ -208,6 +211,7 @@
 | 카메라 기본 해상도 424×240 축소 (전송·처리 부담 감소) | 1·4 | Issue [#11](https://github.com/visualkhh/Lv2_noon_Assignment/issues/11) → PR [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) |
 | 카메라·환경·조명 조건 기록 | 1 | [results/perception_env_record.md](results/perception_env_record.md) |
 | 문제별 결과 정리(`assignments/문제1~5`)·문제 3 데이터·그래프(`metrics.csv`·`plot_metrics.py`)·presentation 트러블슈팅 | 1~5 | PR [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) |
+| 문서 최종 정리: 검출 판정 기록 [`frame_audit.csv`](results/frame_audit.csv)·복구 기록 [`recovery_events.csv`](results/recovery_events.csv)·판정·재등장 캡처(`assets/`)·문서 통합 | 1·4·전체 | PR [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19) |
 
 **병합된 PR**
 
@@ -216,14 +220,16 @@
 | [#1](https://github.com/visualkhh/Lv2_noon_Assignment/pull/1) | 인지 패키지(realsense) — 파란 사각 기둥 검출 및 topic 발행 | 김현하 코멘트 | 2026-10-04 (팀장) |
 | [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12) | 카메라 기본 해상도 424x240으로 축소 (#11) | 없음 | 2026-10-06 (팀장) |
 | [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) | `docs/checklist` → `feature/control_perception` (문제별 결과·그래프·트러블슈팅) | 심규진 라인 코멘트·병합 의견 | 2026-10-08 (작성자 본인) |
+| [#19](https://github.com/visualkhh/Lv2_noon_Assignment/pull/19) | 문서 통합 및 수정 (`docs/checklist` → `feature/control_perception`, #16·#18 포함) | 없음 | 2026-10-08 (팀장) |
 
 **작성한 리뷰**
 
 | PR | 작성자 | 리뷰 내용 |
 |---|---|---|
 | [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16) | 심규진 | `README.md` 라인 코멘트 "해상도 축소 내용 반영된 거 확인했습니다.", "수정된거 확인했습니다." → 병합 |
+| [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) | 정구영 | `INTEGRATION.md` 라인 코멘트 "해당 폴더에 위치하는 bag 스크립트 확인했습니다." |
 
-**Issue**: 담당 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#11](https://github.com/visualkhh/Lv2_noon_Assignment/issues/11) (PR #12로 해결, open 상태 — TODO: 닫기)
+**Issue**: 담당 [#7](https://github.com/visualkhh/Lv2_noon_Assignment/issues/7) [#9](https://github.com/visualkhh/Lv2_noon_Assignment/issues/9) · 작성 [#11](https://github.com/visualkhh/Lv2_noon_Assignment/issues/11) (PR [#12](https://github.com/visualkhh/Lv2_noon_Assignment/pull/12)로 해결). #7 #11 closed (2026-10-08), #9 open (제어 담당과 공동, 미해결)
 
 **회고**
 잘된점:
@@ -279,8 +285,8 @@
 | 2026-10-05 | `feature/control_sim`을 PR 없이 병합 ([`9edc986`](https://github.com/visualkhh/Lv2_noon_Assignment/commit/9edc986)) | 통합 시험 일정 | — |
 | 2026-10-06 | 정구영이 작성한 bag 기록·재생 스크립트를 팀장 커밋으로 반영 ([`5990e17`](https://github.com/visualkhh/Lv2_noon_Assignment/commit/5990e17)) | 전달받은 파일을 통합 브랜치에 바로 반영 | 작성자 표기는 [2.2](#22-정구영--통합-bag-기록재생)에 기록 |
 | 2026-10-06 | PR [#13](https://github.com/visualkhh/Lv2_noon_Assignment/pull/13) — GitHub Copilot(봇) 작성 PR 병합 (CI 러너 Ubuntu 26.04 고정) | 팀장이 Copilot에 요청한 CI 설정 변경 | 팀원 개인 기여로 세지 않음 |
-| 2026-10-04 ~ 10-08 | 병합된 PR 8건(#1 #4 #6 #12 #13 #14 #15 #16) 모두 Approve 없이 병합 (리뷰는 COMMENTED만) | 보호 규칙 미적용 상태 | [3](#3-권한보호-설정) 보호 규칙 적용, 이후 Approve 후 병합 |
-| 2026-10-08 | PR [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) 작성자(문태영)가 직접 병합, PR [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16)을 팀장이 아닌 문태영이 병합 | 문서 브랜치 간 병합, 리뷰 코멘트 후 진행 | [CONTRIBUTING.md PR 규칙](../CONTRIBUTING.md#pr-규칙): 병합은 팀장 |
+| 2026-10-04 ~ 10-08 | 병합된 PR 10건(#1 #4 #6 #12 #13 #14 #15 #16 #18 #19) 모두 Approve 없이 병합 (리뷰는 COMMENTED만) | 보호 규칙 미적용 상태 | [3](#3-권한보호-설정) 보호 규칙 적용, 이후 Approve 후 병합 |
+| 2026-10-08 | PR [#15](https://github.com/visualkhh/Lv2_noon_Assignment/pull/15) 작성자(문태영)가 직접 병합, PR [#16](https://github.com/visualkhh/Lv2_noon_Assignment/pull/16)을 팀장이 아닌 문태영이 병합, PR [#18](https://github.com/visualkhh/Lv2_noon_Assignment/pull/18) 작성자(정구영)가 직접 병합 | 문서 브랜치 간 병합, 리뷰 코멘트 후 진행 | [CONTRIBUTING.md PR 규칙](../CONTRIBUTING.md#pr-규칙): 병합은 팀장 |
 | 2026-10-08 | PR [#17](https://github.com/visualkhh/Lv2_noon_Assignment/pull/17)(정구영) base `main` → 종료 | main은 `develop`에서만 병합 | 녹화 자료는 노션, 소감은 [2.2](#22-정구영--통합-bag-기록재생)에 반영 |
 | 2026-10-08 | 팀장이 제어 담당 코드(`dynamixel_controller`)에 시리얼 원본 토픽 추가 ([`b48dee7`](https://github.com/visualkhh/Lv2_noon_Assignment/commit/b48dee7)) | 실기 펌웨어 입출력 확인용 | 담당자(심규진) 리뷰 |
 
@@ -294,7 +300,7 @@
 | CI x86_64·aarch64 | TODO: 최신 커밋 실행 결과 링크 | [Actions](https://github.com/visualkhh/Lv2_noon_Assignment/actions) |
 | 실기 통합 동작 (카메라 → 검출 → 제어 → 모터) |  ✅ | [report.md](report.md) |
 | 안전 정지 (미검출·인지 입력 중단·제어 통신 중단) |  ✅ | |
-| 4인 모두 병합 PR 1건 이상 | 심규진·문태영 ✅ · 김현하 통합 PR 예정 · 정구영 미충족 | [1.1](#11-요구사항-충족-현황-2026-10-08) |
+| 4인 모두 병합 PR 1건 이상 | 정구영·심규진·문태영 ✅ · 김현하 통합 PR 예정 | [1.1](#11-요구사항-충족-현황-2026-10-08) |
 | 4인 모두 타인 PR 리뷰 1건 이상 | 김현하·심규진·문태영 ✅ · 정구영 미충족 | [1.1](#11-요구사항-충족-현황-2026-10-08) |
 | 팀장 PR 타인 승인 | ⏳ 통합 PR(→ develop, → main)에서 | [2.1](#21-김현하--팀장--테크리드--통합) |
 | README 재현 확인 |  ✅ | 5.1 |
