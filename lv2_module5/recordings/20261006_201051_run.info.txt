@@ -1,0 +1,14 @@
+
+Files:             0_20261006_201051_run_2026_10_06-20_10_52.mcap
+Bag size:          1.9 KiB
+Storage id:        mcap
+ROS Distro:        lyrical
+Duration:          0.000000000s
+Start:             Apr 12 2262 08:47:16.854775807 (9223372036.854775807)
+End:               Apr 12 2262 08:47:16.854775807 (9223372036.854775807)
+Messages:          0
+Topic information: 
+Services:          0
+Service information: 
+Actions:           0
+Action information: 
