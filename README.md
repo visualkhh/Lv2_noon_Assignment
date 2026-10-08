@@ -57,6 +57,7 @@ Lv2_noon_Assignment/
     ├── team.md             # 역할·Issue·PR·리뷰 기록
     ├── presentation.md     # 5분 시연 순서와 핵심 결과
     ├── test-checklist.md   # 필수 시험·제출 체크리스트
+    ├── devops.md           # 테스트베드·CI·배포 흐름 (다이어그램·효과·한계)
     ├── ros2_ws/src/        # ROS2 패키지 (realsense 인지 · dynamixel 제어 · bringup · fake_camera_bringup)
     ├── firmware/           # OpenCR 펌웨어
     ├── config/             # HSV·면적·해상도·Kp·제한값 설정
@@ -186,3 +187,4 @@ git push -u origin chore/작업명
 
 각자 `lv2_module5/team.md`에 본인 Issue·PR·리뷰 링크를 기록합니다.
 실행·재현 방법은 [`lv2_module5/README.md`](lv2_module5/README.md)를 따릅니다.
+테스트베드·CI·배포 구조는 [`lv2_module5/devops.md`](lv2_module5/devops.md)를 참고합니다.
