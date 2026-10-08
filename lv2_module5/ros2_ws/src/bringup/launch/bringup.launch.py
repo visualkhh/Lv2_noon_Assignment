@@ -4,6 +4,7 @@
   ros2 launch bringup bringup.launch.py
   ros2 launch bringup bringup.launch.py use_camera:=false   # 카메라 대신 다른 영상 입력 (fake_camera_bringup 등)
   ros2 launch bringup bringup.launch.py use_motor:=false    # 모터 출력 없이
+  ros2 launch bringup bringup.launch.py dynamixel_params_file:=/path/to/kp_a.yaml
 """
 
 from launch import LaunchDescription
@@ -31,6 +32,17 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'use_motor', default_value='true',
             description='false면 DynamixelController를 띄우지 않음'),
+        DeclareLaunchArgument(
+            'dynamixel_params_file',
+            default_value=PathJoinSubstitution(
+                [FindPackageShare('dynamixel'), 'config', 'dynamixel.yaml']),
+            description='제어 설정 파일 (문제 3의 Kp A/B 선택)'),
         include('realsense', 'realsense.launch.py', ['use_camera']),
-        include('dynamixel', 'dynamixel.launch.py', ['use_motor']),
+        GroupAction([IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(PathJoinSubstitution(
+                [FindPackageShare('dynamixel'), 'launch', 'dynamixel.launch.py'])),
+            launch_arguments={
+                'use_motor': LaunchConfiguration('use_motor'),
+                'params_file': LaunchConfiguration('dynamixel_params_file'),
+            }.items())]),
     ])

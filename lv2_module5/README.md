@@ -365,7 +365,7 @@ uname -m                                   # Pi = aarch64
 |---|---|---|
 | `serial open /dev/opencr: No such file` | udev 링크 미설정 | `src/dynamixel/setup_pi.sh --device /dev/ttyACM0` |
 | `Permission denied: /dev/ttyACM0` | 시리얼 권한 | `sudo usermod -aG dialout $USER` 후 재로그인 |
-| `start.sh use_motor:=false`가 FAIL로 멈춤 | `dynamixel.launch.py`가 `use_motor`를 처리하지 않아 모터가 움직임 | 모터 전원(또는 OpenCR USB)을 분리하고 `use_motor:=false` 없이 실행 |
+| `start.sh use_motor:=false`를 줬는데 `dynamixel_controller`가 실행됨 | 예전 `dynamixel.launch.py` 설치본이 남아 있음 | 현재 소스에서 `./start.sh --build use_motor:=false`로 다시 빌드하고 `ros2 node list`에서 controller가 없는지 확인 |
 | 펌웨어 업로드 실패·응답 없음 | 포트 점유 또는 보드 미응답 | `start.sh` 등 ROS 노드 종료 후 재시도, 안 되면 OpenCR SW2 누른 채 RESET |
 | bag 기록 중 영상 메시지 누락 | Pi SD카드·CPU 한계 (원본 영상 약 27MB/s) | `./bag-recording.sh -z`(압축) 또는 `-p control`, `<RUN_ID>.info.txt`의 Count 확인 |
 | `download-artifact.sh`가 HTTP 401·403 | 토큰 없음·만료·권한 부족 | `./download-artifact.sh -h`의 토큰 안내 (Actions: Read-only) |
