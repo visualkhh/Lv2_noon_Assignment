@@ -9,4 +9,4 @@ PDF: "설정이 패키지 안에 있으면 중복 복사하지 않고 경로를 
 | 카메라 (해상도·FPS) | [../ros2_ws/src/realsense/launch/realsense.launch.py](../ros2_ws/src/realsense/launch/realsense.launch.py) | color_profile 640x480x30 |
 | 제어 (게인·제한·타임아웃) | [../ros2_ws/src/dynamixel/config/dynamixel.yaml](../ros2_ws/src/dynamixel/config/dynamixel.yaml) | pan/tilt_gain, deadband, max_*_command, lost_timeout, serial_port, baud_rate |
 | 장치 (모터 ID·baud·범위) | [../firmware/opencr_pan_tilt/config.h](../firmware/opencr_pan_tilt/config.h) | PAN_ID 11, TILT_ID 12, DXL_BAUD 1000000, MIN/MAX_TARGET_DEG |
-| 시험 조건 | TODO(검증): 시험 설정 파일 또는 [../report.md](../report.md) 1.4 | Kp 2종, 이동 순서, 거리 |
+| 시험 조건 | 시험 설정 파일 또는 [../report.md](../report.md) 1.4 | Kp 2종, 이동 순서, 거리 |

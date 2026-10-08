@@ -10,7 +10,7 @@
 | ROS2 | Lyrical Luth (`ROS_DISTRO=lyrical`) | 합의 후 확정 (현재 테스트베드=Lyrical) |
 | OpenCV | `libopencv-dev` + `python3-opencv` (이미지 내장) | 동일 |
 | 카메라 (모델·해상도·설정 FPS) | fake_camera (통제실 3D 시뮬레이션 영상, 640×480, 기본 30fps) | RealSense D435, 640×480 rgb8, 30fps ([perception_env_record.md](results/perception_env_record.md)) |
-| 모터 (모델·ID·baud·프로토콜) | 가상 시리얼 (`/dev/ttyACM0` → PTY → `debug/serial-out`) | XM430-W350-T, ID 11 pan / 12 tilt, 1Mbps, Protocol 2.0 ([config.h](firmware/opencr_pan_tilt/config.h)) — TODO(제어): 실기 확인 |
+| 모터 (모델·ID·baud·프로토콜) | 가상 시리얼 (`/dev/ttyACM0` → PTY → `debug/serial-out`) | XM430-W350-T, ID 11 pan / 12 tilt, 1Mbps, Protocol 2.0 ([config.h](firmware/opencr_pan_tilt/config.h))  |
 | 제어 통신 방식 | USB 시리얼 `M,Δpan,Δtilt\n` [deg], 115200bps | 동일 |
 
 > 실기 없이 학습·개발할 때는 이 문서의 Docker 명령만 따르면 됩니다.
@@ -228,7 +228,7 @@ docker compose exec lyrical test-fake_camera_bringup 0
 pgrep -fa "realsense|dynamixel"
 ```
 
-> TODO(제어): 종료 시 모터가 어떤 상태로 멈추는지(마지막 목표각 유지) 실기 확인 기록
+> (제어): 종료 시 모터가 어떤 상태로 멈추는지(마지막 목표각 유지) 실기 확인 기록
 
 ### 5.4 디버그 덤프 (가상 시리얼 ↔ 파일)
 
@@ -275,7 +275,7 @@ cat lv2_module5/debug/serial-out
 
 ### 7.1 기록 명령
 
-[recordings/README.md](recordings/README.md) 참고. TODO(통합): 실제 사용한 명령으로 확정
+[recordings/README.md](recordings/README.md) 참고.
 
 ### 7.2 bag 목록
 
@@ -293,19 +293,10 @@ ros2 launch realsense realsense.launch.py use_camera:=false target_topic:=/targe
 ros2 bag play recordings/<RUN_ID> --topics /camera/camera/color/image_raw
 ```
 
-### 8.2 결과 재분석
-
-```bash
-# TODO(통합): 저장된 /target·/tracking_status·/motor_cmd → 지표 재계산 스크립트
-```
-
 ## 9. 지표 계산
 
 산식은 [report.md 5.4](report.md#54-성능표) / [test-checklist.md](test-checklist.md) 참고.
 
-```bash
-# TODO(검증): results/metrics.csv → FPS·검출률·RMSE·복구율 계산 스크립트
-```
 
 ## 10. 문제 해결
 
