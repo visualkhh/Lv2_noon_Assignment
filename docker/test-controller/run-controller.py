@@ -1,7 +1,7 @@
 """테스트베드 중앙통제실 (호스트 Mac에서 실행)
 
   [로봇 카메라 영상]   │ [images 버튼 → 이미지] │ [status: 토픽별 message 최신값]
-  [3D 월드 뷰]         │ [motors: 다이얼 2쌍]   │ [serial-out 실시간]
+  [3D 월드 뷰]         │ [motors: 다이얼 2쌍]   │ [serial-in · serial-out 실시간]
   [기둥 회전·배경]      │                       │ [토픽 버튼 → echo 실시간]
 
 - 3D 시뮬레이션 (scene.py, pan_tilt.urdf):
@@ -36,7 +36,9 @@
           [0으로 맞추기]를 누르면 두 쌍을 같은 시점부터 다시 누적 (그 뒤로는 같아야 정상).
           0° = 시작 위치 (펌웨어 기준 모터 180°). serial-out이 비워지면(새 실행) 두 쌍 모두 0으로 리셋.
           통제실을 켤 때 serial-out에 이미 있던 명령은 무시 (지금부터 들어오는 명령만 누적).
-- serial-out: 모터 명령 등 가상 시리얼로 나간 값 (debug/serial-out tail)
+- serial-in:  파일 → 가상 시리얼 → 앱 방향 (debug/serial-in tail). OpenCR 응답을 흉내 낼 때 이 파일에 씀
+              아래 입력칸에 한 줄 쓰고 Enter(또는 [보내기]) → serial-in 끝에 붙음 (예: S,10,0,-5,0 → /joint_states)
+- serial-out: 앱 → 가상 시리얼 → 파일 방향. 모터 명령 등 앱이 보낸 값 (debug/serial-out tail)
 - 토픽: debug/topic/<토픽>/echo 파일 tail. 컨테이너에서 `test-logger 0`이 돌고 있어야 계속 쌓임
 컨테이너와는 공유 폴더(lv2_module5/debug)의 파일로만 주고받는다 (호스트에 ROS 불필요).
 
@@ -67,6 +69,7 @@ BG_DIR = Path(__file__).resolve().parent / 'images' / 'background'
 NO_BG = '(회색)'
 PERCEPTION_YAML = DEBUG.parent / 'ros2_ws' / 'src' / 'realsense' / 'config' / 'realsense.yaml'
 SERIAL_OUT = DEBUG / 'serial-out'
+SERIAL_IN = DEBUG / 'serial-in'
 TOPIC_DIR = DEBUG / 'topic'
 OUTPUT_DIR = DEBUG / 'output-images'
 STALE_S = 2.0            # 이보다 오래 갱신 안 된 상태값은 빨강
@@ -369,9 +372,9 @@ def scrollable(parent, height):
     return inner
 
 
-def text_box(parent, height):
-    box = tk.Text(parent, height=height, width=52, font=('Menlo', 11),
-                  bg='#111', fg='#9f9', insertbackground='#9f9')
+def text_box(parent, height, width=52, fg='#9f9'):
+    box = tk.Text(parent, height=height, width=width, font=('Menlo', 11),
+                  bg='#111', fg=fg, insertbackground=fg)
     box.pack(fill='both', expand=True)
     return box
 
@@ -505,15 +508,32 @@ class Controller:
         self.joint_reader = JointStateMessage(MOTOR_MSG, self.joint_pair.acc)
         tk.Button(motors, text='0으로 맞추기 (기구 정면)', command=self.zero_motors).pack(fill='x')
 
-        # 3열: 상태값, serial-out, 토픽 echo
+        # 3열: 상태값, serial-in·out, 토픽 echo
         status = tk.LabelFrame(right, text='status  (debug/topic/<토픽>/message 최신값 · 휠/스크롤바로 이동)')
         status.pack(fill='x')
         self.status_rows = scrollable(status, STATUS_H)
         self.status_names = []
 
-        serial = tk.LabelFrame(right, text=f'serial-out  ({SERIAL_OUT})')
+        # 가상 시리얼 양방향을 나란히: 왼쪽 serial-in(파일 → 앱), 오른쪽 serial-out(앱 → 파일)
+        serial = tk.Frame(right)
         serial.pack(fill='both', expand=True, pady=(8, 0))
-        self.serial_tail = Tail(text_box(serial, 8))
+        serial_in = tk.LabelFrame(serial, text='serial-in  (파일 → 앱)')
+        serial_in.pack(side='left', fill='both', expand=True, padx=(0, 4))
+        self.serial_in_tail = Tail(text_box(serial_in, 8, width=25, fg='#8cf'))
+        self.serial_in_tail.follow(SERIAL_IN)
+        # OpenCR 역할로 앱에 보낼 한 줄 (펌웨어 상태: S,pan_deg,pan_rpm,tilt_deg,tilt_rpm)
+        send_row = tk.Frame(serial_in)
+        send_row.pack(fill='x')
+        self.serial_in_entry = tk.Entry(send_row, font=('Menlo', 11))
+        self.serial_in_entry.insert(0, 'S,0.0,0.0,0.0,0.0')
+        self.serial_in_entry.pack(side='left', fill='x', expand=True)
+        self.serial_in_entry.bind('<Return>', lambda _e: self.send_serial_in())
+        tk.Button(send_row, text='보내기', command=self.send_serial_in).pack(side='left')
+        self.serial_in_msg = tk.Label(serial_in, text='Enter = 보내기 · 예) S,10,0,-5,0', anchor='w', fg='#555')
+        self.serial_in_msg.pack(fill='x')
+        serial_out = tk.LabelFrame(serial, text='serial-out  (앱 → 파일)')
+        serial_out.pack(side='left', fill='both', expand=True)
+        self.serial_tail = Tail(text_box(serial_out, 8, width=25))
         self.serial_tail.follow(SERIAL_OUT)
 
         topics = tk.LabelFrame(right, text='topics  (컨테이너에서 test-logger 0 실행 중이어야 갱신)')
@@ -802,7 +822,24 @@ class Controller:
                       for p in sorted(TOPIC_DIR.rglob('image.jpg'))})
         return found
 
+    def send_serial_in(self):
+        """입력칸의 한 줄을 serial-in 끝에 붙인다 → 컨테이너 브릿지가 /dev/ttyV0으로 앱에 전달."""
+        line = self.serial_in_entry.get().strip()
+        if not line:
+            return
+        try:
+            with open(SERIAL_IN, 'a') as f:
+                f.write(line + '\n')
+        except OSError as e:
+            # 컨테이너(root)가 만든 파일이면 호스트 사용자가 못 씀 → docker/README.md 권한 해결
+            self.serial_in_msg.config(
+                text=f'쓰기 실패: {e.strerror} — docker exec lv2_lyrical chown -R $(id -u):$(id -g) /ws/debug',
+                fg='red')
+            return
+        self.serial_in_msg.config(text=f'보냄 {time.strftime("%H:%M:%S")}: {line}', fg='#2e7d32')
+
     def update_tails(self):
+        self.serial_in_tail.poll()
         self.serial_tail.poll()
         self.topic_tail.poll()
         self.root.after(200, self.update_tails)

@@ -43,6 +43,12 @@ DynamixelController::DynamixelController(const rclcpp::NodeOptions & options)
       [this](sensor_msgs::msg::JointState::SharedPtr msg) { on_command(msg); });
   joint_states_pub_ = create_publisher<sensor_msgs::msg::JointState>(
       "/joint_states", rclcpp::QoS(rclcpp::KeepLast(10)).reliable());
+  // 시리얼로 주고받은 줄을 가공 없이 그대로 발행 (형식이 틀린 줄도 포함)
+  //   ros2 topic echo /opencr/serial_rx   펌웨어가 보낸 것 (S,pan_deg,pan_rpm,tilt_deg,tilt_rpm …)
+  //   ros2 topic echo /opencr/serial_tx   이 노드가 보낸 것 (M,Δpan,Δtilt)
+  const auto raw_qos = rclcpp::QoS(rclcpp::KeepLast(50)).reliable();
+  serial_rx_pub_ = create_publisher<std_msgs::msg::String>("/opencr/serial_rx", raw_qos);
+  serial_tx_pub_ = create_publisher<std_msgs::msg::String>("/opencr/serial_tx", raw_qos);
   serial_read_timer_ = create_wall_timer(std::chrono::milliseconds(10),
                                          [this]() { read_serial(); });
   open_serial();
@@ -93,6 +99,7 @@ void DynamixelController::read_serial() {
           if (!serial_buffer_.empty() && serial_buffer_.back() == '\r') {
             serial_buffer_.pop_back();
           }
+          publish_raw(serial_rx_pub_, serial_buffer_);
           process_status_line(serial_buffer_);
           serial_buffer_.clear();
         } else if (serial_buffer_.size() < 255) {
@@ -183,7 +190,16 @@ bool DynamixelController::write_command(const std::string & command) {
     serial_fd_ = -1;
     return false;
   }
+  // 줄 끝 개행은 빼고 발행
+  publish_raw(serial_tx_pub_, command.substr(0, command.find_last_not_of("\r\n") + 1));
   return true;
+}
+
+void DynamixelController::publish_raw(
+    const rclcpp::Publisher<std_msgs::msg::String>::SharedPtr & pub, const std::string & line) {
+  std_msgs::msg::String msg;
+  msg.data = line;
+  pub->publish(msg);
 }
 
 void DynamixelController::on_command(const sensor_msgs::msg::JointState::SharedPtr msg) {

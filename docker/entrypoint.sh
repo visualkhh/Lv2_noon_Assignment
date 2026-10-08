@@ -16,6 +16,8 @@ if command -v socat >/dev/null 2>&1; then
   # 시작할 때마다 로그 파일 초기화 (빈 파일 재생성)
   : > /ws/debug/serial-in
   : > /ws/debug/serial-out
+  # 컨테이너(root)가 만든 파일이라 호스트 사용자도 쓸 수 있게 (통제실이 serial-in에 OpenCR 응답을 써 넣음)
+  chmod 666 /ws/debug/serial-in /ws/debug/serial-out
   # 1. PTY 쌍 생성 (앱용 /dev/ttyV0, 브릿지용 /dev/ttyV1)
   socat pty,raw,echo=0,link=/dev/ttyV0 pty,raw,echo=0,link=/dev/ttyV1 &
   sleep 1
