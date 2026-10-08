@@ -1,0 +1,3 @@
+opencv-python
+pytransform3d
+lxml  # pytransform3d.urdf가 URDF 파싱에 사용

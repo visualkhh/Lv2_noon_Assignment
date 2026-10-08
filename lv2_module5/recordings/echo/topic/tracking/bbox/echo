@@ -1,0 +1,8729 @@
+header:
+  stamp:
+    sec: 1791420297
+    nanosec: 16206801
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+A message was lost!!!
+	total count change:11
+	total count: 11---
+header:
+  stamp:
+    sec: 1791420310
+    nanosec: 282871964
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 120.0
+    y: 71.0
+    z: 0.0
+  - x: 166.0
+    y: 144.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791420315
+    nanosec: 993631032
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 230.0
+    y: 116.0
+    z: 0.0
+  - x: 273.0
+    y: 175.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:2
+	total count: 13---
+header:
+  stamp:
+    sec: 1791420324
+    nanosec: 5016304
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 195.0
+    y: 105.0
+    z: 0.0
+  - x: 221.0
+    y: 152.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:5
+	total count: 18---
+header:
+  stamp:
+    sec: 1791420340
+    nanosec: 228635985
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 218.0
+    y: 159.0
+    z: 0.0
+  - x: 272.0
+    y: 236.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 19---
+header:
+  stamp:
+    sec: 1791420343
+    nanosec: 172351761
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+A message was lost!!!
+	total count change:6
+	total count: 25---
+header:
+  stamp:
+    sec: 1791420368
+    nanosec: 205207294
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791420430
+    nanosec: 692340923
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 212.0
+    y: 87.0
+    z: 0.0
+  - x: 258.0
+    y: 165.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:9
+	total count: 34---
+header:
+  stamp:
+    sec: 1791420436
+    nanosec: 268147325
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 283.0
+    y: 176.0
+    z: 0.0
+  - x: 339.0
+    y: 260.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:6
+	total count: 40---
+header:
+  stamp:
+    sec: 1791420442
+    nanosec: 102314238
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+A message was lost!!!
+	total count change:1
+	total count: 41---
+header:
+  stamp:
+    sec: 1791420443
+    nanosec: 817369735
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 265.0
+    y: 151.0
+    z: 0.0
+  - x: 311.0
+    y: 194.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:8
+	total count: 49---
+header:
+  stamp:
+    sec: 1791420447
+    nanosec: 373522112
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 248.0
+    y: 187.0
+    z: 0.0
+  - x: 296.0
+    y: 217.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:7
+	total count: 56---
+header:
+  stamp:
+    sec: 1791420451
+    nanosec: 165174958
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 256.0
+    y: 155.0
+    z: 0.0
+  - x: 314.0
+    y: 192.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:7
+	total count: 63---
+header:
+  stamp:
+    sec: 1791420455
+    nanosec: 892456511
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 369.0
+    y: 172.0
+    z: 0.0
+  - x: 448.0
+    y: 213.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:5
+	total count: 68---
+header:
+  stamp:
+    sec: 1791420461
+    nanosec: 62862238
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+A message was lost!!!
+	total count change:1
+	total count: 69---
+header:
+  stamp:
+    sec: 1791420462
+    nanosec: 927670230
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422032
+    nanosec: 884776288
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422032
+    nanosec: 977107764
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 22970153
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 60559054
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 148806565
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 191467703
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 194.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 70---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 367070214
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 641433021
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 678950664
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 714463840
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 194.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 809005171
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 906756106
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422033
+    nanosec: 944868039
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 464962
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 106681072
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 161362559
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 71---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 302214205
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 72---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 438968237
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 194.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 73---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 574998737
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 621415642
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 666935332
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 749364615
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 194.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 846465483
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422034
+    nanosec: 918754014
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 27246143
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 74---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 136455899
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 235834178
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 289576118
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 194.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 437074105
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 523938187
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 194.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 580283144
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 632861408
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 75---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 771313652
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 827653090
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 871123909
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422035
+    nanosec: 962790805
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 54928662
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 94933325
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 146756282
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 169.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 245153756
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:3
+	total count: 78---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 477121610
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:7
+	total count: 85---
+header:
+  stamp:
+    sec: 1791422036
+    nanosec: 889844745
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:4
+	total count: 89---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 172667920
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 90---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 259844283
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422037
+    nanosec: 357177010
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 299.0
+    y: 168.0
+    z: 0.0
+  - x: 310.0
+    y: 193.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:2
+	total count: 92---
+header:
+  stamp:
+    sec: 1791422079
+    nanosec: 230436682
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 198.0
+    y: 153.0
+    z: 0.0
+  - x: 227.0
+    y: 209.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422079
+    nanosec: 278151817
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 195.0
+    y: 154.0
+    z: 0.0
+  - x: 224.0
+    y: 208.0
+    z: 0.0
+---
+A message was lost!!!
+	total count change:1
+	total count: 93---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 276089255
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 258.0
+    z: 0.0
+  - x: 325.0
+    y: 279.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 369236781
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 235.0
+    z: 0.0
+  - x: 325.0
+    y: 256.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 452889311
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 218.0
+    z: 0.0
+  - x: 325.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 494371659
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 209.0
+    z: 0.0
+  - x: 324.0
+    y: 228.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 567174307
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 647173598
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 690074927
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 769199164
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 853485045
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 889918286
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 933562133
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 44876575
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 93145087
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 195909514
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 233272661
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 296432758
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 342354845
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 422037710
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 465938336
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 552388438
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 635001284
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 678312002
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 757894368
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 837989585
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 908547400
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 958216651
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 51721843
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 98815300
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 187837735
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 233772877
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 267947193
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 315997501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 442254027
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 482390006
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 559898650
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 639125942
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 679416477
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 769569040
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 850768850
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 889740144
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 944278097
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 35760345
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 89783502
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 188923672
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 234654722
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 278986291
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 345486608
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 402247115
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 483836850
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 573305192
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 617787243
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 693590795
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 740256975
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 816742490
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 898729391
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 949744957
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 40342687
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 87084681
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 135188211
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 239443397
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 287922501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 363213647
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 428113354
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 476263662
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 568920946
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 616000329
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 669729374
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 753986923
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 830107364
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 900701012
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 950084431
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 49520175
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 88693728
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 169360815
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 227902710
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 271681465
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 326072640
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 423300385
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 498389512
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 542392359
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 659065113
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 697949444
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 761081318
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 842978738
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 877064961
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 954719235
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 11108501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 96551697
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 179199635
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 224411722
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 292915945
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 332970794
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 417212454
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 466781594
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 569496892
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 625755455
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 674229670
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 758327644
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 836485381
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 872288954
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 970249199
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 22125505
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 104302165
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 174219628
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 211579257
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 251304810
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 330863101
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 427559902
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 472042563
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 597633923
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 698000907
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 755671728
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 819311658
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 893429915
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 941503741
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 992081918
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 95746327
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 137056990
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 226088906
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 276075194
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 370382848
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 423591023
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 482138900
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 537763722
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 275.0
+    y: 108.0
+    z: 0.0
+  - x: 289.0
+    y: 137.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 597361543
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 657510103
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 749124796
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 836288861
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 878530246
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 923086574
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 31983313
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 169.0
+    z: 0.0
+  - x: 326.0
+    y: 203.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 127544207
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 319.0
+    y: 179.0
+    z: 0.0
+  - x: 332.0
+    y: 211.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 164098817
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 321.0
+    y: 178.0
+    z: 0.0
+  - x: 334.0
+    y: 211.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 214916031
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 177.0
+    z: 0.0
+  - x: 338.0
+    y: 206.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 267203985
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 328.0
+    y: 175.0
+    z: 0.0
+  - x: 341.0
+    y: 205.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 346432202
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 175.0
+    z: 0.0
+  - x: 344.0
+    y: 205.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 430244102
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 335.0
+    y: 176.0
+    z: 0.0
+  - x: 348.0
+    y: 206.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 552962741
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 179.0
+    z: 0.0
+  - x: 351.0
+    y: 210.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 629519237
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 180.0
+    z: 0.0
+  - x: 355.0
+    y: 217.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 688538410
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 768067590
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 341.0
+    y: 194.0
+    z: 0.0
+  - x: 360.0
+    y: 231.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 824172393
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 342.0
+    y: 196.0
+    z: 0.0
+  - x: 361.0
+    y: 233.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 908469552
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 347.0
+    y: 211.0
+    z: 0.0
+  - x: 357.0
+    y: 221.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 959126877
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 213.0
+    z: 0.0
+  - x: 358.0
+    y: 224.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 49045441
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 220.0
+    z: 0.0
+  - x: 359.0
+    y: 230.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 98937896
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 221.0
+    z: 0.0
+  - x: 361.0
+    y: 235.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 152069646
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 352.0
+    y: 225.0
+    z: 0.0
+  - x: 361.0
+    y: 234.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 209913096
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 224.0
+    z: 0.0
+  - x: 364.0
+    y: 237.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 287548314
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 225.0
+    z: 0.0
+  - x: 362.0
+    y: 234.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 360830257
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 224.0
+    z: 0.0
+  - x: 364.0
+    y: 237.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 462996499
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 363.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 559176819
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 636049278
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 240.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 697645875
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 240.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 769576911
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 244.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 820057217
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 246.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 866795230
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 363.0
+    y: 253.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 961580883
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 39774619
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 89678093
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 165776164
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 225.0
+    z: 0.0
+  - x: 359.0
+    y: 248.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 208054030
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 347.0
+    y: 216.0
+    z: 0.0
+  - x: 356.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 296083261
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 344.0
+    y: 205.0
+    z: 0.0
+  - x: 353.0
+    y: 226.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 351322065
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 341.0
+    y: 193.0
+    z: 0.0
+  - x: 350.0
+    y: 214.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 426075229
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 181.0
+    z: 0.0
+  - x: 348.0
+    y: 202.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 503200725
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 335.0
+    y: 163.0
+    z: 0.0
+  - x: 345.0
+    y: 186.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 536137745
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 334.0
+    y: 159.0
+    z: 0.0
+  - x: 344.0
+    y: 181.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 613280500
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 151.0
+    z: 0.0
+  - x: 342.0
+    y: 175.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 706404099
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 146.0
+    z: 0.0
+  - x: 341.0
+    y: 171.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 747207966
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 330.0
+    y: 146.0
+    z: 0.0
+  - x: 340.0
+    y: 170.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 832222810
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 328.0
+    y: 145.0
+    z: 0.0
+  - x: 338.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 884788486
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 327.0
+    y: 145.0
+    z: 0.0
+  - x: 337.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 976288307
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 326.0
+    y: 145.0
+    z: 0.0
+  - x: 336.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 12037326
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 326.0
+    y: 145.0
+    z: 0.0
+  - x: 336.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 112906290
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 147.0
+    z: 0.0
+  - x: 334.0
+    y: 171.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 159254618
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 147.0
+    z: 0.0
+  - x: 334.0
+    y: 172.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 207401388
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 149.0
+    z: 0.0
+  - x: 334.0
+    y: 173.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 290799733
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 151.0
+    z: 0.0
+  - x: 334.0
+    y: 176.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 86799535
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 96.0
+    z: 0.0
+  - x: 358.0
+    y: 130.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 158846977
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 97.0
+    z: 0.0
+  - x: 359.0
+    y: 132.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 238865879
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 344.0
+    y: 93.0
+    z: 0.0
+  - x: 362.0
+    y: 128.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 319676576
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 87.0
+    z: 0.0
+  - x: 366.0
+    y: 120.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 366256847
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 349.0
+    y: 82.0
+    z: 0.0
+  - x: 368.0
+    y: 118.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 405046882
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 77.0
+    z: 0.0
+  - x: 369.0
+    y: 112.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 497088777
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 66.0
+    z: 0.0
+  - x: 371.0
+    y: 101.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 570905126
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 70.0
+    z: 0.0
+  - x: 370.0
+    y: 104.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 643651068
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 346.0
+    y: 85.0
+    z: 0.0
+  - x: 367.0
+    y: 120.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 764726300
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 343.0
+    y: 103.0
+    z: 0.0
+  - x: 362.0
+    y: 137.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 849787661
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 125.0
+    z: 0.0
+  - x: 357.0
+    y: 159.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 888045233
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 134.0
+    z: 0.0
+  - x: 354.0
+    y: 167.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 970387504
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 152.0
+    z: 0.0
+  - x: 350.0
+    y: 183.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 51190108
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 329.0
+    y: 156.0
+    z: 0.0
+  - x: 350.0
+    y: 187.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 88916403
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 329.0
+    y: 154.0
+    z: 0.0
+  - x: 350.0
+    y: 185.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 167856082
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 149.0
+    z: 0.0
+  - x: 351.0
+    y: 178.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 207110228
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 146.0
+    z: 0.0
+  - x: 352.0
+    y: 174.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 270306768
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 333.0
+    y: 140.0
+    z: 0.0
+  - x: 354.0
+    y: 168.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 383499818
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 158.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 446470321
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 158.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 477024008
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 159.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 561771092
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 131.0
+    z: 0.0
+  - x: 363.0
+    y: 167.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 617455785
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 339.0
+    y: 134.0
+    z: 0.0
+  - x: 364.0
+    y: 170.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 691321004
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 139.0
+    z: 0.0
+  - x: 362.0
+    y: 175.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 759120560
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 143.0
+    z: 0.0
+  - x: 363.0
+    y: 179.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 796023892
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 144.0
+    z: 0.0
+  - x: 362.0
+    y: 180.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 834177446
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 147.0
+    z: 0.0
+  - x: 362.0
+    y: 183.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 880315939
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 149.0
+    z: 0.0
+  - x: 361.0
+    y: 185.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 51012384
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 339.0
+    y: 163.0
+    z: 0.0
+  - x: 350.0
+    y: 177.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 124073789
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 163.0
+    z: 0.0
+  - x: 348.0
+    y: 177.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 199591082
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 166.0
+    z: 0.0
+  - x: 348.0
+    y: 179.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 332767343
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 413629855
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 468289659
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 327.0
+    y: 253.0
+    z: 0.0
+  - x: 337.0
+    y: 267.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 535201216
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 582084931
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 700384682
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 740294475
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 840081699
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 944764050
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 40311999
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 76339998
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 182002329
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 239208058
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 283158553
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 283.0
+    z: 0.0
+  - x: 325.0
+    y: 296.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 380107519
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 284.0
+    z: 0.0
+  - x: 325.0
+    y: 294.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 421857404
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 293.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 469055174
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 283.0
+    z: 0.0
+  - x: 325.0
+    y: 308.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 568464250
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 304.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 647347726
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 303.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 700451198
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 276.0
+    z: 0.0
+  - x: 325.0
+    y: 300.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 752775114
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 267.0
+    z: 0.0
+  - x: 325.0
+    y: 289.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 798134793
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 260.0
+    z: 0.0
+  - x: 325.0
+    y: 282.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 904936365
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 234.0
+    z: 0.0
+  - x: 323.0
+    y: 255.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 951276284
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 216.0
+    z: 0.0
+  - x: 324.0
+    y: 236.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 37834775
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 198.0
+    z: 0.0
+  - x: 324.0
+    y: 217.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 76704383
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 179.0
+    z: 0.0
+  - x: 323.0
+    y: 199.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 123125877
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 170.0
+    z: 0.0
+  - x: 323.0
+    y: 190.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 226233117
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 141.0
+    z: 0.0
+  - x: 323.0
+    y: 162.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 311647960
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 123.0
+    z: 0.0
+  - x: 323.0
+    y: 143.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 345828052
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 105.0
+    z: 0.0
+  - x: 322.0
+    y: 126.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 396200118
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 97.0
+    z: 0.0
+  - x: 322.0
+    y: 118.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 514393369
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 79.0
+    z: 0.0
+  - x: 322.0
+    y: 104.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 556028828
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 611414798
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 708033542
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 745843466
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 81.0
+    z: 0.0
+  - x: 322.0
+    y: 105.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 860348811
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 900136845
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 276089255
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 258.0
+    z: 0.0
+  - x: 325.0
+    y: 279.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 369236781
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 235.0
+    z: 0.0
+  - x: 325.0
+    y: 256.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 452889311
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 218.0
+    z: 0.0
+  - x: 325.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 494371659
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 209.0
+    z: 0.0
+  - x: 324.0
+    y: 228.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 567174307
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 647173598
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 690074927
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 769199164
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 853485045
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 889918286
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 933562133
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 44876575
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 93145087
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 195909514
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 233272661
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 296432758
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 342354845
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 422037710
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 465938336
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 552388438
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 635001284
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 678312002
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 757894368
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 837989585
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 908547400
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 958216651
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 51721843
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 98815300
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 187837735
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 233772877
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 315997501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 355861795
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 442254027
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 482390006
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 559898650
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 639125942
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 679416477
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 769569040
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 850768850
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 889740144
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 944278097
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 35760345
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 89783502
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 188923672
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 234654722
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 278986291
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 345486608
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 402247115
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 483836850
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 573305192
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 617787243
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 693590795
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 740256975
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 816742490
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 898729391
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 949744957
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 40342687
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 87084681
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 135188211
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 239443397
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 287922501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 363213647
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 428113354
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 476263662
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 568920946
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 616000329
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 712318685
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 753986923
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 830107364
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 900701012
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 950084431
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 49520175
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 88693728
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 169360815
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 227902710
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 271681465
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 326072640
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 423300385
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 498389512
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 542392359
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 659065113
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 697949444
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 761081318
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 842978738
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 877064961
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 954719235
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 11108501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 96551697
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 179199635
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 224411722
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 292915945
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 332970794
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 417212454
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 466781594
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 569496892
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 625755455
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 674229670
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 758327644
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 836485381
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 872288954
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 970249199
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 22125505
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 104302165
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 174219628
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 211579257
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 251304810
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 330863101
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 427559902
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 472042563
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 551070429
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 597633923
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 698000907
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 755671728
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 819311658
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 893429915
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 941503741
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 992081918
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 95746327
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 137056990
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 226088906
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 276075194
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 370382848
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 423591023
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 482138900
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 537763722
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 275.0
+    y: 108.0
+    z: 0.0
+  - x: 289.0
+    y: 137.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 597361543
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 657510103
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 749124796
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 836288861
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 878530246
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 923086574
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 31983313
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 169.0
+    z: 0.0
+  - x: 326.0
+    y: 203.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 85909099
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 164098817
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 321.0
+    y: 178.0
+    z: 0.0
+  - x: 334.0
+    y: 211.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 214916031
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 177.0
+    z: 0.0
+  - x: 338.0
+    y: 206.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 267203985
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 328.0
+    y: 175.0
+    z: 0.0
+  - x: 341.0
+    y: 205.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 346432202
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 175.0
+    z: 0.0
+  - x: 344.0
+    y: 205.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 430244102
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 335.0
+    y: 176.0
+    z: 0.0
+  - x: 348.0
+    y: 206.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 552962741
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 179.0
+    z: 0.0
+  - x: 351.0
+    y: 210.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 629519237
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 180.0
+    z: 0.0
+  - x: 355.0
+    y: 217.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 688538410
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 768067590
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 341.0
+    y: 194.0
+    z: 0.0
+  - x: 360.0
+    y: 231.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 824172393
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 342.0
+    y: 196.0
+    z: 0.0
+  - x: 361.0
+    y: 233.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 908469552
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 347.0
+    y: 211.0
+    z: 0.0
+  - x: 357.0
+    y: 221.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 959126877
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 213.0
+    z: 0.0
+  - x: 358.0
+    y: 224.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 49045441
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 220.0
+    z: 0.0
+  - x: 359.0
+    y: 230.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 98937896
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 221.0
+    z: 0.0
+  - x: 361.0
+    y: 235.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 152069646
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 352.0
+    y: 225.0
+    z: 0.0
+  - x: 361.0
+    y: 234.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 209913096
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 224.0
+    z: 0.0
+  - x: 364.0
+    y: 237.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 287548314
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 225.0
+    z: 0.0
+  - x: 362.0
+    y: 234.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 360830257
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 224.0
+    z: 0.0
+  - x: 364.0
+    y: 237.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 462996499
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 363.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 559176819
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 636049278
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 240.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 697645875
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 240.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 769576911
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 244.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 820057217
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 246.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 866795230
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 363.0
+    y: 253.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 961580883
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 39774619
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 89678093
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 165776164
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 225.0
+    z: 0.0
+  - x: 359.0
+    y: 248.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 208054030
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 347.0
+    y: 216.0
+    z: 0.0
+  - x: 356.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 296083261
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 344.0
+    y: 205.0
+    z: 0.0
+  - x: 353.0
+    y: 226.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 351322065
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 341.0
+    y: 193.0
+    z: 0.0
+  - x: 350.0
+    y: 214.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 426075229
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 181.0
+    z: 0.0
+  - x: 348.0
+    y: 202.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 503200725
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 335.0
+    y: 163.0
+    z: 0.0
+  - x: 345.0
+    y: 186.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 536137745
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 334.0
+    y: 159.0
+    z: 0.0
+  - x: 344.0
+    y: 181.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 613280500
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 151.0
+    z: 0.0
+  - x: 342.0
+    y: 175.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 706404099
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 146.0
+    z: 0.0
+  - x: 341.0
+    y: 171.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 747207966
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 330.0
+    y: 146.0
+    z: 0.0
+  - x: 340.0
+    y: 170.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 832222810
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 328.0
+    y: 145.0
+    z: 0.0
+  - x: 338.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 884788486
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 327.0
+    y: 145.0
+    z: 0.0
+  - x: 337.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 976288307
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 326.0
+    y: 145.0
+    z: 0.0
+  - x: 336.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 12037326
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 326.0
+    y: 145.0
+    z: 0.0
+  - x: 336.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 112906290
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 147.0
+    z: 0.0
+  - x: 334.0
+    y: 171.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 159254618
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 147.0
+    z: 0.0
+  - x: 334.0
+    y: 172.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 207401388
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 149.0
+    z: 0.0
+  - x: 334.0
+    y: 173.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 290799733
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 151.0
+    z: 0.0
+  - x: 334.0
+    y: 176.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 86799535
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 96.0
+    z: 0.0
+  - x: 358.0
+    y: 130.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 158846977
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 97.0
+    z: 0.0
+  - x: 359.0
+    y: 132.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 238865879
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 344.0
+    y: 93.0
+    z: 0.0
+  - x: 362.0
+    y: 128.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 319676576
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 87.0
+    z: 0.0
+  - x: 366.0
+    y: 120.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 366256847
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 349.0
+    y: 82.0
+    z: 0.0
+  - x: 368.0
+    y: 118.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 405046882
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 77.0
+    z: 0.0
+  - x: 369.0
+    y: 112.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 497088777
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 66.0
+    z: 0.0
+  - x: 371.0
+    y: 101.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 570905126
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 70.0
+    z: 0.0
+  - x: 370.0
+    y: 104.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 643651068
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 346.0
+    y: 85.0
+    z: 0.0
+  - x: 367.0
+    y: 120.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 764726300
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 343.0
+    y: 103.0
+    z: 0.0
+  - x: 362.0
+    y: 137.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 849787661
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 125.0
+    z: 0.0
+  - x: 357.0
+    y: 159.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 888045233
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 134.0
+    z: 0.0
+  - x: 354.0
+    y: 167.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 970387504
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 152.0
+    z: 0.0
+  - x: 350.0
+    y: 183.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 51190108
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 329.0
+    y: 156.0
+    z: 0.0
+  - x: 350.0
+    y: 187.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 122089237
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 330.0
+    y: 153.0
+    z: 0.0
+  - x: 349.0
+    y: 182.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 167856082
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 149.0
+    z: 0.0
+  - x: 351.0
+    y: 178.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 207110228
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 146.0
+    z: 0.0
+  - x: 352.0
+    y: 174.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 270306768
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 333.0
+    y: 140.0
+    z: 0.0
+  - x: 354.0
+    y: 168.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 383499818
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 158.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 446470321
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 158.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 477024008
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 159.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 561771092
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 131.0
+    z: 0.0
+  - x: 363.0
+    y: 167.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 617455785
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 339.0
+    y: 134.0
+    z: 0.0
+  - x: 364.0
+    y: 170.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 691321004
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 139.0
+    z: 0.0
+  - x: 362.0
+    y: 175.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 759120560
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 143.0
+    z: 0.0
+  - x: 363.0
+    y: 179.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 796023892
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 144.0
+    z: 0.0
+  - x: 362.0
+    y: 180.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 834177446
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 147.0
+    z: 0.0
+  - x: 362.0
+    y: 183.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 880315939
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 149.0
+    z: 0.0
+  - x: 361.0
+    y: 185.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 51012384
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 339.0
+    y: 163.0
+    z: 0.0
+  - x: 350.0
+    y: 177.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 124073789
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 163.0
+    z: 0.0
+  - x: 348.0
+    y: 177.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 199591082
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 166.0
+    z: 0.0
+  - x: 348.0
+    y: 179.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 332767343
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 413629855
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 468289659
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 327.0
+    y: 253.0
+    z: 0.0
+  - x: 337.0
+    y: 267.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 535201216
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 582084931
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 700384682
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 740294475
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 840081699
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 944764050
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 40311999
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 76339998
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 182002329
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 239208058
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 283158553
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 283.0
+    z: 0.0
+  - x: 325.0
+    y: 296.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 380107519
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 284.0
+    z: 0.0
+  - x: 325.0
+    y: 294.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 469055174
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 283.0
+    z: 0.0
+  - x: 325.0
+    y: 308.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 514219391
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 304.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 568464250
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 304.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 647347726
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 303.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 700451198
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 276.0
+    z: 0.0
+  - x: 325.0
+    y: 300.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 752775114
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 267.0
+    z: 0.0
+  - x: 325.0
+    y: 289.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 798134793
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 260.0
+    z: 0.0
+  - x: 325.0
+    y: 282.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 904936365
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 234.0
+    z: 0.0
+  - x: 323.0
+    y: 255.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 951276284
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 216.0
+    z: 0.0
+  - x: 324.0
+    y: 236.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 37834775
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 198.0
+    z: 0.0
+  - x: 324.0
+    y: 217.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 76704383
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 179.0
+    z: 0.0
+  - x: 323.0
+    y: 199.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 123125877
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 170.0
+    z: 0.0
+  - x: 323.0
+    y: 190.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 226233117
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 141.0
+    z: 0.0
+  - x: 323.0
+    y: 162.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 311647960
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 123.0
+    z: 0.0
+  - x: 323.0
+    y: 143.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 345828052
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 105.0
+    z: 0.0
+  - x: 322.0
+    y: 126.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 396200118
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 97.0
+    z: 0.0
+  - x: 322.0
+    y: 118.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 514393369
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 79.0
+    z: 0.0
+  - x: 322.0
+    y: 104.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 556028828
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 611414798
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 708033542
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 745843466
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 81.0
+    z: 0.0
+  - x: 322.0
+    y: 105.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 860348811
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 900136845
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 276089255
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 258.0
+    z: 0.0
+  - x: 325.0
+    y: 279.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 369236781
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 235.0
+    z: 0.0
+  - x: 325.0
+    y: 256.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 452889311
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 218.0
+    z: 0.0
+  - x: 325.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 494371659
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 209.0
+    z: 0.0
+  - x: 324.0
+    y: 228.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 567174307
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 647173598
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 690074927
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 769199164
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 853485045
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 889918286
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422644
+    nanosec: 933562133
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 44876575
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 93145087
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 195909514
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 233272661
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 296432758
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 422037710
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 465938336
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 552388438
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 635001284
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 714218316
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 757894368
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 837989585
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 874339418
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422645
+    nanosec: 958216651
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 2412517
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 98815300
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 187837735
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 233772877
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 267947193
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 315997501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 442254027
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 482390006
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 559898650
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 639125942
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 679416477
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 769569040
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 850768850
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 889740144
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422646
+    nanosec: 944278097
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 35760345
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 89783502
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 188923672
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 234654722
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 278986291
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 345486608
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 402247115
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 483836850
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 573305192
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 617787243
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 693590795
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 740256975
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 816742490
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 898729391
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422647
+    nanosec: 949744957
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 40342687
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 87084681
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 135188211
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 239443397
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 287922501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 363213647
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 428113354
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 476263662
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 568920946
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 616000329
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 669729374
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 753986923
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 830107364
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 900701012
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422648
+    nanosec: 950084431
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 49520175
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 88693728
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 169360815
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 227902710
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 271681465
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 326072640
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 423300385
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 498389512
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 542392359
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 659065113
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 697949444
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 761081318
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 842978738
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 877064961
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422649
+    nanosec: 954719235
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 11108501
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 96551697
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 179199635
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 224411722
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 292915945
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 332970794
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 417212454
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 466781594
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 569496892
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 625755455
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 674229670
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 758327644
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 836485381
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 872288954
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422650
+    nanosec: 970249199
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 22125505
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 104302165
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 174219628
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 211579257
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 251304810
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 330863101
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 427559902
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 472042563
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 551070429
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 597633923
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 698000907
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 755671728
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 819311658
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 893429915
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 941503741
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422651
+    nanosec: 992081918
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 95746327
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 137056990
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 226088906
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 276075194
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 370382848
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 423591023
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 482138900
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 537763722
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 275.0
+    y: 108.0
+    z: 0.0
+  - x: 289.0
+    y: 137.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 657510103
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 709219687
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 290.0
+    y: 120.0
+    z: 0.0
+  - x: 303.0
+    y: 153.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 749124796
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 836288861
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 878530246
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422652
+    nanosec: 923086574
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 31983313
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 169.0
+    z: 0.0
+  - x: 326.0
+    y: 203.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 127544207
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 319.0
+    y: 179.0
+    z: 0.0
+  - x: 332.0
+    y: 211.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 164098817
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 321.0
+    y: 178.0
+    z: 0.0
+  - x: 334.0
+    y: 211.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 214916031
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 177.0
+    z: 0.0
+  - x: 338.0
+    y: 206.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 267203985
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 328.0
+    y: 175.0
+    z: 0.0
+  - x: 341.0
+    y: 205.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 346432202
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 175.0
+    z: 0.0
+  - x: 344.0
+    y: 205.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 430244102
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 335.0
+    y: 176.0
+    z: 0.0
+  - x: 348.0
+    y: 206.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 552962741
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 179.0
+    z: 0.0
+  - x: 351.0
+    y: 210.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 629519237
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 180.0
+    z: 0.0
+  - x: 355.0
+    y: 217.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 688538410
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 768067590
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 341.0
+    y: 194.0
+    z: 0.0
+  - x: 360.0
+    y: 231.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 864491039
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 342.0
+    y: 198.0
+    z: 0.0
+  - x: 361.0
+    y: 235.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 908469552
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 347.0
+    y: 211.0
+    z: 0.0
+  - x: 357.0
+    y: 221.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422653
+    nanosec: 959126877
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 213.0
+    z: 0.0
+  - x: 358.0
+    y: 224.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 49045441
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 220.0
+    z: 0.0
+  - x: 359.0
+    y: 230.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 98937896
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 221.0
+    z: 0.0
+  - x: 361.0
+    y: 235.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 152069646
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 352.0
+    y: 225.0
+    z: 0.0
+  - x: 361.0
+    y: 234.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 209913096
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 224.0
+    z: 0.0
+  - x: 364.0
+    y: 237.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 287548314
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 225.0
+    z: 0.0
+  - x: 362.0
+    y: 234.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 360830257
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 224.0
+    z: 0.0
+  - x: 364.0
+    y: 237.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 462996499
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 363.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 559176819
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 636049278
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 240.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 697645875
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 240.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 769576911
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 244.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 820057217
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 246.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 866795230
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 363.0
+    y: 253.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422654
+    nanosec: 961580883
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 39774619
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 89678093
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 353.0
+    y: 229.0
+    z: 0.0
+  - x: 362.0
+    y: 254.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 165776164
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 225.0
+    z: 0.0
+  - x: 359.0
+    y: 248.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 208054030
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 347.0
+    y: 216.0
+    z: 0.0
+  - x: 356.0
+    y: 238.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 296083261
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 344.0
+    y: 205.0
+    z: 0.0
+  - x: 353.0
+    y: 226.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 351322065
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 341.0
+    y: 193.0
+    z: 0.0
+  - x: 350.0
+    y: 214.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 426075229
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 181.0
+    z: 0.0
+  - x: 348.0
+    y: 202.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 503200725
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 335.0
+    y: 163.0
+    z: 0.0
+  - x: 345.0
+    y: 186.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 536137745
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 334.0
+    y: 159.0
+    z: 0.0
+  - x: 344.0
+    y: 181.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 613280500
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 151.0
+    z: 0.0
+  - x: 342.0
+    y: 175.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 706404099
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 146.0
+    z: 0.0
+  - x: 341.0
+    y: 171.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 747207966
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 330.0
+    y: 146.0
+    z: 0.0
+  - x: 340.0
+    y: 170.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 832222810
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 328.0
+    y: 145.0
+    z: 0.0
+  - x: 338.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 884788486
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 327.0
+    y: 145.0
+    z: 0.0
+  - x: 337.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422655
+    nanosec: 976288307
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 326.0
+    y: 145.0
+    z: 0.0
+  - x: 336.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 12037326
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 326.0
+    y: 145.0
+    z: 0.0
+  - x: 336.0
+    y: 169.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 112906290
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 147.0
+    z: 0.0
+  - x: 334.0
+    y: 171.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 159254618
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 147.0
+    z: 0.0
+  - x: 334.0
+    y: 172.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 207401388
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 149.0
+    z: 0.0
+  - x: 334.0
+    y: 173.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422656
+    nanosec: 290799733
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 324.0
+    y: 151.0
+    z: 0.0
+  - x: 334.0
+    y: 176.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 86799535
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 96.0
+    z: 0.0
+  - x: 358.0
+    y: 130.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 158846977
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 97.0
+    z: 0.0
+  - x: 359.0
+    y: 132.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 238865879
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 344.0
+    y: 93.0
+    z: 0.0
+  - x: 362.0
+    y: 128.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 319676576
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 348.0
+    y: 87.0
+    z: 0.0
+  - x: 366.0
+    y: 120.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 366256847
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 349.0
+    y: 82.0
+    z: 0.0
+  - x: 368.0
+    y: 118.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 405046882
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 77.0
+    z: 0.0
+  - x: 369.0
+    y: 112.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 497088777
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 351.0
+    y: 66.0
+    z: 0.0
+  - x: 371.0
+    y: 101.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 570905126
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 350.0
+    y: 70.0
+    z: 0.0
+  - x: 370.0
+    y: 104.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 643651068
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 346.0
+    y: 85.0
+    z: 0.0
+  - x: 367.0
+    y: 120.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 764726300
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 343.0
+    y: 103.0
+    z: 0.0
+  - x: 362.0
+    y: 137.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 849787661
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 125.0
+    z: 0.0
+  - x: 357.0
+    y: 159.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 888045233
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 134.0
+    z: 0.0
+  - x: 354.0
+    y: 167.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422667
+    nanosec: 970387504
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 152.0
+    z: 0.0
+  - x: 350.0
+    y: 183.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 51190108
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 329.0
+    y: 156.0
+    z: 0.0
+  - x: 350.0
+    y: 187.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 88916403
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 329.0
+    y: 154.0
+    z: 0.0
+  - x: 350.0
+    y: 185.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 167856082
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 331.0
+    y: 149.0
+    z: 0.0
+  - x: 351.0
+    y: 178.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 207110228
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 332.0
+    y: 146.0
+    z: 0.0
+  - x: 352.0
+    y: 174.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 270306768
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 333.0
+    y: 140.0
+    z: 0.0
+  - x: 354.0
+    y: 168.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 383499818
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 158.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 446470321
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 158.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 477024008
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 340.0
+    y: 129.0
+    z: 0.0
+  - x: 359.0
+    y: 159.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 561771092
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 131.0
+    z: 0.0
+  - x: 363.0
+    y: 167.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 617455785
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 339.0
+    y: 134.0
+    z: 0.0
+  - x: 364.0
+    y: 170.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 691321004
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 139.0
+    z: 0.0
+  - x: 362.0
+    y: 175.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 759120560
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 338.0
+    y: 143.0
+    z: 0.0
+  - x: 363.0
+    y: 179.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 796023892
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 144.0
+    z: 0.0
+  - x: 362.0
+    y: 180.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 834177446
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 147.0
+    z: 0.0
+  - x: 362.0
+    y: 183.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422668
+    nanosec: 880315939
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 336.0
+    y: 149.0
+    z: 0.0
+  - x: 361.0
+    y: 185.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 51012384
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 339.0
+    y: 163.0
+    z: 0.0
+  - x: 350.0
+    y: 177.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 124073789
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 163.0
+    z: 0.0
+  - x: 348.0
+    y: 177.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 199591082
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 337.0
+    y: 166.0
+    z: 0.0
+  - x: 348.0
+    y: 179.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 332767343
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 413629855
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 468289659
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 327.0
+    y: 253.0
+    z: 0.0
+  - x: 337.0
+    y: 267.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 535201216
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 582084931
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 700384682
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 740294475
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 840081699
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422669
+    nanosec: 944764050
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 40311999
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 76339998
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 182002329
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 239208058
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 283158553
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 283.0
+    z: 0.0
+  - x: 325.0
+    y: 296.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 380107519
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 316.0
+    y: 284.0
+    z: 0.0
+  - x: 325.0
+    y: 294.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 421857404
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 293.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 469055174
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 283.0
+    z: 0.0
+  - x: 325.0
+    y: 308.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 568464250
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 304.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 647347726
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 279.0
+    z: 0.0
+  - x: 325.0
+    y: 303.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 700451198
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 276.0
+    z: 0.0
+  - x: 325.0
+    y: 300.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 752775114
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 267.0
+    z: 0.0
+  - x: 325.0
+    y: 289.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 798134793
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 315.0
+    y: 260.0
+    z: 0.0
+  - x: 325.0
+    y: 282.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 904936365
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 234.0
+    z: 0.0
+  - x: 323.0
+    y: 255.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422670
+    nanosec: 951276284
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 216.0
+    z: 0.0
+  - x: 324.0
+    y: 236.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 37834775
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 198.0
+    z: 0.0
+  - x: 324.0
+    y: 217.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 76704383
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 314.0
+    y: 179.0
+    z: 0.0
+  - x: 323.0
+    y: 199.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 123125877
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 170.0
+    z: 0.0
+  - x: 323.0
+    y: 190.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 226233117
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 141.0
+    z: 0.0
+  - x: 323.0
+    y: 162.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 311647960
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 313.0
+    y: 123.0
+    z: 0.0
+  - x: 323.0
+    y: 143.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 345828052
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 105.0
+    z: 0.0
+  - x: 322.0
+    y: 126.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 396200118
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 97.0
+    z: 0.0
+  - x: 322.0
+    y: 118.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 514393369
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 79.0
+    z: 0.0
+  - x: 322.0
+    y: 104.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 556028828
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 611414798
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 708033542
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 745843466
+  frame_id: camera_color_opt...
+polygon:
+  points:
+  - x: 312.0
+    y: 81.0
+    z: 0.0
+  - x: 322.0
+    y: 105.0
+    z: 0.0
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 860348811
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---
+header:
+  stamp:
+    sec: 1791422671
+    nanosec: 900136845
+  frame_id: camera_color_opt...
+polygon:
+  points: []
+---

@@ -1,0 +1,51 @@
+Type: sensor_msgs/msg/CompressedImage
+
+Publisher count: 1
+
+Node name: perception_node
+Node namespace: /
+Topic type: sensor_msgs/msg/CompressedImage
+Topic type hash: RIHS01_15640771531571185e2efc8a100baf923961a4d15d5569652e6cb6691e8e371a
+Endpoint type: PUBLISHER
+GID: 01.0f.16.6b.09.03.83.91.00.00.00.00.00.00.18.03
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (1)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 2
+
+Node name: monitor_manager
+Node namespace: /
+Topic type: sensor_msgs/msg/CompressedImage
+Topic type hash: RIHS01_15640771531571185e2efc8a100baf923961a4d15d5569652e6cb6691e8e371a
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.16.6b.0d.03.51.f3.00.00.00.00.00.00.20.04
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (1)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: monitor_manager
+Node namespace: /
+Topic type: sensor_msgs/msg/CompressedImage
+Topic type hash: RIHS01_15640771531571185e2efc8a100baf923961a4d15d5569652e6cb6691e8e371a
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.16.6b.0d.03.51.f3.00.00.00.00.00.00.22.04
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (5)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+

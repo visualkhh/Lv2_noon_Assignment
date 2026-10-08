@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+  pan-tilt 기구 (사진 기준 추정 치수). 실측하면 origin·size 숫자만 바꾸면 된다.
+  world: x 앞(정면), y 왼쪽, z 위 [m]. 바닥(베이스판 아래) = z 0.
+  pan_joint  (ID 11): 세로축 z. + = 왼쪽으로 돎 (위에서 볼 때 반시계)
+  tilt_joint (ID 12): 가로축 y. + = 아래를 봄
+  관절 0 = 펌웨어 기준 모터 180° (config.h: 목표각은 180° 중심의 상대각).
+  camera_color_optical_frame: ROS 광학 좌표 (x 오른쪽, y 아래, z 앞) — scene.py 렌더링 기준.
+  ponytail: D435 컬러 센서는 실제로 본체 중심에서 옆으로 ~15mm 떨어져 있음. 필요하면 optical origin y에 반영.
+-->
+<robot name="pan_tilt">
+  <link name="world"/>
+
+  <!-- 파란 베이스판 + pan 모터 본체 (고정) -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.0025"/>
+      <geometry><box size="0.12 0.12 0.005"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0.02825"/>
+      <geometry><box size="0.034 0.0285 0.0465"/></geometry>
+    </visual>
+  </link>
+  <joint name="base_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <!-- pan 혼 위: 브래킷 + tilt 모터 (가로 장착, 혼이 옆면 → tilt 축 y) -->
+  <link name="pan_link">
+    <visual>
+      <origin xyz="0 0 0.006"/>
+      <geometry><box size="0.04 0.034 0.012"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0.040"/>
+      <geometry><box size="0.034 0.0465 0.0285"/></geometry>
+    </visual>
+  </link>
+  <joint name="pan_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="pan_link"/>
+    <origin xyz="0 0 0.0515"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.1416" upper="3.1399" effort="4.1" velocity="4.8"/>
+  </joint>
+
+  <!-- tilt 혼에 붙은 파란 카메라 마운트 -->
+  <link name="tilt_link">
+    <visual>
+      <origin xyz="0 0 0.026"/>
+      <geometry><box size="0.022 0.03 0.028"/></geometry>
+    </visual>
+  </link>
+  <joint name="tilt_joint" type="revolute">
+    <parent link="pan_link"/>
+    <child link="tilt_link"/>
+    <origin xyz="0 0 0.040"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.1416" upper="3.1399" effort="4.1" velocity="4.8"/>
+  </joint>
+
+  <!-- RealSense D435 본체 (90 x 25 x 25 mm) -->
+  <link name="camera_link">
+    <visual>
+      <geometry><box size="0.025 0.090 0.025"/></geometry>
+    </visual>
+  </link>
+  <joint name="camera_mount" type="fixed">
+    <parent link="tilt_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.010 0 0.052"/>
+  </joint>
+
+  <link name="camera_color_optical_frame"/>
+  <joint name="camera_optical" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_color_optical_frame"/>
+    <origin xyz="0.0125 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+</robot>

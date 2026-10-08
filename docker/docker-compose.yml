@@ -1,0 +1,29 @@
+# Lv2 테스트베드 — ROS 2 Lyrical on Ubuntu 26.04
+# 사용법: docker/ 디렉토리 안에서 실행
+#   docker compose build
+#   docker compose up -d && docker compose exec lyrical bash
+# 기준: volumes 상대경로는 이 compose 파일 위치(docker/) 기준이라
+#       프로젝트 루트 파일은 ../ 로 올라가서 가리킴.
+services:
+  lyrical:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: lv2-lyrical:testbed
+    container_name: lv2_lyrical
+    working_dir: /ws
+    volumes:
+      # ROS 2 워크스페이스 (소스만 마운트, build/install/log은 컨테이너 내부)
+      - ../lv2_module5/ros2_ws/src:/ws/src
+      # OpenCR 스케치 (arduino-cli compile이 스케치 폴더에 빌드 산출물 쓰므로 rw)
+      - ../lv2_module5/firmware:/ws/firmware
+      # 설정·결과 확인용 (읽기전용)
+      - ../lv2_module5/config:/ws/config:ro
+      # 디버그 덤프·시험 결과 (topic echo 로그·CSV·그래프, 호스트에서 확인)
+      - ../lv2_module5/results:/ws/results
+      # 컨테이너 디버그 로그 전용 (휘발성, gitignore — 산출물과 분리)
+      - ../lv2_module5/debug:/ws/debug
+    stdin_open: true
+    tty: true
+    network_mode: host
+    command: bash

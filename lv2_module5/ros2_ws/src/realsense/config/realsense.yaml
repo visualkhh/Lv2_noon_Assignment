@@ -1,0 +1,81 @@
+perception_node:
+  ros__parameters:
+    # 파란 사각 기둥(30x30x60mm) · 20cm~1m · 카메라 pan·tilt (전후 이동 없음)
+    # 값은 hsv_tuner로 실제 장면에서 확인한 뒤 수정하고, 시험에 쓴 설정은 lv2_module5/config/realsense_<설명>.yaml로 복사한다.
+
+    # 토픽 이름 (기본값은 report.md 구조도). 테스트·bag 재처리 등 용도에 따라 바꾼다
+    #   realsense.launch.py로 실행하면 launch 인자 image_topic·target_topic이 비어 있지 않을 때 그 값이 우선한다
+    image_topic: /camera/camera/color/image_raw
+    target_topic: /target
+    debug_image_topic: /perception_node/debug_image/compressed
+    mask_topic: /perception_node/mask/compressed
+
+    # HSV 범위 [H, S, V] (H 0~179, S·V 0~255) — 범위 2개를 OR로 합친다
+    # 측정 (H / S / V, 대략 5~95 백분위):
+    #   파란 기둥, 조명 없음        105~107 / 248~255 / 114~134
+    #   파란 기둥, 조명 비춤        104~107 / 170~202 / 141~181   ← 빛이 섞여 S가 내려가고 V가 오른다
+    #   파란 기둥, 어두운 역광      104~107 / 233~255 /  37~46
+    #   하늘색 반투명 판           95~104 / 127~200 / 110~200    ← 조명을 비추면 S가 기둥과 겹친다. H로 구분 (판 중앙값 98, 기둥 105)
+    #   하늘색 셔츠 (합성 시험)     S ≈ 88
+    #
+    # 범위 1 (어두움·보통): 어두운 픽셀은 H가 불안정하므로 S가 높은 것만 받는다
+    #   V 하한 20: 어두운 역광의 기둥(V 37~42). 근거 test/data/dim_backlit_20261002.png
+    #   H 하한 103, S 하한 220: 하늘색 판 제외. 근거 test/data/panel_and_pillar_20261002.png
+    hsv_lower: [103, 220, 20]
+    hsv_upper: [130, 255, 255]
+    # 범위 2 (조명 받은 밝은 면): S 하한을 150으로 낮추고 대신 밝은 픽셀(V ≥ 130)만 받는다
+    #   범위 1만 쓰면 조명 아래 기둥이 마스크에 7~12%만 남아 미검출 → 범위 2 추가 후 검출 (2026-10-02)
+    #   S 하한 160 범위 1개와 비교해 기둥 밖 마스크 픽셀이 30~80% 적었다. 근거 test/data/lit_pillar_20261002.png
+    hsv_bright_enabled: true
+    hsv_bright_lower: [103, 150, 130]
+    hsv_bright_upper: [130, 255, 255]
+
+    # 면적비 = contour_area / (W×H). 해상도가 바뀌어도 같은 값을 쓰지만 16:9와 4:3은 시야가 달라 면적비가 다르다
+    # 기본 해상도 424x240x30 (realsense.launch.py color_profile, 16:9 → 640x480보다 시야가 넓어 같은 거리 면적비 약 25% 작음)
+    #   1m 정면: 실측 9x20px, 0.0014 / 절반 가려짐: 계산 약 64px, 0.0006~0.0007 → 하한 0.0006 (424x240에서 약 61px)
+    #   (예전 640x480: 1m ≈ 650px, 0.0021)
+    min_area_ratio: 0.0006
+    # 20cm에서 기둥 정면 ≈ 0.038, 45도 회전 ≈ 0.055 (424x240. 640x480은 0.054·0.075) → 2배 이상 여유.
+    # 이보다 큰 파란 덩어리(가까운 셔츠 등)는 목표가 아니다.
+    max_area_ratio: 0.15
+
+    # 잡음 제거 커널(px). open은 작은 점 제거, close는 작은 구멍 메우기. 0이면 생략
+    open_kernel: 3
+    close_kernel: 5
+
+    # 모양 조건 (minAreaRect 기준, 거리와 무관)
+    aspect_max: 4.0   # 긴 변 / 짧은 변. 세운 기둥 ≈ 2.0, 45도 회전 ≈ 1.4
+    fill_min: 0.6     # 컨투어 면적 / 회전 사각형 면적. 사각형에 가까울수록 1
+
+    # 후보 선택 규칙 (2026-10-06): 사각 기둥과 원기둥이 함께 보이면 면적이 큰 원기둥을 고르던 문제 대응
+    #   shape: 모양 점수가 가장 높은 후보 (점수 차 0.02 이내면 면적이 큰 쪽) / area: 면적이 가장 큰 후보 (예전 방식)
+    #   모양 점수 = fill × (회전 사각형 둘레 / 컨투어 둘레)². 매끈한 사각형이면 1
+    #   측정 (스크린샷 6장): 사각 기둥 0.83~0.87, 원기둥 0.42~0.80 (곡면 음영으로 윤곽이 울퉁불퉁) → 6장 모두 사각 기둥 선택
+    select_rule: shape
+    # 모양 점수 하한. 0이면 끔. 원기둥만 보일 때도 거르려면 0.8 근처를 시험해 정한다 (사각 기둥이 손에 가려지면 점수가 내려갈 수 있음)
+    shape_score_min: 0.0
+
+    # 추적 유지 (2026-10-06): 사각 기둥과 원기둥이 함께 보이면 프레임마다 번갈아 선택되던 문제 대응
+    #   직전에 고른 목표 중심에 가장 가까운 후보(영상 폭 × track_radius 이내) 하나의 모양 점수에 track_bonus를 더해 비교한다
+    #   실측 (424x240, 337프레임): 사각 기둥 0.92~0.98(중앙 0.96), 원기둥 0.74~0.96(중앙 0.89)
+    #     끔(0): 선택이 18번 바뀜 (원기둥 10프레임) / 0.05: 0번
+    #     처음에 원기둥을 잡아도 원기둥 점수가 흔들려 1프레임 만에 사각 기둥으로 옮겨 감
+    #   선택에만 쓰고 미검출 프레임에 이전 좌표를 발행하지는 않는다. 0이면 끔 (예전 방식)
+    track_bonus: 0.05
+    track_radius: 0.15
+    # 이 프레임 수보다 오래 놓치면 직전 목표를 잊는다 (30fps에서 5 ≈ 0.17초)
+    track_hold_frames: 5
+
+    # 영상 구독 QoS — 인지 담당 결정: reliable 유지 (report.md 표의 best-effort와 다름, report.md는 수정하지 않음)
+    # 실측(C++, 640x480x30, 2026-10-02 개발 PC): best-effort 1~2fps / reliable 30fps (큰 영상 메시지 조각 손실)
+    # /target은 report.md대로 best-effort. 근거·결정 기록: 패키지 README.md, lv2_module5/results/perception_env_record.md
+    # false로 바꾸면 report.md 표대로 best-effort로 구독한다 (비교 시험용)
+    image_reliable: true
+
+    # 디버그 영상 (~/debug_image/compressed, ~/mask/compressed). 0이면 발행하지 않는다
+    debug_rate_hz: 5.0
+    jpeg_quality: 70
+    # 0 이상이면 해당 픽셀의 BGR·HSV를 로그에 남긴다
+    probe_x: -1
+    probe_y: -1
+    log_period_s: 1.0

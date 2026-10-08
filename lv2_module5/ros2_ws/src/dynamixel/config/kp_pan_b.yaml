@@ -1,0 +1,15 @@
+# 문제 3 수평 pan축 비교 B. A와 다른 값은 pan_gain뿐이다.
+dynamixel_move_node:
+  ros__parameters:
+    lost_timeout: 0.5
+    horizontal_deadband: 0.05
+    vertical_deadband: 0.05
+    pan_gain: -0.03
+    tilt_gain: 0.0
+    max_pan_command: 0.0174533  # 한 프레임 상대 명령 상한 1도, 속도 상한 아님
+    max_tilt_command: 0.0174533
+    status_publish_period: 1.0
+dynamixel_controller:
+  ros__parameters:
+    serial_port: /dev/opencr
+    baud_rate: 115200

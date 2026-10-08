@@ -1,0 +1,14 @@
+dynamixel_move_node:
+  ros__parameters:
+    lost_timeout: 0.5
+    horizontal_deadband: 0.05
+    vertical_deadband: 0.05
+    pan_gain: -0.03
+    tilt_gain: 0.06
+    max_pan_command: 0.0872665
+    max_tilt_command: 0.0872665
+    status_publish_period: 1.0
+dynamixel_controller:
+  ros__parameters:
+    serial_port: /dev/opencr
+    baud_rate: 115200
