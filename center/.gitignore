@@ -1,0 +1,5 @@
+node_modules/
+dist-front-end/
+dist-back-end/
+dist-test/
+.DS_Store

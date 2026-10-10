@@ -5,7 +5,13 @@ FROM ros:lyrical-ros-base-resolute
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
-    ROS_DISTRO=lyrical
+    ROS_DISTRO=lyrical \
+    AMENT_PREFIX_PATH=/opt/ros/lyrical \
+    CMAKE_PREFIX_PATH=/opt/ros/lyrical \
+    PYTHONPATH=/opt/ros/lyrical/lib/python3.14/site-packages
+# NOTE: setup.bash는 셸에서 source해야 적용되지만, CLion Docker 툴체인처럼
+# entrypoint를 우회하는 실행에서도 find_package가 동작하도록 ENV로 고정.
+# colcon build는 CMAKE_PREFIX_PATH를 직접 전달하므로 기존 동작과 충돌 없음.
 
 # 개발용 최소 도구 + 스모크 테스트용 데모 노드 + OpenCV
 RUN apt-get update && apt-get install -y --no-install-recommends \

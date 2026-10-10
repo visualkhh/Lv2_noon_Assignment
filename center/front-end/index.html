@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/" />
+  <title>Lv2 통제실 (center)</title>
+  <link rel="icon" href="data:," />
+  <script src="https://unpkg.com/@ungap/custom-elements@1.3.0/min.js"></script>
+  <style>
+    :root {
+      --bg: #101018;
+      --surface: #1a1a26;
+      --surface2: #222233;
+      --border: #2e2e44;
+      --text: #e8e8f0;
+      --muted: #9a9ab0;
+      --brand: #6a7cff;
+      --brand-dim: rgba(106, 124, 255, 0.16);
+      --green: #34d17b;
+      --green-dim: rgba(52, 209, 123, 0.14);
+      --red: #ff5d5d;
+      --red-dim: rgba(255, 93, 93, 0.14);
+      --amber: #e0c040;
+      --radius: 12px;
+      --font-sans: Pretendard, Inter, -apple-system, system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: #3a3a55; border-radius: 4px; }
+  </style>
+</head>
+<body id="app" is="swc-app-center-body">
+  <center-router></center-router>
+</body>
+</html>
