@@ -97,7 +97,9 @@ jobs:
       # 테스트 로그(토픽 echo·serial-in/out)는 실패했을 때만 원인 확인용으로 올린다.
       - name: Collect debug (실패 시)
         if: failure()
-        run: docker cp testbed:/ws/debug ./debug && find ./debug -type f | sort
+        run: |
+          docker logs testbed || true   # entrypoint 경고 (예: socat 없음)
+          docker cp testbed:/ws/debug ./debug && find ./debug -type f | sort || echo "/ws/debug 없음 (entrypoint 브릿지 미구동)"
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

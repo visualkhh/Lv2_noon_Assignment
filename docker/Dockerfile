@@ -25,7 +25,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-lyrical-image-transport \
     ros-lyrical-rosx-introspection \
     && rm -rf /var/lib/apt/lists/* \
-    && rosdep init 2>/dev/null || true
+    && (rosdep init 2>/dev/null || true) \
+    && command -v socat >/dev/null
+# NOTE: `|| true`는 괄호로 rosdep init에만 건다 — 괄호 없이 쓰면 apt-get 실패까지 삼켜서
+#       socat 등이 빠진 이미지가 "성공"으로 만들어진다 (CI aarch64에서 /dev/ttyV0 없음으로 드러남).
 
 # Arduino CLI (OpenCR 펌웨어 빌드·업로드용, Linux ARM64/x86_64 지원)
 # 근거: https://docs.arduino.cc/arduino-cli/installation (install.sh + BINDIR)

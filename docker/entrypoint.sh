@@ -32,6 +32,8 @@ if command -v socat >/dev/null 2>&1; then
   # -u 단방향 필수: 양방향이면 이 프로세스가 /dev/ttyV1 읽기를
   # logger와 나눠가져 serial-out이 유실됨
   tail -c +1 -F /ws/debug/serial-in 2>/dev/null | socat -u - /dev/ttyV1,raw,echo=0 &
+else
+  echo "WARN: socat 없음 — 가상 시리얼(/dev/ttyV0) 미구동. 이미지 빌드(apt 설치) 로그 확인" >&2
 fi
 # 준비 완료 표시: docker run -d 직후 바로 exec하는 쪽(CI)은 이 파일이 생길 때까지 기다린다
 touch /run/testbed-ready
